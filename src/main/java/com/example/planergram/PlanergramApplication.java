@@ -10,6 +10,4 @@ public class PlanergramApplication {
 		SpringApplication.run(PlanergramApplication.class, args);
 	}
 
-
-
 }
