@@ -5,5 +5,10 @@
 * DataBase 이름생성 : planergram 통일
 * 금주내에 Board / Like 엔티티 생성 후 Join 연결 계획중
 * User Entity 향후 변경될 가능성 큼# Final-BackEnd
-# Final-BackEnd
-# Final-BackEnd
+
+# develop 브랜치 1차 merge - 김영광
+1. Board 엔티티 CRUD
+2. User / Board Join
+## 변경사항
+1. Board 칼럼중 DESC 칼럼 Content로 변경
+2. 본래 Post 테이블 이였으나 Board 테이블로 변경
