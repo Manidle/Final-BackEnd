@@ -15,7 +15,7 @@ public class UserController {
 
     @PostMapping("/join")
     public String signUp(User user){
-        userService.회원가입(user);
+        userService.signup(user);
         return "회원가입이 완료되었습니다.";
     }
 
@@ -31,7 +31,7 @@ public class UserController {
     };
 
     @PutMapping("/update/{id}")
-    public List<User> update(@PathVariable int id, @RequestBody User user) {
+    public List<User> update(@PathVariable int id ,@RequestBody User user) {
         userService.update(id,user);
         return userService.update(id,user);
     }

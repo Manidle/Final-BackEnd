@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public String 회원가입(User user){
+    public String signup(User user){
         userRepository.save(user);
         return "회원가입이 완료되었습니다!";
     }
@@ -32,7 +32,7 @@ public class UserService {
 
     public List<User> update(int id, User user) {
 
-        final Optional<User> founduser = userRepository.findById(user.getId());
+        final Optional<User> founduser = userRepository.findById(id);
 
         founduser.ifPresent(newuser -> {
             newuser.setUserId(user.getUserId());
