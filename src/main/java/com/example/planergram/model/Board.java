@@ -16,13 +16,13 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false,length = 100)
+    @Column(length = 100)
     private String title;
 
     @Lob //대용량 데이터
-    private String desc;
+    private String content;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="userId")
+    @JoinColumn(name="userid")
     private User user;
 }

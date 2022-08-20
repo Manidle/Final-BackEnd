@@ -25,12 +25,12 @@ public class BoardController {
         return boardService.findAll();
     }
 
-    @DeleteMapping("/board/delete")
+    @DeleteMapping("/board/delete/{id}")
     public List<Board> delete(@PathVariable int id){
         return boardService.delete(id);
     };
 
-    @PutMapping("/board/posting")
+    @PutMapping("/board/posting/{id}")
     public List<Board> update(@PathVariable int id ,@RequestBody Board board) {
         boardService.update(id,board);
         return boardService.update(id,board);

@@ -37,9 +37,8 @@ public class BoardService {
         final Optional<Board> foundBoard = boardRepository.findById(id);
 
         foundBoard.ifPresent(newboard -> {
-            newboard.setId(board.getId());
             newboard.setTitle(board.getTitle());
-            newboard.setDesc(board.getDesc());
+            newboard.setContent(board.getContent());
             boardRepository.save(newboard);
         });
 
