@@ -1,14 +1,11 @@
 package com.example.planergram.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -33,7 +30,4 @@ public class User {
 
     @Column(nullable = false,length = 50)
     private String email;
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<Board> boards;
 }

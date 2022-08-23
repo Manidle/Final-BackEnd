@@ -1,9 +1,7 @@
 package com.example.planergram.controller;
 
 import com.example.planergram.model.Board;
-import com.example.planergram.model.User;
 import com.example.planergram.service.BoardService;
-import com.example.planergram.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
