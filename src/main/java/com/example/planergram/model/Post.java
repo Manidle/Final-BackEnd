@@ -17,7 +17,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false,length = 30)
+    @Column(nullable = false, length = 30)
     private String title;
 
     @Lob //대용량 데이터
@@ -28,10 +28,10 @@ public class Post {
     private int likeCount;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="board_id")
+    @JoinColumn(name = "board_id")
     private Board board;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 public class BoardController {
 
@@ -13,9 +14,9 @@ public class BoardController {
     private BoardService boardService;
 
     @PostMapping("/board/posting")
-    public String posting(Board board){
+    public String posting(Board board) {
         boardService.posting(board);
-        return "글쓰기가 완료되었습니다.";
+        return "게시판 생성완료!";
     }
 
     @GetMapping("/board/findall")
@@ -24,13 +25,14 @@ public class BoardController {
     }
 
     @DeleteMapping("/board/delete/{id}")
-    public List<Board> delete(@PathVariable int id){
+    public List<Board> delete(@PathVariable int id) {
         return boardService.delete(id);
-    };
+    }
+
 
     @PutMapping("/board/posting/{id}")
-    public List<Board> update(@PathVariable int id ,@RequestBody Board board) {
-        boardService.update(id,board);
-        return boardService.update(id,board);
+    public List<Board> update(@PathVariable int id, @RequestBody Board board) {
+        boardService.update(id, board);
+        return boardService.update(id, board);
     }
 }

@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public String signup(User user){
+    public String signup(User user) {
         userRepository.save(user);
         return "회원가입이 완료되었습니다";
     }
@@ -35,9 +35,10 @@ public class UserService {
         final Optional<User> founduser = userRepository.findById(id);
 
         founduser.ifPresent(newuser -> {
-            newuser.setUsername(user.getUsername());
+            newuser.setLoginId(user.getLoginId());
             newuser.setPassword(user.getPassword());
-            newuser.setEmail(user.getEmail());
+            newuser.setNickname(user.getNickname());
+
             userRepository.save(newuser);
         });
         return userRepository.findAll();

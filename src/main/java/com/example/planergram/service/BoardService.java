@@ -7,15 +7,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
 
-    public String posting(Board board){
+    public String posting(Board board) {
         boardRepository.save(board);
-        return "글쓰기가 완료되었다!";
+        return "게시판 작성완료!";
     }
 
     public List<Board> findAll() {
@@ -36,11 +37,9 @@ public class BoardService {
 
         foundBoard.ifPresent(newboard -> {
             newboard.setTitle(board.getTitle());
-            newboard.setContent(board.getContent());
+            newboard.setImg(board.getImg());
             boardRepository.save(newboard);
         });
-
         return boardRepository.findAll();
-
     }
 }

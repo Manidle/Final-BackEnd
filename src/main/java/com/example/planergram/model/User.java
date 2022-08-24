@@ -18,12 +18,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "user_login_id", nullable = false,length = 30, unique = true)
+    @Column(name = "user_login_id", nullable = false, length = 30, unique = true)
     private String loginId;
 
-    @Column(nullable = false,length = 100)
+    @Column(nullable = false, length = 100)
     private String password;
 
-    @Column(nullable = false,length = 30, unique = true)
+    @Column(nullable = false, length = 30, unique = true)
     private String nickname;
 }
