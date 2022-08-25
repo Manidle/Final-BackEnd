@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
