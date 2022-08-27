@@ -1,5 +1,6 @@
 package com.example.planergram.service;
 
+import com.example.planergram.DTO.BoardDTO;
 import com.example.planergram.model.Board;
 import com.example.planergram.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,18 @@ public class BoardService {
         boardRepository.save(board);
         return "게시판 작성완료!";
     }
+
+    public Board save(BoardDTO boardDTO) throws Exception {
+        Board newDanger = Board
+                .builder()
+                .id(boardDTO.getBoardId())
+                .title(boardDTO.getTitle())
+                .img(boardDTO.getImg())
+                .build();
+        return boardRepository.save(newDanger);
+    }
+
+
 
     public List<Board> findAll() {
         return boardRepository.findAll();
@@ -41,5 +54,14 @@ public class BoardService {
             boardRepository.save(newboard);
         });
         return boardRepository.findAll();
+    }
+
+    public BoardDTO makeBoardDTO(Board board) {
+        return BoardDTO
+                .builder()
+                .boardId(board.getId())
+                .title(board.getTitle())
+                .img(board.getImg())
+                .build();
     }
 }

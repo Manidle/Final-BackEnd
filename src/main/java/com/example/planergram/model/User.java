@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,4 +27,7 @@ public class User {
 
     @Column(nullable = false, length = 30, unique = true)
     private String nickname;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Post> postList; //게시글리스트
 }
