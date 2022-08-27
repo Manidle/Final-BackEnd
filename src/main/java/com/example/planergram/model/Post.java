@@ -22,17 +22,17 @@ public class Post {
     private String title;
 
     @Lob //대용량 데이터
-    @Column(length = 30)
+    @Column(nullable = false, length = 30)
     private String contents;
 
     @Column(name = "like_count")
     private int likeCount;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }

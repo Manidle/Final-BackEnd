@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -15,53 +14,47 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public String posting(Board board) {
-        boardRepository.save(board);
-        return "게시판 작성완료!";
-    }
-
+    // 게시판생성
     public Board save(BoardDTO boardDTO) throws Exception {
-        Board newDanger = Board
-                .builder()
-                .id(boardDTO.getBoardId())
-                .title(boardDTO.getTitle())
-                .img(boardDTO.getImg())
-                .build();
-        return boardRepository.save(newDanger);
+        Board board = makeBoard(boardDTO);
+        return boardRepository.save(board);
     }
 
-
-
+    // 게시판 조회
     public List<Board> findAll() {
         return boardRepository.findAll();
     }
 
-    public List<Board> delete(int id) {
-        final Optional<Board> foundBoard = boardRepository.findById(id);
-        foundBoard.ifPresent(board -> {
-            boardRepository.delete(board);
-        });
-        return boardRepository.findAll();
+    public Board update(int id,BoardDTO boardDTO) throws Exception {
+        Board findBoard = boardRepository.findById(id).orElseThrow(Exception::new);
+        findBoard.setTitle(boardDTO.getBoardTitle());
+        findBoard.setImg(boardDTO.getImg());
+        return boardRepository.save(findBoard);
     }
 
-    public List<Board> update(int id, Board board) {
-
-        final Optional<Board> foundBoard = boardRepository.findById(id);
-
-        foundBoard.ifPresent(newboard -> {
-            newboard.setTitle(board.getTitle());
-            newboard.setImg(board.getImg());
-            boardRepository.save(newboard);
-        });
-        return boardRepository.findAll();
+    public Board delete(int id) throws Exception {
+        final Board board = boardRepository.findById(id).orElseThrow(Exception::new);
+        boardRepository.delete(board);
+        return board;
     }
 
+    //make
     public BoardDTO makeBoardDTO(Board board) {
         return BoardDTO
                 .builder()
                 .boardId(board.getId())
-                .title(board.getTitle())
+                .boardTitle(board.getTitle())
                 .img(board.getImg())
                 .build();
     }
+
+    public Board makeBoard(BoardDTO boardDTO) {
+        return Board
+                .builder()
+                .id(boardDTO.getBoardId())
+                .title(boardDTO.getBoardTitle())
+                .img(boardDTO.getImg())
+                .build();
+    }
+
 }

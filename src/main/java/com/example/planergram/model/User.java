@@ -28,6 +28,6 @@ public class User {
     @Column(nullable = false, length = 30, unique = true)
     private String nickname;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Post> postList; //게시글리스트
 }

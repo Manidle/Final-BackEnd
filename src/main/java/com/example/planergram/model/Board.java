@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,4 +24,7 @@ public class Board {
     @Lob //대용량 데이터
     @Column(name = "board_img", length = 100)
     private String img;
+
+    @OneToMany(mappedBy = "board",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Post> postList; //게시글리스트
 }
