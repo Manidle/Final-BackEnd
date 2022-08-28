@@ -26,9 +26,8 @@ public class UserInfoController {
         userInfoService.delete(id);
     };
 
-//    @PutMapping("/info/{id}")
-//    public List<User> update(@PathVariable int id ,@RequestBody User user) {
-//        userInfoService.update(id,user);
-//        return userInfoService.update(id,user);
-//    }
+    @PatchMapping("/info/{id}")
+    public UserInfoDTO update(@PathVariable int id ,@RequestBody UserInfoDTO userInfoDTO) {
+        return userInfoService.update(id,userInfoDTO);
+    }
 }

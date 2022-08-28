@@ -33,6 +33,14 @@ public class UserInfoService {
         userInfoRepository.delete(userInfo);
     }
 
+    public UserInfoDTO update(int id,UserInfoDTO userInfoDTO){
+        UserInfo userInfo = userInfoRepository.getById(id);
+        userInfo.setEmail(userInfoDTO.getEmail());
+        userInfo.setProfileImg(userInfoDTO.getProfileImg());
+        userInfo = userInfoRepository.save(userInfo);
+        return makeUserInfoDTO(userInfo);
+    }
+
     private UserInfo makeUserInfo(UserInfoDTO userInfoDTO){
         User user = userRepository.getById(userInfoDTO.getUserId());
         return UserInfo.builder()
