@@ -33,4 +33,9 @@ public class StayController {
     public void delete(@PathVariable int id){
         stayService.delete(id);
     }
+
+    @PatchMapping("/stay/{id}")
+    public StayDTO update(@PathVariable int id, @RequestBody StayDTO stayDTO){
+        return stayService.update(id,stayDTO);
+    }
 }

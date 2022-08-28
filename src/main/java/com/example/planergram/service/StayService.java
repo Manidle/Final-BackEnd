@@ -46,6 +46,17 @@ public class StayService {
         stayRepository.delete(stay);
     }
 
+    public StayDTO update(int id, StayDTO stayDTO) {
+        Stay stay = stayRepository.getById(id);
+        stay.setAddress(stayDTO.getAddress());
+        stay.setCheckIn(stayDTO.getCheckIn());
+        stay.setCheckOut(stayDTO.getCheckOut());
+        stay.setPrice(stayDTO.getPrice());
+        stay.setName(stayDTO.getName());
+        stay = stayRepository.save(stay);
+        return makeStayDTO(stay);
+    }
+
     private Stay makeStay(StayDTO stayDTO){
         List<StayLike> stayLikeList = new ArrayList<>();
         if (stayDTO.getStayLikeIdList() != null){
