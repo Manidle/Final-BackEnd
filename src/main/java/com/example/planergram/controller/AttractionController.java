@@ -15,12 +15,12 @@ public class AttractionController {
     @Autowired
     private AttractionService attractionService;
 
-    @GetMapping("/attraction")
+    @GetMapping("/attraction/{attraction_id}")
     public List<Attraction> findAll() {
         return attractionService.findAll();
     }
 
-    @GetMapping("/attraction")
+    @GetMapping("/attraction/{attraction_address}")
     public List<Attraction> findByAddress(){
         return attractionService.findSeletedRegion();
     }
