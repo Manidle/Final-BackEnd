@@ -20,12 +20,12 @@ public class UserInfoController {
     public UserInfoDTO findById(@PathVariable int id) {
         return userInfoService.findById(id);
     }
-//
-//    @DeleteMapping("/info/{id}")
-//    public List<User> delete(@PathVariable int id){
-//        return userInfoService.delete(id);
-//    };
-//
+
+    @DeleteMapping("/info/{id}")
+    public void delete(@PathVariable int id){
+        userInfoService.delete(id);
+    };
+
 //    @PutMapping("/info/{id}")
 //    public List<User> update(@PathVariable int id ,@RequestBody User user) {
 //        userInfoService.update(id,user);

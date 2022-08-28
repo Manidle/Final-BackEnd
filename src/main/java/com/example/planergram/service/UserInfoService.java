@@ -28,6 +28,11 @@ public class UserInfoService {
         return makeUserInfoDTO(userInfo);
     }
 
+    public void delete(int id){
+        UserInfo userInfo = userInfoRepository.getById(id);
+        userInfoRepository.delete(userInfo);
+    }
+
     private UserInfo makeUserInfo(UserInfoDTO userInfoDTO){
         User user = userRepository.getById(userInfoDTO.getUserId());
         return UserInfo.builder()
