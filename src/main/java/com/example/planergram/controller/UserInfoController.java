@@ -15,12 +15,11 @@ public class UserInfoController {
     public UserInfoDTO signUp(@RequestBody UserInfoDTO userInfoDTO){
         return userInfoService.signUp(userInfoDTO);
     }
-//
-//    @GetMapping("/info/{id}")
-//    public List<User> findAll() {
-//        System.out.println("findAll called!");
-//        return userInfoService.findAll();
-//    }
+
+    @GetMapping("/info/{id}")
+    public UserInfoDTO findById(@PathVariable int id) {
+        return userInfoService.findById(id);
+    }
 //
 //    @DeleteMapping("/info/{id}")
 //    public List<User> delete(@PathVariable int id){

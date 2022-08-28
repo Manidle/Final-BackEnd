@@ -23,6 +23,11 @@ public class UserInfoService {
         return makeUserInfoDTO(userInfo);
     }
 
+    public UserInfoDTO findById(int id){
+        UserInfo userInfo = userInfoRepository.getById(id);
+        return makeUserInfoDTO(userInfo);
+    }
+
     private UserInfo makeUserInfo(UserInfoDTO userInfoDTO){
         User user = userRepository.getById(userInfoDTO.getUserId());
         return UserInfo.builder()
