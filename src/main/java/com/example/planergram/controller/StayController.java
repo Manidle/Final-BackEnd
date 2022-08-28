@@ -3,9 +3,9 @@ package com.example.planergram.controller;
 import com.example.planergram.DTO.StayDTO;
 import com.example.planergram.service.StayService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class StayController {
@@ -18,4 +18,14 @@ public class StayController {
         return stayService.signUp(stayDTO);
     }
 
+
+    @GetMapping("/stay")
+    public List<StayDTO> findAll(){
+        return stayService.findAll();
+    }
+
+    @GetMapping("/stay/{id}")
+    public StayDTO findById(@PathVariable int id){
+        return stayService.findById(id);
+    }
 }

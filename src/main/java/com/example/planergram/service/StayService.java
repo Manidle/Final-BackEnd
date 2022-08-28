@@ -26,6 +26,20 @@ public class StayService {
         return makeStayDTO(stay);
     }
 
+    public List<StayDTO> findAll() {
+        List<Stay> stayList = stayRepository.findAll();
+        List<StayDTO> stayDTOList = new ArrayList<>();
+        for (Stay stay: stayList) {
+            stayDTOList.add(makeStayDTO(stay));
+        }
+        return stayDTOList;
+    }
+
+    public StayDTO findById(int id) {
+        Stay stay = stayRepository.getById(id);
+        return makeStayDTO(stay);
+    }
+
     private Stay makeStay(StayDTO stayDTO){
         List<StayLike> stayLikeList = new ArrayList<>();
         if (stayDTO.getStayLikeIdList() != null){
