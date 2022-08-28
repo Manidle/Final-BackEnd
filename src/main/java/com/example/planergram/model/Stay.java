@@ -3,7 +3,7 @@ package com.example.planergram.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -31,10 +31,10 @@ public class Stay {
     private int price;
 
     @Column(name = "check_in")
-    private LocalDate checkIn;
+    private LocalTime checkIn;
 
     @Column(name = "check_out")
-    private LocalDate checkOut;
+    private LocalTime checkOut;
 
     @Column(name = "like_count")
     private int likeCount;

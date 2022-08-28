@@ -2,7 +2,7 @@ package com.example.planergram.DTO;
 
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,8 +16,8 @@ public class StayDTO {
     private String name;
     private String address;
     private int price;
-    private LocalDate checkIn;
-    private LocalDate checkOut;
+    private LocalTime checkIn;
+    private LocalTime checkOut;
     private int likeCount;
     private List<Integer> stayLikeIdList;
 }
