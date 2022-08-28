@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,4 +31,7 @@ public class User {
     @OneToOne(mappedBy = "user")
     @JoinColumn(name="user_id")
     private UserInfo userInfo;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<StayLike> stayLikeList;
 }
