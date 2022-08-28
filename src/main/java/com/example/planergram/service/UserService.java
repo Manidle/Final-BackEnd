@@ -35,9 +35,9 @@ public class UserService {
         final Optional<User> founduser = userRepository.findById(id);
 
         founduser.ifPresent(newuser -> {
-            newuser.setUsername(user.getUsername());
+//            newuser.setUsername(user.getUsername());
             newuser.setPassword(user.getPassword());
-            newuser.setEmail(user.getEmail());
+//            newuser.setEmail(user.getEmail());
             userRepository.save(newuser);
         });
         return userRepository.findAll();

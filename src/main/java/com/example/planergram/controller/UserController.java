@@ -14,7 +14,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/join")
-    public String signUp(User user){
+    public String signUp(@RequestBody User user){
         userService.signup(user);
         return "회원가입이 완료되었습니다.";
     }
