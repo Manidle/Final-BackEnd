@@ -6,6 +6,8 @@ import com.example.planergram.service.StayLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class StayLikeController {
 
@@ -19,9 +21,18 @@ public class StayLikeController {
         return stayLikeService.clickStayLike(userId,stayId);
     }
 
+    @GetMapping("/staylike/user/{userId}")
+    public List<StayLikeDTO> StayLikeFindByUser(@PathVariable int userId){
+        return stayLikeService.findByUser(userId);
+    }
+
+    @GetMapping("/staylike/stay/{stayId}")
+    public List<StayLikeDTO> StayLikeFindByStay(@PathVariable int stayId){
+        return stayLikeService.findByStay(stayId);
+    }
+
     @GetMapping("/staylike/{id}")
     public StayLikeDTO findById(@PathVariable int id){
         return stayLikeService.findById(id);
     }
-
 }

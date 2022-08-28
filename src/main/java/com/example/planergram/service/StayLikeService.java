@@ -10,6 +10,9 @@ import com.example.planergram.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class StayLikeService {
     @Autowired
@@ -42,13 +45,15 @@ public class StayLikeService {
         return makeStayLikeDTO(stayLike);
     }
 
-    private StayLike makeStayLike(StayLikeDTO stayLikeDTO){
-        User user = userRepository.getById(stayLikeDTO.getUserId());
-        Stay stay = stayRepository.getById(stayLikeDTO.getStayId());
-        return StayLike.builder()
-                .user(user)
-                .stay(stay)
-                .build();
+    public List<StayLikeDTO> findByUser(int userId){
+        User user = userRepository.getById(userId);
+        List<StayLike> stayLikeList = stayLikeRepository.findByUser(user);
+        return makeStayLikeDTOList(stayLikeList);
+    }
+    public List<StayLikeDTO> findByStay(int stayId){
+        Stay stay = stayRepository.getById(stayId);
+        List<StayLike> stayLikeList = stayLikeRepository.findByStay(stay);
+        return makeStayLikeDTOList(stayLikeList);
     }
 
     private StayLikeDTO makeStayLikeDTO(StayLike stayLike){
@@ -57,5 +62,13 @@ public class StayLikeService {
                 .userId(stayLike.getUser().getId())
                 .stayId(stayLike.getStay().getId())
                 .build();
+    }
+
+    private List<StayLikeDTO> makeStayLikeDTOList(List<StayLike> stayLikeList){
+        List<StayLikeDTO> stayLikeDTOList = new ArrayList<>();
+        for(StayLike stayLike:stayLikeList){
+            stayLikeDTOList.add(makeStayLikeDTO(stayLike));
+        }
+        return stayLikeDTOList;
     }
 }
