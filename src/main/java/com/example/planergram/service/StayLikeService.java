@@ -37,6 +37,11 @@ public class StayLikeService {
         return "좋아요 취소";
     }
 
+    public StayLikeDTO findById(int id){
+        StayLike stayLike = stayLikeRepository.getById(id);
+        return makeStayLikeDTO(stayLike);
+    }
+
     private StayLike makeStayLike(StayLikeDTO stayLikeDTO){
         User user = userRepository.getById(stayLikeDTO.getUserId());
         Stay stay = stayRepository.getById(stayLikeDTO.getStayId());

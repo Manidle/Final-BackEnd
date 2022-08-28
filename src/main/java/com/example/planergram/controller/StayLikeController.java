@@ -1,12 +1,10 @@
 package com.example.planergram.controller;
 
 import com.example.planergram.DTO.StayDTO;
+import com.example.planergram.DTO.StayLikeDTO;
 import com.example.planergram.service.StayLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class StayLikeController {
@@ -20,4 +18,10 @@ public class StayLikeController {
             @RequestParam(value="stay", defaultValue="0") int stayId){
         return stayLikeService.clickStayLike(userId,stayId);
     }
+
+    @GetMapping("/staylike/{id}")
+    public StayLikeDTO findById(@PathVariable int id){
+        return stayLikeService.findById(id);
+    }
+
 }
