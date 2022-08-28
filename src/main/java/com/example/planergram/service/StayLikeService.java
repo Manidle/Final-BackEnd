@@ -29,12 +29,14 @@ public class StayLikeService {
         Stay stay = stayRepository.getById(stayId);
         StayLike stayLike = stayLikeRepository.findByUserAndStay(user,stay);
         if (stayLike == null){
-            return likeClick(user,stay);
+            return likeClick(user, stay);
         }
-        return likeCancel(stayLike);
+        return likeCancel(stay, stayLike);
     }
 
     private String likeClick(User user,Stay stay){
+        stay.setLikeCount(stay.getLikeCount() + 1);
+        stayRepository.save(stay);
         StayLike stayLike = StayLike.builder()
                 .stay(stay)
                 .user(user)
@@ -43,7 +45,9 @@ public class StayLikeService {
         return "좋아요 클릭";
     }
 
-    private String likeCancel(StayLike stayLike){
+    private String likeCancel(Stay stay,StayLike stayLike){
+        stay.setLikeCount(stay.getLikeCount() - 1);
+        stayRepository.save(stay);
         stayLikeRepository.delete(stayLike);
         return "좋아요 취소";
     }
