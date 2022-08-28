@@ -28,4 +28,9 @@ public class StayController {
     public StayDTO findById(@PathVariable int id){
         return stayService.findById(id);
     }
+
+    @DeleteMapping("/stay/{id}")
+    public void delete(@PathVariable int id){
+        stayService.delete(id);
+    }
 }

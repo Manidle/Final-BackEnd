@@ -40,6 +40,12 @@ public class StayService {
         return makeStayDTO(stay);
     }
 
+
+    public void delete(int id) {
+        Stay stay = stayRepository.getById(id);
+        stayRepository.delete(stay);
+    }
+
     private Stay makeStay(StayDTO stayDTO){
         List<StayLike> stayLikeList = new ArrayList<>();
         if (stayDTO.getStayLikeIdList() != null){
