@@ -29,13 +29,21 @@ public class StayLikeService {
         Stay stay = stayRepository.getById(stayId);
         StayLike stayLike = stayLikeRepository.findByUserAndStay(user,stay);
         if (stayLike == null){
-            stayLike = StayLike.builder()
-                    .stay(stay)
-                    .user(user)
-                    .build();
-            stayLikeRepository.save(stayLike);
-            return "좋아요 클릭";
+            return likeClick(user,stay);
         }
+        return likeCancel(stayLike);
+    }
+
+    private String likeClick(User user,Stay stay){
+        StayLike stayLike = StayLike.builder()
+                .stay(stay)
+                .user(user)
+                .build();
+        stayLikeRepository.save(stayLike);
+        return "좋아요 클릭";
+    }
+
+    private String likeCancel(StayLike stayLike){
         stayLikeRepository.delete(stayLike);
         return "좋아요 취소";
     }
