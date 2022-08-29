@@ -16,7 +16,7 @@ public class Attraction {
     @Id
     @Column(name="attraction_id",nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int attractionId;
+    private Long attractionId;
 
     @Column(name = "attraction_name")
     private String attractionName;
