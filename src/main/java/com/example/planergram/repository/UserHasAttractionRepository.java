@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserHasAttractionRepository extends JpaRepository<UserHasAttraction, Integer> {
+public interface UserHasAttractionRepository extends JpaRepository<UserHasAttraction, Long> {
 
     List<UserHasAttraction> findByUser(@Param("userId") int userId);
 
