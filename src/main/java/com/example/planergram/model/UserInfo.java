@@ -17,7 +17,7 @@ public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_info_id")
-    private int id;
+    private Long id;
 
     @Column(name = "profile_img", length = 30)
     private String profileImg;

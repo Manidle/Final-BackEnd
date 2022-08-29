@@ -12,12 +12,12 @@ import java.util.List;
 @Builder
 @ToString
 public class StayDTO {
-    private int id;
+    private Long id;
     private String name;
     private String address;
     private int price;
     private LocalTime checkIn;
     private LocalTime checkOut;
     private int likeCount;
-    private List<Integer> stayLikeIdList;
+    private List<Long> stayLikeIdList;
 }

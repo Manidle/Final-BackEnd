@@ -23,17 +23,17 @@ public class UserInfoService {
         return makeUserInfoDTO(userInfo);
     }
 
-    public UserInfoDTO findById(int id){
+    public UserInfoDTO findById(Long id){
         UserInfo userInfo = userInfoRepository.getById(id);
         return makeUserInfoDTO(userInfo);
     }
 
-    public void delete(int id){
+    public void delete(Long id){
         UserInfo userInfo = userInfoRepository.getById(id);
         userInfoRepository.delete(userInfo);
     }
 
-    public UserInfoDTO update(int id,UserInfoDTO userInfoDTO){
+    public UserInfoDTO update(Long id,UserInfoDTO userInfoDTO){
         UserInfo userInfo = userInfoRepository.getById(id);
         userInfo.setEmail(userInfoDTO.getEmail());
         userInfo.setProfileImg(userInfoDTO.getProfileImg());

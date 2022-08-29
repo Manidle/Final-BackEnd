@@ -17,17 +17,17 @@ public class UserInfoController {
     }
 
     @GetMapping("/info/{id}")
-    public UserInfoDTO findById(@PathVariable int id) {
+    public UserInfoDTO findById(@PathVariable Long id) {
         return userInfoService.findById(id);
     }
 
     @DeleteMapping("/info/{id}")
-    public void delete(@PathVariable int id){
+    public void delete(@PathVariable Long id){
         userInfoService.delete(id);
     };
 
     @PatchMapping("/info/{id}")
-    public UserInfoDTO update(@PathVariable int id ,@RequestBody UserInfoDTO userInfoDTO) {
+    public UserInfoDTO update(@PathVariable Long id ,@RequestBody UserInfoDTO userInfoDTO) {
         return userInfoService.update(id,userInfoDTO);
     }
 }

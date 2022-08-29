@@ -36,7 +36,7 @@ public class BoardService {
 
         foundBoard.ifPresent(newboard -> {
             newboard.setTitle(board.getTitle());
-            newboard.setContent(board.getContent());
+//            newboard.setContent(board.getContent());
             boardRepository.save(newboard);
         });
 

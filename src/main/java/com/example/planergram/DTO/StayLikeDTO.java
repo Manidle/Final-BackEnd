@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @ToString
 public class StayLikeDTO {
-    private int id;
-    private int userId;
-    private int stayId;
+    private Long id;
+    private Long userId;
+    private Long stayId;
 }

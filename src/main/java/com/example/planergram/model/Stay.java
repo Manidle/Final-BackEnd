@@ -19,7 +19,7 @@ public class Stay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stay_id")
-    private int id;
+    private Long id;
 
     @Column(length = 30)
     private String name;

@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 public class StayLikeService {
+
     @Autowired
     private StayLikeRepository stayLikeRepository;
 
@@ -24,7 +25,7 @@ public class StayLikeService {
     @Autowired
     private UserRepository userRepository;
 
-    public String clickStayLike(int userId, int stayId) {
+    public String clickStayLike(Long userId, Long stayId) {
         User user = userRepository.getById(userId);
         Stay stay = stayRepository.getById(stayId);
         StayLike stayLike = stayLikeRepository.findByUserAndStay(user,stay);
@@ -52,17 +53,17 @@ public class StayLikeService {
         return "좋아요 취소";
     }
 
-    public StayLikeDTO findById(int id){
+    public StayLikeDTO findById(Long id){
         StayLike stayLike = stayLikeRepository.getById(id);
         return makeStayLikeDTO(stayLike);
     }
 
-    public List<StayLikeDTO> findByUser(int userId){
+    public List<StayLikeDTO> findByUser(Long userId){
         User user = userRepository.getById(userId);
         List<StayLike> stayLikeList = stayLikeRepository.findByUser(user);
         return makeStayLikeDTOList(stayLikeList);
     }
-    public List<StayLikeDTO> findByStay(int stayId){
+    public List<StayLikeDTO> findByStay(Long stayId){
         Stay stay = stayRepository.getById(stayId);
         List<StayLike> stayLikeList = stayLikeRepository.findByStay(stay);
         return makeStayLikeDTOList(stayLikeList);

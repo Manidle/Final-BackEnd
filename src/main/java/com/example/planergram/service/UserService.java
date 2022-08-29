@@ -22,7 +22,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> delete(int id) {
+    public List<User> delete(Long id) {
         final Optional<User> foundTodo = userRepository.findById(id);
         foundTodo.ifPresent(user -> {
             userRepository.delete(user);
@@ -30,7 +30,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> update(int id, User user) {
+    public List<User> update(Long id, User user) {
 
         final Optional<User> founduser = userRepository.findById(id);
 

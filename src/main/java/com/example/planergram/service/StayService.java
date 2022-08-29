@@ -35,18 +35,18 @@ public class StayService {
         return stayDTOList;
     }
 
-    public StayDTO findById(int id) {
+    public StayDTO findById(Long id) {
         Stay stay = stayRepository.getById(id);
         return makeStayDTO(stay);
     }
 
 
-    public void delete(int id) {
+    public void delete(Long id) {
         Stay stay = stayRepository.getById(id);
         stayRepository.delete(stay);
     }
 
-    public StayDTO update(int id, StayDTO stayDTO) {
+    public StayDTO update(Long id, StayDTO stayDTO) {
         Stay stay = stayRepository.getById(id);
         stay.setAddress(stayDTO.getAddress());
         stay.setCheckIn(stayDTO.getCheckIn());
@@ -60,7 +60,7 @@ public class StayService {
     private Stay makeStay(StayDTO stayDTO){
         List<StayLike> stayLikeList = new ArrayList<>();
         if (stayDTO.getStayLikeIdList() != null){
-            for (int stayLikeId: stayDTO.getStayLikeIdList()) {
+            for (Long stayLikeId: stayDTO.getStayLikeIdList()) {
                 stayLikeList.add(stayLikeRepository.getById(stayLikeId));
             }
         }
@@ -77,7 +77,7 @@ public class StayService {
     }
 
     private StayDTO makeStayDTO(Stay stay){
-        List<Integer> stayLikeIdList = new ArrayList<>();
+        List<Long> stayLikeIdList = new ArrayList<>();
         if (stay.getStayLikeList() != null){
             for (StayLike stayLike: stay.getStayLikeList()) {
                 stayLikeIdList.add(stayLike.getId());

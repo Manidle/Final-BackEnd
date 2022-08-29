@@ -9,8 +9,8 @@ import lombok.*;
 @Builder
 @ToString
 public class UserInfoDTO {
-    private int id;
+    private Long id;
     private String profileImg;
     private String email;
-    private int userId;
+    private Long userId;
 }

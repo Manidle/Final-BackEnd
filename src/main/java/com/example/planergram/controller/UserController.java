@@ -26,12 +26,12 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public List<User> delete(@PathVariable int id){
+    public List<User> delete(@PathVariable Long id){
         return userService.delete(id);
     };
 
     @PutMapping("/update/{id}")
-    public List<User> update(@PathVariable int id ,@RequestBody User user) {
+    public List<User> update(@PathVariable Long id ,@RequestBody User user) {
         userService.update(id,user);
         return userService.update(id,user);
     }

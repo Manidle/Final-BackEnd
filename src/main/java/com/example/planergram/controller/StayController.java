@@ -25,17 +25,17 @@ public class StayController {
     }
 
     @GetMapping("/stay/{id}")
-    public StayDTO findById(@PathVariable int id){
+    public StayDTO findById(@PathVariable Long id){
         return stayService.findById(id);
     }
 
     @DeleteMapping("/stay/{id}")
-    public void delete(@PathVariable int id){
+    public void delete(@PathVariable Long id){
         stayService.delete(id);
     }
 
     @PatchMapping("/stay/{id}")
-    public StayDTO update(@PathVariable int id, @RequestBody StayDTO stayDTO){
+    public StayDTO update(@PathVariable Long id, @RequestBody StayDTO stayDTO){
         return stayService.update(id,stayDTO);
     }
 }
