@@ -25,7 +25,7 @@ public class AttractionDTO {
                 .build();
     }
 
-    private Attraction showAttraction(AttractionDTO attractionDTO){
+    private Attraction toAttraction(AttractionDTO attractionDTO){
         return Attraction.builder()
                 .attractionId(attractionDTO.getAttractionId())
                 .attractionName(attractionDTO.getAttractionName())
