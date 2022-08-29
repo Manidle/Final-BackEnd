@@ -17,15 +17,15 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
 
-    @Column(name = "user_login_id", nullable = false,length = 30, unique = true)
+    @Column(name = "user_login_id", nullable = false, length = 30, unique = true)
     private String loginId;
 
-    @Column(nullable = false,length = 100)
+    @Column(nullable = false, length = 100)
     private String password;
 
-    @Column(nullable = false,length = 30, unique = true)
+    @Column(nullable = false, length = 30, unique = true)
     private String nickname;
 
     @OneToOne(mappedBy = "user")
@@ -34,4 +34,7 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<StayLike> stayLikeList;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Post> postList;
 }

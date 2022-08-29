@@ -52,7 +52,7 @@ public class UserInfoService {
 
     private UserInfoDTO makeUserInfoDTO(UserInfo userInfo){
         return UserInfoDTO.builder()
-                .userId(userInfo.getUser().getId())
+                .userId(userInfo.getUser().getUserId())
                 .id(userInfo.getId())
                 .email(userInfo.getEmail())
                 .profileImg(userInfo.getProfileImg())

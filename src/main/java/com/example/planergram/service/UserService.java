@@ -1,45 +1,64 @@
 package com.example.planergram.service;
 
+import com.example.planergram.DTO.UserDTO;
 import com.example.planergram.model.User;
 import com.example.planergram.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
-    public String signup(User user){
-        userRepository.save(user);
-        return "회원가입이 완료되었습니다";
+    // 회원가입
+    public User save(UserDTO userDTO) throws Exception {
+        User user = makeUser(userDTO);
+        return userRepository.save(user);
     }
 
+    // 회원조회
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public List<User> delete(Long id) {
-        final Optional<User> foundTodo = userRepository.findById(id);
-        foundTodo.ifPresent(user -> {
-            userRepository.delete(user);
-        });
-        return userRepository.findAll();
+    //회원 업데이트
+    public User update(Long id, UserDTO userDTO) throws Exception {
+        User findUser = userRepository.findById(id).orElseThrow(Exception::new);
+        findUser.setLoginId(userDTO.getLoginId());
+        findUser.setPassword(userDTO.getPassword());
+        findUser.setNickname(userDTO.getNickname());
+        return userRepository.save(findUser);
     }
 
-    public List<User> update(Long id, User user) {
+    //회원삭제
+    public User delete(Long id) throws Exception {
+        final User user = userRepository.findById(id).orElseThrow(Exception::new);
+        userRepository.delete(user);
+        return user;
+    }
 
-        final Optional<User> founduser = userRepository.findById(id);
+    //make
+    public UserDTO makeUserDTO(User user) {
+        return UserDTO
+                .builder()
+                .userId(user.getUserId())
+                .loginId(user.getLoginId())
+                .password(user.getPassword())
+                .nickname(user.getNickname())
+                .build();
+    }
 
-        founduser.ifPresent(newuser -> {
-//            newuser.setUsername(user.getUsername());
-            newuser.setPassword(user.getPassword());
-//            newuser.setEmail(user.getEmail());
-            userRepository.save(newuser);
-        });
-        return userRepository.findAll();
+    public User makeUser(UserDTO userDTO) {
+        return User
+                .builder()
+                .userId(userDTO.getUserId())
+                .loginId(userDTO.getLoginId())
+                .password(userDTO.getPassword())
+                .nickname(userDTO.getNickname())
+                .build();
     }
 }
