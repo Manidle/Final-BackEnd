@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,18 +17,21 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private int id;
+    private Long id;
 
-    @Column(name = "username", nullable = false,length = 30, unique = true)
-    private String username;
+    @Column(name = "user_login_id", nullable = false,length = 30, unique = true)
+    private String loginId;
 
     @Column(nullable = false,length = 100)
     private String password;
 
-    @Column(name = "nickname", nullable = false,length = 30, unique = true)
+    @Column(nullable = false,length = 30, unique = true)
     private String nickname;
 
-    @Column(nullable = false,length = 50)
-    private String email;
+    @OneToOne(mappedBy = "user")
+    @JoinColumn(name="user_id")
+    private UserInfo userInfo;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<StayLike> stayLikeList;
 }

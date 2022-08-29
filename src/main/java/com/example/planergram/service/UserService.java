@@ -15,14 +15,14 @@ public class UserService {
 
     public String signup(User user){
         userRepository.save(user);
-        return "회원가입이 완료되었습니다!";
+        return "회원가입이 완료되었습니다";
     }
 
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public List<User> delete(int id) {
+    public List<User> delete(Long id) {
         final Optional<User> foundTodo = userRepository.findById(id);
         foundTodo.ifPresent(user -> {
             userRepository.delete(user);
@@ -30,14 +30,14 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> update(int id, User user) {
+    public List<User> update(Long id, User user) {
 
         final Optional<User> founduser = userRepository.findById(id);
 
         founduser.ifPresent(newuser -> {
-            newuser.setUsername(user.getUsername());
+//            newuser.setUsername(user.getUsername());
             newuser.setPassword(user.getPassword());
-            newuser.setEmail(user.getEmail());
+//            newuser.setEmail(user.getEmail());
             userRepository.save(newuser);
         });
         return userRepository.findAll();
