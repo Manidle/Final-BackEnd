@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AttractionRepository extends JpaRepository<Attraction, Integer> {
+public interface AttractionRepository extends JpaRepository<Attraction, Long> {
     List<Attraction> findByAttractionAddress();
 }
