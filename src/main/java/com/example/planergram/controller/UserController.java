@@ -43,12 +43,12 @@ public class UserController {
             List<Integer> postDTOList = new ArrayList<>();
             for (Post post : user.getPostList()) {
 //                postIdList.add(post.getId());
-                postDTOList.add(post.getId());
+                postDTOList.add(post.getPostId());
             }
             userDTOList.add(
                     UserDTO
                             .builder()
-                            .userId(user.getId())
+                            .userId(user.getUserId())
                             .loginId(user.getLoginId())
                             .password(user.getPassword())
                             .nickname(user.getNickname())
@@ -59,7 +59,6 @@ public class UserController {
         return ResponseEntity.ok(userDTOList);
     }
 
-
     // 포스트의 기본키를 가져오는것이 아닌, 제목과 내용을 가져오는 코드
 //    @GetMapping("/findall")
 //    public ResponseEntity<?> findAll() {
@@ -69,7 +68,7 @@ public class UserController {
 //            List<String> postTitleDTOList = new ArrayList<>();
 //            List<String> postContentDTOList = new ArrayList<>();
 //            for (Post post : user.getPostList()) {
-////                postIdList.add(post.getId());
+//                postIdList.add(post.getId());
 //                postTitleDTOList.add(post.getTitle());
 //                postContentDTOList.add(post.getContents());
 //            }
@@ -96,7 +95,7 @@ public class UserController {
             User newUser = userService.update(id,updateuserDTO);
             List<Integer> postDTOList = new ArrayList<>();
             for (Post post : newUser.getPostList()) {
-                postDTOList.add(post.getId());
+                postDTOList.add(post.getPostId());
             }
             UserDTO userDTO = userService.makeUserDTO(newUser);
             return ResponseEntity.ok(userDTO);
@@ -114,7 +113,7 @@ public class UserController {
             User newUser = userService.delete(id);
             List<Integer> postList = new ArrayList<>();
             for (Post post : newUser.getPostList()) {
-                postList.add(post.getId());
+                postList.add(post.getPostId());
             }
             UserDTO userDTO = userService.makeUserDTO(newUser);
             return ResponseEntity.ok(userDTO);

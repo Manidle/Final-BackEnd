@@ -16,7 +16,7 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int postId;
 
     @Column(nullable = false, length = 30)
     private String title;

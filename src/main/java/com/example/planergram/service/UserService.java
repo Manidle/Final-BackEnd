@@ -46,7 +46,7 @@ public class UserService {
     public UserDTO makeUserDTO(User user) {
         return UserDTO
                 .builder()
-                .userId(user.getId())
+                .userId(user.getUserId())
                 .loginId(user.getLoginId())
                 .password(user.getPassword())
                 .nickname(user.getNickname())
@@ -56,7 +56,7 @@ public class UserService {
     public User makeUser(UserDTO userDTO) {
         return User
                 .builder()
-                .id(userDTO.getUserId())
+                .userId(userDTO.getUserId())
                 .loginId(userDTO.getLoginId())
                 .password(userDTO.getPassword())
                 .nickname(userDTO.getNickname())

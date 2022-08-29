@@ -44,12 +44,12 @@ public class BoardController {
             List<Integer> postDTOList = new ArrayList<>();
             for (Post post : board.getPostList()) {
 //                postIdList.add(post.getId());
-                postDTOList.add(post.getId());
+                postDTOList.add(post.getPostId());
             }
             boardDTOList.add(
                     BoardDTO
                             .builder()
-                            .boardId(board.getId())
+                            .boardId(board.getBoardId())
                             .boardTitle(board.getTitle())
                             .img(board.getImg())
                             .postDTOList(postDTOList)
@@ -66,7 +66,7 @@ public class BoardController {
             Board newBoard = boardService.update(id, updateBoarDTO);
             List<Integer> postDTOList = new ArrayList<>();
             for (Post post : newBoard.getPostList()) {
-                postDTOList.add(post.getId());
+                postDTOList.add(post.getPostId());
             }
             BoardDTO boardDTO = boardService.makeBoardDTO(newBoard);
             return ResponseEntity.ok(boardDTO);
@@ -100,7 +100,7 @@ public class BoardController {
             Board newBoard = boardService.delete(id);
             List<Integer> postList = new ArrayList<>();
             for (Post post : newBoard.getPostList()) {
-                postList.add(post.getId());
+                postList.add(post.getPostId());
             }
             BoardDTO boardDTO = boardService.makeBoardDTO(newBoard);
             return ResponseEntity.ok(boardDTO);

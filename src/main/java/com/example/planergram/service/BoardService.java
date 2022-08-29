@@ -29,6 +29,8 @@ public class BoardService {
         Board findBoard = boardRepository.findById(id).orElseThrow(Exception::new);
         findBoard.setTitle(boardDTO.getBoardTitle());
         findBoard.setImg(boardDTO.getImg());
+        System.out.println("Setter 메서드 적용된 후 findBoard.getTitle"+findBoard.getTitle());
+        System.out.println("Setter 메서드 적용된 후 findBoard.getImg"+findBoard.getImg());
         return boardRepository.save(findBoard);
     }
 
@@ -42,7 +44,7 @@ public class BoardService {
     public BoardDTO makeBoardDTO(Board board) {
         return BoardDTO
                 .builder()
-                .boardId(board.getId())
+                .boardId(board.getBoardId())
                 .boardTitle(board.getTitle())
                 .img(board.getImg())
                 .build();
@@ -51,7 +53,7 @@ public class BoardService {
     public Board makeBoard(BoardDTO boardDTO) {
         return Board
                 .builder()
-                .id(boardDTO.getBoardId())
+                .boardId(boardDTO.getBoardId())
                 .title(boardDTO.getBoardTitle())
                 .img(boardDTO.getImg())
                 .build();
