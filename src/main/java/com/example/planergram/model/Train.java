@@ -17,7 +17,7 @@ public class Train {
     @Id
     @Column(name="train_id",nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int trainId;
+    private Long trainId;
 
     @Column(name = "departure_time")
     private LocalDateTime departureTime;
