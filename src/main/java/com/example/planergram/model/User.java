@@ -28,7 +28,7 @@ public class User {
     @Column(nullable = false,length = 30, unique = true)
     private String nickname;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
     @JoinColumn(name="user_id")
     private UserInfo userInfo;
 
