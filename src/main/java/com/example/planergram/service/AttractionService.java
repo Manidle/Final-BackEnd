@@ -60,6 +60,26 @@ public class AttractionService {
         attractionRepository.save(attraction);
     }
 
+//    public List<Attraction> editAttraction(AttractionDTO attractionDTO){
+//        Attraction attraction = attractionRepository.findById(attractionDTO.getAttractionId())
+//                .orElseThrow(RuntimeException::new);
+//        Attraction.AttractionBuilder attractionBuilder = attractionDTO
+//    }
+
+    public Attraction editAttraction(AttractionDTO attractionDTO){
+        try{
+            Attraction attraction = attractionRepository.findById(attractionDTO.getAttractionId()).get();
+            attraction.setAttractionName(attractionDTO.getAttractionName());
+            attraction.setAttractionAddress(attractionDTO.getAttractionAddress());
+            attraction.setAttractionAddressDetail(attractionDTO.getAttractionAddressDetail());
+            attraction.setAttractionPrice(attractionDTO.getAttractionPrice());
+            return attractionRepository.save(attraction);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 
 
