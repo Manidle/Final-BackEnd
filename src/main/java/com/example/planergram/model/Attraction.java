@@ -1,16 +1,14 @@
 package com.example.planergram.model;
 
 
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 @Data
 @Entity
+@Builder
 public class Attraction {
 
     @Id
@@ -29,5 +27,6 @@ public class Attraction {
 
     @Column(name = "attraction_price")
     private int attractionPrice;
+
 
 }
