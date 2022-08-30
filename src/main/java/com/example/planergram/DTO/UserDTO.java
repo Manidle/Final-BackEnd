@@ -15,6 +15,6 @@ public class UserDTO {
     private String loginId;
     private String password;
     private String nickname;
-    private Long userInfoId;
+    private UserInfoDTO userInfoDTO;
     private List<Long> stayLikeIdList;
 }

@@ -1,5 +1,6 @@
 package com.example.planergram.controller;
 
+import com.example.planergram.DTO.UserDTO;
 import com.example.planergram.model.User;
 import com.example.planergram.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,9 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-    public String signUp(@RequestBody User user){
-        userService.signup(user);
+    public String signUp(@RequestBody UserDTO userDTO){
+        System.out.println(userDTO);
+        userService.signUp(userDTO);
         return "회원가입이 완료되었습니다.";
     }
 

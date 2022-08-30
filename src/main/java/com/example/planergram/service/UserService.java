@@ -1,6 +1,7 @@
 package com.example.planergram.service;
 
 import com.example.planergram.DTO.UserDTO;
+import com.example.planergram.DTO.UserInfoDTO;
 import com.example.planergram.model.StayLike;
 import com.example.planergram.model.User;
 import com.example.planergram.model.UserInfo;
@@ -26,8 +27,22 @@ public class UserService {
     @Autowired
     private StayLikeRepository stayLikeRepository;
 
-    public String signup(User user){
-        userRepository.save(user);
+    public String signUp(UserDTO userDTO){
+        User user = User.builder()
+                .password(userDTO.getPassword())
+                .nickname(userDTO.getNickname())
+                .loginId(userDTO.getLoginId())
+                .build();
+        user = userRepository.save(user);
+        UserInfo userInfo = UserInfo.builder()
+                .profileImg(userDTO.getUserInfoDTO().getProfileImg())
+                .email(userDTO.getUserInfoDTO().getEmail())
+                .user(user)
+                .build();
+        userInfo = userInfoRepository.save(userInfo);
+        user.setUserInfo(userInfo);
+        user = userRepository.save(user);
+        System.out.println(makeUserDTO(user));
         return "회원가입이 완료되었습니다";
     }
 
@@ -57,14 +72,16 @@ public class UserService {
     }
 
     private User makeUser(UserDTO userDTO){
-        UserInfo userInfo = userInfoRepository.getById(userDTO.getUserInfoId());
+        UserInfo userInfo = userInfoRepository.getById(userDTO.getUserInfoDTO().getId());
         List<StayLike> stayLikeList = new ArrayList<>();
-        for (Long stayLikeId : userDTO.getStayLikeIdList()){
-            stayLikeList.add(stayLikeRepository.getById(stayLikeId));
+        if (userDTO.getStayLikeIdList() != null){
+            for (Long stayLikeId : userDTO.getStayLikeIdList()){
+                stayLikeList.add(stayLikeRepository.getById(stayLikeId));
+            }
         }
         return User.builder()
                 .id(userDTO.getId())
-                .userInfo(userInfo)
+//                .userInfo(userInfo)
                 .nickname(userDTO.getNickname())
                 .loginId(userDTO.getLoginId())
                 .password(userDTO.getPassword())
@@ -73,14 +90,21 @@ public class UserService {
     }
 
     private UserDTO makeUserDTO(User user){
+        UserInfo userInfo = user.getUserInfo();
+        UserInfoDTO userInfoDTO = UserInfoDTO.builder()
+                .profileImg(userInfo.getProfileImg())
+                .userId(user.getId())
+                .email(userInfo.getEmail())
+                .build();
         List<Long> stayLikeIdList = new ArrayList<>();
-        for (StayLike stayLike : user.getStayLikeList()){
-            stayLikeIdList.add(stayLike.getId());
+        if (user.getStayLikeList() != null) {
+            for (StayLike stayLike : user.getStayLikeList()) {
+                stayLikeIdList.add(stayLike.getId());
+            }
         }
-
         return UserDTO.builder()
                 .id(user.getId())
-                .userInfoId(user.getUserInfo().getId())
+                .userInfoDTO(userInfoDTO)
                 .stayLikeIdList(stayLikeIdList)
                 .loginId(user.getLoginId())
                 .nickname(user.getNickname())
