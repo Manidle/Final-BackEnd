@@ -22,6 +22,9 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private UserInfoService userInfoService;
+
+    @Autowired
     private UserInfoRepository userInfoRepository;
 
     @Autowired
@@ -58,17 +61,23 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> update(Long id, User user) {
+    public UserDTO updateUserAndInfo(Long id, UserDTO userDTO) {
+        User foundUser = userRepository.getById(id);
+        User user = makeUser(userDTO);
+        user.setId(foundUser.getId());
+        user = userRepository.save(user);
 
-        final Optional<User> founduser = userRepository.findById(id);
-
-        founduser.ifPresent(newuser -> {
-//            newuser.setUsername(user.getUsername());
-            newuser.setPassword(user.getPassword());
-//            newuser.setEmail(user.getEmail());
-            userRepository.save(newuser);
-        });
-        return userRepository.findAll();
+        UserInfoDTO userInfoDTO = userInfoService.update(user.getId(), userDTO.getUserInfoDTO());
+        UserDTO newUserDTO = makeUserDTO(user);
+        newUserDTO.setUserInfoDTO(userInfoDTO);
+        return newUserDTO;
+    }
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        User foundUser = userRepository.getById(id);
+        User user = makeUser(userDTO);
+        user.setId(foundUser.getId());
+        user = userRepository.save(user);
+        return makeUserDTO(user);
     }
 
     public UserDTO getUserAndInfo(Long id) {
@@ -81,8 +90,9 @@ public class UserService {
         return makeUserDTO(user);
     }
 
+
+
     private User makeUser(UserDTO userDTO){
-        UserInfo userInfo = userInfoRepository.getById(userDTO.getUserInfoDTO().getId());
         List<StayLike> stayLikeList = new ArrayList<>();
         if (userDTO.getStayLikeIdList() != null){
             for (Long stayLikeId : userDTO.getStayLikeIdList()){
@@ -91,7 +101,6 @@ public class UserService {
         }
         return User.builder()
                 .id(userDTO.getId())
-//                .userInfo(userInfo)
                 .nickname(userDTO.getNickname())
                 .loginId(userDTO.getLoginId())
                 .password(userDTO.getPassword())

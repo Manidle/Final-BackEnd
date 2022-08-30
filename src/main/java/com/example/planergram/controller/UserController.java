@@ -31,6 +31,15 @@ public class UserController {
         return userService.getUser(id);
     }
 
+    @PutMapping("/user/info/{id}")
+    public UserDTO updateUserAndInfo(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
+        return userService.updateUserAndInfo(id,userDTO);
+    }
+
+    @PutMapping("/user/{id}")
+    public UserDTO updateUser(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
+        return userService.updateUser(id,userDTO);
+    }
 
     @GetMapping("/user")
     public List<User> findAll() {
@@ -42,10 +51,4 @@ public class UserController {
     public List<User> delete(@PathVariable Long id){
         return userService.delete(id);
     };
-
-    @PutMapping("/user/{id}")
-    public List<User> update(@PathVariable Long id ,@RequestBody User user) {
-        userService.update(id,user);
-        return userService.update(id,user);
-    }
 }
