@@ -21,7 +21,7 @@ public class AttractionService {
 
 
     //전체 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AttractionDTO> getAttractionList(){
         List<Attraction> Attractions = attractionRepository.findAll();
         List<AttractionDTO> AttractionDtoList = new ArrayList<>();
