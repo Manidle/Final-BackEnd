@@ -21,6 +21,17 @@ public class UserController {
         return "회원가입이 완료되었습니다.";
     }
 
+    @GetMapping("/user/info/{id}")
+    public UserDTO getUserAndInfo(@PathVariable Long id){
+        return userService.getUserAndInfo(id);
+    }
+
+    @GetMapping("/user/{id}")
+    public UserDTO getUser(@PathVariable Long id){
+        return userService.getUser(id);
+    }
+
+
     @GetMapping("/user")
     public List<User> findAll() {
         System.out.println("findAll called!");

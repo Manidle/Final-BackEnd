@@ -42,7 +42,7 @@ public class UserService {
         userInfo = userInfoRepository.save(userInfo);
         user.setUserInfo(userInfo);
         user = userRepository.save(user);
-        System.out.println(makeUserDTO(user));
+        System.out.println(makeUserAndInfoDTO(user));
         return "회원가입이 완료되었습니다";
     }
 
@@ -71,6 +71,16 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public UserDTO getUserAndInfo(Long id) {
+        User user = userRepository.getById(id);
+        return makeUserAndInfoDTO(user);
+    }
+
+    public UserDTO getUser(Long id){
+        User user = userRepository.getById(id);
+        return makeUserDTO(user);
+    }
+
     private User makeUser(UserDTO userDTO){
         UserInfo userInfo = userInfoRepository.getById(userDTO.getUserInfoDTO().getId());
         List<StayLike> stayLikeList = new ArrayList<>();
@@ -89,11 +99,12 @@ public class UserService {
                 .build();
     }
 
-    private UserDTO makeUserDTO(User user){
+    private UserDTO makeUserAndInfoDTO(User user){
         UserInfo userInfo = user.getUserInfo();
         UserInfoDTO userInfoDTO = UserInfoDTO.builder()
                 .profileImg(userInfo.getProfileImg())
                 .userId(user.getId())
+                .id(userInfo.getId())
                 .email(userInfo.getEmail())
                 .build();
         List<Long> stayLikeIdList = new ArrayList<>();
@@ -105,6 +116,21 @@ public class UserService {
         return UserDTO.builder()
                 .id(user.getId())
                 .userInfoDTO(userInfoDTO)
+                .stayLikeIdList(stayLikeIdList)
+                .loginId(user.getLoginId())
+                .nickname(user.getNickname())
+                .password(user.getPassword())
+                .build();
+    }
+    private UserDTO makeUserDTO(User user){
+        List<Long> stayLikeIdList = new ArrayList<>();
+        if (user.getStayLikeList() != null) {
+            for (StayLike stayLike : user.getStayLikeList()) {
+                stayLikeIdList.add(stayLike.getId());
+            }
+        }
+        return UserDTO.builder()
+                .id(user.getId())
                 .stayLikeIdList(stayLikeIdList)
                 .loginId(user.getLoginId())
                 .nickname(user.getNickname())
