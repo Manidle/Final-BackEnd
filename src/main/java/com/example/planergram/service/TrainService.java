@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrainService {
@@ -34,6 +35,14 @@ public class TrainService {
         return TrainDTOList;
     }
 
+    @Transactional
+    public void deleteTrain(Long trainId){
+        Optional<Train> optTrain = trainRepository.findById(trainId);
+        if(optTrain.isPresent()){
+            Train train = optTrain.get();
+            trainRepository.deleteById(trainId);
+        }
+    }
     //보류
 //    public List<Train> findRegion(String endPoint) {
 //        return trainRepository.findBySelected(endPoint);
