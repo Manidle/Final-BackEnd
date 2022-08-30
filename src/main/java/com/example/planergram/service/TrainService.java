@@ -17,7 +17,7 @@ public class TrainService {
 
     private TrainRepository trainRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<TrainDTO> getTrainList(){
         List<Train> Trains = trainRepository.findAll();
         List<TrainDTO> TrainDTOList = new ArrayList<>();
@@ -43,6 +43,32 @@ public class TrainService {
             trainRepository.deleteById(trainId);
         }
     }
+
+    public void createTrain(TrainDTO trainDTO){
+        Train train = Train.builder()
+                .trainId(trainDTO.getTrainId())
+                .departureTime(trainDTO.getDepartureTime())
+                .arriveTime(trainDTO.getArriveTime())
+                .startPoint(trainDTO.getStartPoint())
+                .endPoint(trainDTO.getEndPoint())
+                .build();
+        trainRepository.save(train);
+    }
+
+    public Train editTrain(TrainDTO trainDTO){
+        try{
+            Train train = trainRepository.findById(trainDTO.getTrainId()).get();
+            train.setDepartureTime(trainDTO.getDepartureTime());
+            train.setArriveTime(trainDTO.getArriveTime());
+            train.setStartPoint(trainDTO.getStartPoint());
+            train.setEndPoint(trainDTO.getEndPoint());
+            return trainRepository.save(train);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     //보류
 //    public List<Train> findRegion(String endPoint) {
 //        return trainRepository.findBySelected(endPoint);
