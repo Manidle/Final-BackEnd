@@ -29,6 +29,16 @@ public class RentCarController {
         return rentCarService.findById(id);
     }
 
+    @PatchMapping("/rentcar/{id}")
+    public RentCarDTO update(@PathVariable Long id, @RequestBody RentCarDTO rentCarDTO){
+        return rentCarService.update(id,rentCarDTO);
+    }
+
+    @DeleteMapping("/rentcar/{id}")
+    public void delete(@PathVariable Long id){
+        rentCarService.delete(id);
+    }
+
 
 
 

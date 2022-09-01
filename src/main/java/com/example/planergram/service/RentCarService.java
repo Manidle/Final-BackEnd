@@ -40,6 +40,21 @@ public class RentCarService {
         return makeRentCarDTO(rentCar);
     }
 
+    public RentCarDTO update(Long id, RentCarDTO rentCarDTO) {
+        RentCar rentCar  = rentCarRepository.getById(id);
+        rentCar.setAddress(rentCarDTO.getAddress());
+        rentCar.setCompanyName(rentCarDTO.getCompanyName());
+        rentCar.setCarSort(rentCarDTO.getCarSort());
+        rentCar.setCarName(rentCarDTO.getCarName());
+        rentCar.setLikeCount(rentCarDTO.getLikeCount());
+        rentCar = rentCarRepository.save(rentCar);
+        return makeRentCarDTO(rentCar);
+    }
+
+    public void delete(Long id) {
+        RentCar rentCar = rentCarRepository.getById(id);
+        rentCarRepository.delete(rentCar);
+    }
 
 
 
