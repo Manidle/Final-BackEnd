@@ -35,6 +35,11 @@ public class RentCarService {
         return rentCarDTOList;
     }
 
+    public RentCarDTO findById(Long id) {
+        RentCar rentCar = rentCarRepository.getById(id);
+        return makeRentCarDTO(rentCar);
+    }
+
 
 
 
