@@ -48,13 +48,13 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public List<User> findAll() {
+    public List<UserDTO> findAll() {
         System.out.println("findAll called!");
         return userService.findAll();
     }
 
     @DeleteMapping("/user/{id}")
-    public List<User> delete(@PathVariable Long id){
+    public List<UserDTO> delete(@PathVariable Long id){
         return userService.delete(id);
     };
 }

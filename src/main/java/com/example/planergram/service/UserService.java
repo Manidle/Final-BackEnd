@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -49,8 +50,13 @@ public class UserService {
     }
 
     // 회원조회
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserDTO> findAll() {
+        List<User> userList = userRepository.findAll();
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (User user: userList){
+            userDTOList.add(makeUserDTO(user));
+        }
+        return userDTOList;
     }
 
     //회원 업데이트
@@ -91,6 +97,13 @@ public class UserService {
         return makeUserDTO(user);
     }
 
+    public List<UserDTO> delete(Long id) {
+        final Optional<User> foundTodo = userRepository.findById(id);
+        foundTodo.ifPresent(user -> {
+            userRepository.delete(user);
+        });
+        return findAll();
+    }
 
     private User makeUser(UserDTO userDTO){
         List<StayLike> stayLikeList = new ArrayList<>();
@@ -146,4 +159,5 @@ public class UserService {
                 .password(user.getPassword())
                 .build();
     }
+
 }
