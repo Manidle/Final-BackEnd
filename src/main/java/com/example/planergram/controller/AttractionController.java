@@ -33,4 +33,8 @@ public class AttractionController {
         attractionService.deleteAttraction(attractionId);
     }
 
+    @PostMapping("/attraction/regist")
+    public Attraction regist(@RequestBody AttractionDTO attractionDTO){
+        return attractionService.createAttraction(attractionDTO);
+    }
 }
