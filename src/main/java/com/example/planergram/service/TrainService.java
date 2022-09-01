@@ -44,6 +44,18 @@ public class TrainService {
         return TrainDTOList;
     }
 
+    @Transactional
+    public void deleteTrain(Long trainId){
+        Optional<Train> optTrain = trainRepository.findById(trainId);
+        if(optTrain.isPresent()){
+            Train train = optTrain.get();
+            trainRepository.deleteById(trainId);
+        }
+    }
+
+
+
+
 
 
     //보류
