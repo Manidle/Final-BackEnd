@@ -61,6 +61,12 @@ public class PostLikeService {
         return makePostLikeDTOList(postLikeList);
     }
 
+    public List<PostLikeDTO> findByPost(Long postId){
+        Post post = postRepository.getById(postId);
+        List<PostLike> postLikeList = postLikeRepository.findByPost(post);
+        return makePostLikeDTOList(postLikeList);
+    }
+
     private List<PostLikeDTO> makePostLikeDTOList(List<PostLike> postLikeList){
         List<PostLikeDTO> postLikeDTOList = new ArrayList<>();
         for(PostLike postLike:postLikeList){

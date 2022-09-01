@@ -27,4 +27,8 @@ public class PostLikeController {
         return postLikeService.findByUser(userId);
     }
 
+    @GetMapping("/postlike/post/{postId}")
+    public List<PostLikeDTO> postLikeFindByPost(@PathVariable Long postId){
+        return postLikeService.findByPost(postId);
+    }
 }
