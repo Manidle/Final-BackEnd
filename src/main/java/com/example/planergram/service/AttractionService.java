@@ -55,6 +55,13 @@ public class AttractionService {
 //        Attraction.AttractionBuilder attractionBuilder = attractionDTO.
 //    }
 
-
+    @Transactional
+    public void deleteAttraction(Long attractionId){
+        Optional<Attraction> optAttraction = attractionRepository.findById(attractionId);
+        if(optAttraction.isPresent()){
+            Attraction attraction = optAttraction.get();
+            attractionRepository.deleteById(attractionId);
+        }
+    }
 
 }
