@@ -1,21 +1,22 @@
 package com.example.planergram.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
+@ToString
 public class UserDTO {
-
-    private Long userId;
+    private Long id;
     private String loginId;
     private String password;
     private String nickname;
+    private UserInfoDTO userInfoDTO;
+    private List<Long> stayLikeIdList;
     private List<Long> postDTOList;
+
 }

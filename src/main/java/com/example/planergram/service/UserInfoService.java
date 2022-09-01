@@ -41,7 +41,7 @@ public class UserInfoService {
         return makeUserInfoDTO(userInfo);
     }
 
-    private UserInfo makeUserInfo(UserInfoDTO userInfoDTO){
+    public UserInfo makeUserInfo(UserInfoDTO userInfoDTO){
         User user = userRepository.getById(userInfoDTO.getUserId());
         return UserInfo.builder()
                 .user(user)
@@ -50,7 +50,7 @@ public class UserInfoService {
                 .build();
     }
 
-    private UserInfoDTO makeUserInfoDTO(UserInfo userInfo){
+    public UserInfoDTO makeUserInfoDTO(UserInfo userInfo){
         return UserInfoDTO.builder()
                 .userId(userInfo.getUser().getUserId())
                 .id(userInfo.getId())
