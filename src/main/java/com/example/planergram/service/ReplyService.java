@@ -33,6 +33,13 @@ public class ReplyService {
         return makeReplyDTO(reply);
     }
 
+    public ReplyDTO rewriteReply(Long replyId, String contents) {
+        Reply reply = replyRepository.getById(replyId);
+        reply.setContents(contents);
+        reply = replyRepository.save(reply);
+        return makeReplyDTO(reply);
+    }
+
     public ReplyDTO makeReplyDTO(Reply reply){
         return ReplyDTO.builder()
                 .replyId(reply.getReplyId())

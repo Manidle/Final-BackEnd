@@ -3,9 +3,7 @@ package com.example.planergram.controller;
 import com.example.planergram.DTO.ReplyDTO;
 import com.example.planergram.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ReplyController {
@@ -20,5 +18,11 @@ public class ReplyController {
             @RequestParam(value = "contents") String contents)
     {
         return replyService.writeReply(userId,postId, contents);
+    }
+
+    @PatchMapping("/reply")
+    public ReplyDTO rewriteReply(@RequestParam(value = "replyId") Long replyId,
+                                 @RequestParam(value = "contents") String contents){
+        return replyService.rewriteReply(replyId,contents);
     }
 }
