@@ -26,6 +26,19 @@ public class RentCarService {
         return makeRentCarDTO(rentCar);
     }
 
+    public List<RentCarDTO> findAll() {
+        List<RentCar> rentCarList = rentCarRepository.findAll();
+        List<RentCarDTO> rentCarDTOList = new ArrayList<>();
+        for (RentCar rentCar: rentCarList) {
+            rentCarDTOList.add(makeRentCarDTO(rentCar));
+        }
+        return rentCarDTOList;
+    }
+
+
+
+
+
     private RentCar makeRentCar(RentCarDTO rentCarDTO){
         List<RentCarLike> rentCarLikeList = new ArrayList<>();
         if (rentCarDTO.getRentCarLikeIdList() != null){
