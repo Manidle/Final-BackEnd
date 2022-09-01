@@ -17,7 +17,7 @@ public class RentCarLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rentCar_like_id")
-    private Long id;
+    private Long rentCarLikeId;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     @JoinColumn(name = "user_id")
