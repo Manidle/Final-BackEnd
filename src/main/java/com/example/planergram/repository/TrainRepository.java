@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface TrainRepository extends JpaRepository<Train, Long> {
-    @Query("from Train where endPoint= :endPoint")
-    List<Train> findBySelected(@Param("endPoint") String endPoint);
+//    @Query("from Train where endPoint= :endPoint")
+//    List<Train> findBySelected(@Param("endPoint") String endPoint);
 }
