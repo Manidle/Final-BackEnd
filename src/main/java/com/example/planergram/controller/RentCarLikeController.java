@@ -2,6 +2,7 @@ package com.example.planergram.controller;
 
 
 import com.example.planergram.DTO.RentCarLikeDTO;
+import com.example.planergram.DTO.StayLikeDTO;
 import com.example.planergram.service.RentCarLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,8 @@ public class RentCarLikeController {
         return rentCarLikeService.findByRentCar(rentcarId);
     }
 
-
-
+    @GetMapping("/rentcarlike/{id}")
+    public RentCarLikeDTO findById(@PathVariable Long id){
+        return rentCarLikeService.findById(id);
+    }
 }
