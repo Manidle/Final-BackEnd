@@ -11,5 +11,4 @@ public interface StayLikeRepository extends JpaRepository<StayLike,Long> {
     StayLike findByUserAndStay(User user, Stay stay);
     List<StayLike> findByUser(User user);
     List<StayLike> findByStay(Stay stay);
-
 }
