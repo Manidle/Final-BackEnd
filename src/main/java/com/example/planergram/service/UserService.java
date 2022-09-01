@@ -65,10 +65,10 @@ public class UserService {
     public UserDTO updateUserAndInfo(Long id, UserDTO userDTO) {
         User foundUser = userRepository.getById(id);
         User user = makeUser(userDTO);
-        user.setId(foundUser.getId());
+        user.setUserId(foundUser.getUserId());
         user = userRepository.save(user);
 
-        UserInfoDTO userInfoDTO = userInfoService.update(user.getId(), userDTO.getUserInfoDTO());
+        UserInfoDTO userInfoDTO = userInfoService.update(user.getUserId(), userDTO.getUserInfoDTO());
         UserDTO newUserDTO = makeUserDTO(user);
         newUserDTO.setUserInfoDTO(userInfoDTO);
         return newUserDTO;
@@ -76,7 +76,7 @@ public class UserService {
     public UserDTO updateUser(Long id, UserDTO userDTO) {
         User foundUser = userRepository.getById(id);
         User user = makeUser(userDTO);
-        user.setId(foundUser.getId());
+        user.setUserId(foundUser.getUserId());
         user = userRepository.save(user);
         return makeUserDTO(user);
     }
@@ -92,7 +92,6 @@ public class UserService {
     }
 
 
-
     private User makeUser(UserDTO userDTO){
         List<StayLike> stayLikeList = new ArrayList<>();
         if (userDTO.getStayLikeIdList() != null){
@@ -101,7 +100,7 @@ public class UserService {
             }
         }
         return User.builder()
-                .id(userDTO.getId())
+                .userId(userDTO.getUserId())
                 .nickname(userDTO.getNickname())
                 .loginId(userDTO.getLoginId())
                 .password(userDTO.getPassword())
@@ -113,7 +112,7 @@ public class UserService {
         UserInfo userInfo = user.getUserInfo();
         UserInfoDTO userInfoDTO = UserInfoDTO.builder()
                 .profileImg(userInfo.getProfileImg())
-                .userId(user.getId())
+                .userId(user.getUserId())
                 .id(userInfo.getId())
                 .email(userInfo.getEmail())
                 .build();
@@ -124,7 +123,7 @@ public class UserService {
             }
         }
         return UserDTO.builder()
-                .id(user.getId())
+                .userId(user.getUserId())
                 .userInfoDTO(userInfoDTO)
                 .stayLikeIdList(stayLikeIdList)
                 .loginId(user.getLoginId())
@@ -140,7 +139,7 @@ public class UserService {
             }
         }
         return UserDTO.builder()
-                .id(user.getId())
+                .userId(user.getUserId())
                 .stayLikeIdList(stayLikeIdList)
                 .loginId(user.getLoginId())
                 .nickname(user.getNickname())

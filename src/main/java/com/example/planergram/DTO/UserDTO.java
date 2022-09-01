@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @ToString
 public class UserDTO {
-    private Long id;
+    private Long userId;
     private String loginId;
     private String password;
     private String nickname;
