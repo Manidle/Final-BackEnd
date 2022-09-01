@@ -15,9 +15,9 @@ spring:
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/planergram?serverTimezone=Asia/Seoul
+    url: jdbc:mariadb://localhost:3307/planergram?serverTimezone=Asia/Seoul
     username: root
-    password: 12341234
+    password: 1234
 
   jpa:
     open-in-view: true

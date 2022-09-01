@@ -17,4 +17,6 @@ public class UserDTO {
     private String nickname;
     private UserInfoDTO userInfoDTO;
     private List<Long> stayLikeIdList;
+    private List<Long> postDTOList;
+
 }

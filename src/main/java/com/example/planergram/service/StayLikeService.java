@@ -72,7 +72,7 @@ public class StayLikeService {
     private StayLikeDTO makeStayLikeDTO(StayLike stayLike){
         return StayLikeDTO.builder()
                 .id(stayLike.getId())
-                .userId(stayLike.getUser().getId())
+                .userId(stayLike.getUser().getUserId())
                 .stayId(stayLike.getStay().getId())
                 .build();
     }

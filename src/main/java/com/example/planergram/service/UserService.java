@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -49,16 +48,18 @@ public class UserService {
         return "회원가입이 완료되었습니다";
     }
 
+    // 회원조회
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public List<User> delete(Long id) {
-        final Optional<User> foundTodo = userRepository.findById(id);
-        foundTodo.ifPresent(user -> {
-            userRepository.delete(user);
-        });
-        return userRepository.findAll();
+    //회원 업데이트
+    public User update(Long id, UserDTO userDTO) throws Exception {
+        User findUser = userRepository.findById(id).orElseThrow(Exception::new);
+        findUser.setLoginId(userDTO.getLoginId());
+        findUser.setPassword(userDTO.getPassword());
+        findUser.setNickname(userDTO.getNickname());
+        return userRepository.save(findUser);
     }
 
     public UserDTO updateUserAndInfo(Long id, UserDTO userDTO) {
