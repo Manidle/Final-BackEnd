@@ -1,14 +1,18 @@
 package com.example.planergram.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Attraction {
 
     @Id
@@ -26,7 +30,7 @@ public class Attraction {
     private String attractionAddressDetail; //전체주소
 
     @Column(name = "attraction_price")
-    private int attractionPrice;
+    private Integer attractionPrice;
 
 
 }
