@@ -64,6 +64,20 @@ public class TrainService {
         return trainRepository.save(train);
     }
 
+    public Train editTrain(TrainDTO trainDTO){
+        try{
+            Train train = trainRepository.findById(trainDTO.getTrainId()).get();
+            train.setDepartureTime(trainDTO.getDepartureTime());
+            train.setArriveTime(trainDTO.getArriveTime());
+            train.setStartPoint(trainDTO.getStartPoint());
+            train.setEndPoint(trainDTO.getEndPoint());
+            return trainRepository.save(train);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 
 
