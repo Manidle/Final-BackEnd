@@ -64,4 +64,15 @@ public class AttractionService {
         }
     }
 
+    public Attraction createAttraction(AttractionDTO attractionDTO){
+        Attraction attraction = Attraction.builder()
+                .attractionId(attractionDTO.getAttractionId())
+                .attractionName(attractionDTO.getAttractionName())
+                .attractionAddress(attractionDTO.getAttractionAddress())
+                .attractionAddressDetail(attractionDTO.getAttractionAddressDetail())
+                .attractionPrice(attractionDTO.getAttractionPrice())
+                .build();
+        return attractionRepository.save(attraction);
+    }
+
 }
