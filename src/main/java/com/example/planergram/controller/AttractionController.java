@@ -28,6 +28,9 @@ public class AttractionController {
 //    }
 
 
-
+    @DeleteMapping("/attraction/delete/{attractionId}")
+    public void deleteById(@PathVariable Long attractionId) {
+        attractionService.deleteAttraction(attractionId);
+    }
 
 }
