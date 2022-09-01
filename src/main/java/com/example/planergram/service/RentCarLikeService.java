@@ -1,11 +1,17 @@
 package com.example.planergram.service;
 
-import com.example.planergram.model.*;
+import com.example.planergram.DTO.RentCarLikeDTO;
+import com.example.planergram.model.RentCar;
+import com.example.planergram.model.RentCarLike;
+import com.example.planergram.model.User;
 import com.example.planergram.repository.RentCarLikeRepository;
 import com.example.planergram.repository.RentCarRepository;
 import com.example.planergram.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RentCarLikeService {
@@ -45,5 +51,27 @@ public class RentCarLikeService {
         rentCarRepository.save(rentCar);
         rentCarLikeRepository.delete(rentCarLike);
         return "좋아요 취소";
+    }
+
+    public List<RentCarLikeDTO> findByUser(Long userId){
+        User user = userRepository.getById(userId);
+        List<RentCarLike> rentCarLikeList = rentCarLikeRepository.findByUser(user);
+        return makeRentCarLikeDTOList(rentCarLikeList);
+    }
+
+    private RentCarLikeDTO makeRentCarLikeDTO(RentCarLike rentCarLike){
+        return RentCarLikeDTO.builder()
+                .rentCarLikeId(rentCarLike.getRentCarLikeId())
+                .userId(rentCarLike.getUser().getUserId())
+                .rentCarId(rentCarLike.getRentCar().getRentCarId())
+                .build();
+    }
+
+    private List<RentCarLikeDTO> makeRentCarLikeDTOList(List<RentCarLike> rentCarLikeList){
+        List<RentCarLikeDTO> rentCarLikeDTOList = new ArrayList<>();
+        for(RentCarLike rentCarLike:rentCarLikeList){
+            rentCarLikeDTOList.add(makeRentCarLikeDTO(rentCarLike));
+        }
+        return rentCarLikeDTOList;
     }
 }

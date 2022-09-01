@@ -1,19 +1,19 @@
 package com.example.planergram.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
+@ToString
 @Entity
 @Table(name = "RentCar_Like")
 public class RentCarLike {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rentCar_like_id")
