@@ -3,6 +3,8 @@ package com.example.planergram.service;
 import com.example.planergram.DTO.AttractionDTO;
 import com.example.planergram.model.Attraction;
 import com.example.planergram.repository.AttractionRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,12 +13,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AttractionService {
 
+    @Autowired
     private AttractionRepository attractionRepository;
 
     private AttractionDTO attractionDTO;
 
+    private Attraction attraction;
 
 
 
@@ -37,47 +42,6 @@ public class AttractionService {
             AttractionDtoList.add(dto);
         }
         return AttractionDtoList;
-    }
-
-    @Transactional
-    public void deleteAttraction(Long attractionId){
-        Optional<Attraction> optAttraction = attractionRepository.findById(attractionId);
-        if(optAttraction.isPresent()){
-            Attraction attraction = optAttraction.get();
-            attractionRepository.deleteById(attractionId);
-        }
-    }
-
-
-    public void createAttraction(AttractionDTO attractionDTO){
-        Attraction attraction = Attraction.builder()
-                .attractionId(attractionDTO.getAttractionId())
-                .attractionName(attractionDTO.getAttractionName())
-                .attractionAddress(attractionDTO.getAttractionAddress())
-                .attractionAddressDetail(attractionDTO.getAttractionAddressDetail())
-                .attractionPrice(attractionDTO.getAttractionPrice())
-                .build();
-        attractionRepository.save(attraction);
-    }
-
-//    public List<Attraction> editAttraction(AttractionDTO attractionDTO){
-//        Attraction attraction = attractionRepository.findById(attractionDTO.getAttractionId())
-//                .orElseThrow(RuntimeException::new);
-//        Attraction.AttractionBuilder attractionBuilder = attractionDTO
-//    }
-
-    public Attraction editAttraction(AttractionDTO attractionDTO){
-        try{
-            Attraction attraction = attractionRepository.findById(attractionDTO.getAttractionId()).get();
-            attraction.setAttractionName(attractionDTO.getAttractionName());
-            attraction.setAttractionAddress(attractionDTO.getAttractionAddress());
-            attraction.setAttractionAddressDetail(attractionDTO.getAttractionAddressDetail());
-            attraction.setAttractionPrice(attractionDTO.getAttractionPrice());
-            return attractionRepository.save(attraction);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
     }
 
 
