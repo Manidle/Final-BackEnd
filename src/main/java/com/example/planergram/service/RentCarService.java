@@ -2,12 +2,14 @@ package com.example.planergram.service;
 
 import com.example.planergram.DTO.RentCarDTO;
 import com.example.planergram.model.RentCar;
+import com.example.planergram.model.RentCarLike;
+import com.example.planergram.repository.RentCarLikeRepository;
 import com.example.planergram.repository.RentCarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RentCarService {
@@ -15,59 +17,49 @@ public class RentCarService {
     @Autowired
     private RentCarRepository rentCarRepository;
 
-    public RentCar save(RentCarDTO rentCarDTO) throws Exception {
+    @Autowired
+    private RentCarLikeRepository rentCarLikeRepository;
+
+    public RentCarDTO signUp(RentCarDTO rentCarDTO) {
         RentCar rentCar = makeRentCar(rentCarDTO);
-        return rentCarRepository.save(rentCar);
+        rentCar = rentCarRepository.save(rentCar);
+        return makeRentCarDTO(rentCar);
     }
 
-    public List<RentCar> findAll() {
-        return rentCarRepository.findAll();
-    }
-
-    public RentCar update(Long id, RentCarDTO rentCarDTO) throws Exception {
-        RentCar findRentCar = rentCarRepository.findById(id).orElseThrow(Exception::new);
-        findRentCar.setAddress(rentCarDTO.getAddress());
-        findRentCar.setCompanyName(rentCarDTO.getCompanyName());
-        findRentCar.setCarSort(rentCarDTO.getCarSort());
-        findRentCar.setCarName(rentCarDTO.getCarName());
-        return rentCarRepository.save(findRentCar);
-    }
-
-    public List<RentCar> remove(Long id) {
-        final Optional<RentCar> foundRentCar = rentCarRepository.findById(id);
-        foundRentCar.ifPresent(rentCar -> {
-            rentCarRepository.delete(rentCar);
-        });
-        return rentCarRepository.findAll();
-    }
-
-    //회원삭제
-    public RentCar delete(Long id) throws Exception {
-        final RentCar rentCar = rentCarRepository.findById(id).orElseThrow(Exception::new);
-        rentCarRepository.delete(rentCar);
-        return rentCar;
-    }
-
-    //make
-    public RentCarDTO makeRentCarDTO(RentCar rentCar) {
-        return RentCarDTO
-                .builder()
-                .rentCarId(rentCar.getRentCarId())
-                .address(rentCar.getAddress())
-                .companyName(rentCar.getCompanyName())
-                .carSort(rentCar.getCarSort())
-                .carName(rentCar.getCarName())
-                .build();
-    }
-
-    public RentCar makeRentCar(RentCarDTO rentCarDTO) {
-        return RentCar
-                .builder()
+    private RentCar makeRentCar(RentCarDTO rentCarDTO){
+        List<RentCarLike> rentCarLikeList = new ArrayList<>();
+        if (rentCarDTO.getRentCarLikeIdList() != null){
+            for (Long rentCarLikeId: rentCarDTO.getRentCarLikeIdList()) {
+                rentCarLikeList.add(rentCarLikeRepository.getById(rentCarLikeId));
+            }
+        }
+        return RentCar.builder()
                 .rentCarId(rentCarDTO.getRentCarId())
                 .address(rentCarDTO.getAddress())
                 .companyName(rentCarDTO.getCompanyName())
                 .carSort(rentCarDTO.getCarSort())
                 .carName(rentCarDTO.getCarName())
+                .likeCount(rentCarDTO.getLikeCount())
+                .rentcarLikeList(rentCarLikeList)
+                .build();
+    }
+
+    private RentCarDTO makeRentCarDTO(RentCar rentCar){
+        List<Long> rentCarLikeIdList = new ArrayList<>();
+        if (rentCar.getRentcarLikeList() != null){
+            for (RentCarLike rentCarLike: rentCar.getRentcarLikeList()) {
+                rentCarLikeIdList.add(rentCarLike.getRentCarLikeId());
+            }
+        }
+
+        return RentCarDTO.builder()
+                .rentCarId(rentCar.getRentCarId())
+                .address(rentCar.getAddress())
+                .companyName(rentCar.getCompanyName())
+                .carSort(rentCar.getCarSort())
+                .carName(rentCar.getCarName())
+                .likeCount(rentCar.getLikeCount())
+                .rentCarLikeIdList(rentCarLikeIdList)
                 .build();
     }
 }

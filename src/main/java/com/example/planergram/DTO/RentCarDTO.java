@@ -1,14 +1,15 @@
 package com.example.planergram.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
+import java.util.List;
+
+@RequiredArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
+@ToString
 public class RentCarDTO {
 
     private Long rentCarId;
@@ -16,4 +17,6 @@ public class RentCarDTO {
     private String companyName;
     private String carSort;
     private String carName;
+    private int likeCount;
+    private List<Long> rentCarLikeIdList;
 }

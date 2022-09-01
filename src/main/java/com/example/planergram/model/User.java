@@ -35,6 +35,9 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<StayLike> stayLikeList;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<StayLike> rentcarLikeList;
+
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Post> postList;
 }
