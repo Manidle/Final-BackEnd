@@ -31,4 +31,9 @@ public class PostLikeController {
     public List<PostLikeDTO> postLikeFindByPost(@PathVariable Long postId){
         return postLikeService.findByPost(postId);
     }
+
+    @GetMapping("/postlike/{id}")
+    public PostLikeDTO findById(@PathVariable Long id){
+        return postLikeService.findById(id);
+    }
 }

@@ -35,6 +35,11 @@ public class PostLikeService {
         }
         return likeCancel(post, postLike);
     }
+    
+    public PostLikeDTO findById(Long id){
+        PostLike postLike = postLikeRepository.getById(id);
+        return makePostLikeDTO(postLike);
+    }
 
     private String likeClick(User user, Post post){
         post.setLikeCount(post.getLikeCount() + 1);
