@@ -53,7 +53,16 @@ public class TrainService {
         }
     }
 
-
+    public Train createTrain(TrainDTO trainDTO){
+        Train train = Train.builder()
+                .trainId(trainDTO.getTrainId())
+                .departureTime(trainDTO.getDepartureTime())
+                .arriveTime(trainDTO.getArriveTime())
+                .startPoint(trainDTO.getStartPoint())
+                .endPoint(trainDTO.getEndPoint())
+                .build();
+        return trainRepository.save(train);
+    }
 
 
 
