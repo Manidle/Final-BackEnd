@@ -37,4 +37,9 @@ public class AttractionController {
     public Attraction regist(@RequestBody AttractionDTO attractionDTO){
         return attractionService.createAttraction(attractionDTO);
     }
+
+    @PostMapping("/attraction/edit/{attractionId}")
+    public Attraction edit(@RequestBody AttractionDTO attractionDTO){
+        return attractionService.editAttraction(attractionDTO);
+    }
 }
