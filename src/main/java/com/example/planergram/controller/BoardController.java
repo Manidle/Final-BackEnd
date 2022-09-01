@@ -1,36 +1,95 @@
 package com.example.planergram.controller;
 
+import com.example.planergram.DTO.BoardDTO;
+import com.example.planergram.DTO.ResponseDTO;
 import com.example.planergram.model.Board;
+import com.example.planergram.model.Post;
 import com.example.planergram.service.BoardService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
 @RestController
+@Slf4j
 public class BoardController {
 
     @Autowired
     private BoardService boardService;
 
+    // 게시판 등록
     @PostMapping("/board/posting")
-    public String posting(Board board){
-        boardService.posting(board);
-        return "글쓰기가 완료되었습니다.";
+    public ResponseEntity<?> save(@RequestBody BoardDTO boardDTO) {
+        try {
+            Board newBoard = boardService.save(boardDTO);
+            BoardDTO newBoardDTO = boardService.makeBoardDTO(newBoard);
+            return ResponseEntity.ok(newBoardDTO);
+        } catch (Exception e) {
+            log.error("게시판 등록에 실패했습니다." + e.getStackTrace());
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 
+    // 게시판 조회
     @GetMapping("/board/findall")
-    public List<Board> findAll() {
-        return boardService.findAll();
+    public ResponseEntity<?> findAll() {
+        List<Board> boardList = boardService.findAll();
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        for (Board board : boardList) {
+            List<Long> postDTOList = new ArrayList<>();
+            for (Post post : board.getPostList()) {
+                postDTOList.add(post.getPostId());
+            }
+            boardDTOList.add(
+                    BoardDTO
+                            .builder()
+                            .boardId(board.getBoardId())
+                            .boardTitle(board.getTitle())
+                            .img(board.getImg())
+                            .postDTOList(postDTOList)
+                            .build()
+            );
+        }
+        return ResponseEntity.ok(boardDTOList);
     }
 
-    @DeleteMapping("/board/delete/{id}")
-    public List<Board> delete(@PathVariable int id){
-        return boardService.delete(id);
-    };
+    // 게시판 업데이트
+    @PutMapping("/board/update/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody BoardDTO updateBoarDTO) {
+        try {
+            Board newBoard = boardService.update(id, updateBoarDTO);
+            List<Long> postDTOList = new ArrayList<>();
+            for (Post post : newBoard.getPostList()) {
+                postDTOList.add(post.getPostId());
+            }
+            BoardDTO boardDTO = boardService.makeBoardDTO(newBoard);
+            return ResponseEntity.ok(boardDTO);
+        } catch (Exception e) {
+            log.error("게시판 변경 Fail :" + e.getMessage());
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
 
-    @PutMapping("/board/posting/{id}")
-    public List<Board> update(@PathVariable int id ,@RequestBody Board board) {
-        boardService.update(id,board);
-        return boardService.update(id,board);
+    // 게시판 삭제
+    @DeleteMapping("/board/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        try {
+            Board newBoard = boardService.delete(id);
+            List<Long> postList = new ArrayList<>();
+            for (Post post : newBoard.getPostList()) {
+                postList.add(post.getPostId());
+            }
+            BoardDTO boardDTO = boardService.makeBoardDTO(newBoard);
+            return ResponseEntity.ok(boardDTO);
+        } catch (Exception e) {
+            log.error("고위험군 환자 정보 삭제에 실패했습니다. :" + e.getMessage());
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 }

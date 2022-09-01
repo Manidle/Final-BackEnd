@@ -1,38 +1,60 @@
 package com.example.planergram.controller;
 
+import com.example.planergram.DTO.ResponseDTO;
+import com.example.planergram.DTO.UserDTO;
+import com.example.planergram.model.Post;
 import com.example.planergram.model.User;
 import com.example.planergram.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@Slf4j
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/join")
-    public String signUp(User user){
-        userService.signup(user);
+    @PostMapping("/user")
+    public String signUp(@RequestBody UserDTO userDTO){
+        System.out.println(userDTO);
+        userService.signUp(userDTO);
         return "회원가입이 완료되었습니다.";
     }
 
-    @GetMapping("/findall")
-    public List<User> findAll() {
+    @GetMapping("/user/info/{id}")
+    public UserDTO getUserAndInfo(@PathVariable Long id){
+        return userService.getUserAndInfo(id);
+    }
+
+    @GetMapping("/user/{id}")
+    public UserDTO getUser(@PathVariable Long id){
+        return userService.getUser(id);
+    }
+
+    @PutMapping("/user/info/{id}")
+    public UserDTO updateUserAndInfo(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
+        return userService.updateUserAndInfo(id,userDTO);
+    }
+
+    @PutMapping("/user/{id}")
+    public UserDTO updateUser(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
+        return userService.updateUser(id,userDTO);
+    }
+
+    @GetMapping("/user")
+    public List<UserDTO> findAll() {
         System.out.println("findAll called!");
         return userService.findAll();
     }
 
-    @DeleteMapping("/delete/{id}")
-    public List<User> delete(@PathVariable int id){
+    @DeleteMapping("/user/{id}")
+    public List<UserDTO> delete(@PathVariable Long id){
         return userService.delete(id);
     };
-
-    @PutMapping("/update/{id}")
-    public List<User> update(@PathVariable int id ,@RequestBody User user) {
-        userService.update(id,user);
-        return userService.update(id,user);
-    }
 }
