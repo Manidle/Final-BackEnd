@@ -1,13 +1,15 @@
 package com.example.planergram.DTO;
 
 import com.example.planergram.model.Train;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Data
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TrainDTO {
     private Long trainId;
     private LocalDateTime departureTime;
