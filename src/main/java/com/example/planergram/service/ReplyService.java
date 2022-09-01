@@ -53,6 +53,13 @@ public class ReplyService {
         return replyDTOList;
     }
 
+    public List<ReplyDTO> delete(Long replyId){
+        Reply reply =  replyRepository.getById(replyId);
+        Long postId = reply.getPost().getPostId();
+        replyRepository.delete(reply);
+        return findReplyByPostId(postId);
+    }
+
     public ReplyDTO makeReplyDTO(Reply reply){
         return ReplyDTO.builder()
                 .replyId(reply.getReplyId())

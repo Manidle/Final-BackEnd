@@ -32,4 +32,9 @@ public class ReplyController {
     public List<ReplyDTO> findReplyByPostId(@PathVariable Long postId){
         return replyService.findReplyByPostId(postId);
     }
+
+    @DeleteMapping("reply/{replyId}")
+    public List<ReplyDTO> delete(@PathVariable Long replyId){
+        return replyService.delete(replyId);
+    }
 }
