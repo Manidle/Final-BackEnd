@@ -1,19 +1,22 @@
 package com.example.planergram.DTO;
 
 import com.example.planergram.model.Attraction;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Entity;
 
-@Builder
+
 @Data
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AttractionDTO {
     private Long attractionId;
     private String attractionName;
     private String attractionAddress;
     private String attractionAddressDetail;
-    private int attractionPrice;
+    private Integer attractionPrice;
 
     private AttractionDTO toAttractionDTO(Attraction attraction){
         return AttractionDTO.builder()
@@ -33,7 +36,17 @@ public class AttractionDTO {
                 .attractionAddressDetail(attractionDTO.getAttractionAddressDetail())
                 .attractionPrice(attractionDTO.getAttractionPrice())
                 .build();
+
     }
 
+
+
+//    public AttractionDTO(Attraction attraction){
+//        this.attractionId = attraction.getAttractionId();
+//        this.attractionName = attraction.getAttractionName();
+//        this.attractionAddress = attraction.getAttractionAddress();
+//        this.attractionAddressDetail = attraction.getAttractionAddressDetail();
+//        this.attractionPrice = attraction.getAttractionPrice();
+//    }
 }
 
