@@ -10,6 +10,9 @@ import com.example.planergram.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ReplyService {
     @Autowired
@@ -38,6 +41,16 @@ public class ReplyService {
         reply.setContents(contents);
         reply = replyRepository.save(reply);
         return makeReplyDTO(reply);
+    }
+
+    public List<ReplyDTO> findReplyByPostId(Long postId){
+        Post post = postRepository.getById(postId);
+        List<Reply> replyList = replyRepository.findByPost(post);
+        List<ReplyDTO> replyDTOList = new ArrayList<>();
+        for (Reply reply: replyList){
+            replyDTOList.add(makeReplyDTO(reply));
+        }
+        return replyDTOList;
     }
 
     public ReplyDTO makeReplyDTO(Reply reply){
