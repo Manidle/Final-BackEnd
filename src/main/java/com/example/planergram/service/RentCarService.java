@@ -7,7 +7,6 @@ import com.example.planergram.repository.RentCarLikeRepository;
 import com.example.planergram.repository.RentCarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,9 +55,6 @@ public class RentCarService {
         rentCarRepository.delete(rentCar);
     }
 
-
-
-
     private RentCar makeRentCar(RentCarDTO rentCarDTO){
         List<RentCarLike> rentCarLikeList = new ArrayList<>();
         if (rentCarDTO.getRentCarLikeIdList() != null){
@@ -84,7 +80,6 @@ public class RentCarService {
                 rentCarLikeIdList.add(rentCarLike.getRentCarLikeId());
             }
         }
-
         return RentCarDTO.builder()
                 .rentCarId(rentCar.getRentCarId())
                 .address(rentCar.getAddress())

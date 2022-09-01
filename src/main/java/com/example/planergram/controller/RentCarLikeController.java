@@ -29,6 +29,11 @@ public class RentCarLikeController {
         return rentCarLikeService.findByUser(userId);
     }
 
+    @GetMapping("/rentcarlike/rentcar/{rentcarId}")
+    public List<RentCarLikeDTO> RentCarLikeFindByStay(@PathVariable Long rentcarId){
+        return rentCarLikeService.findByRentCar(rentcarId);
+    }
+
 
 
 }

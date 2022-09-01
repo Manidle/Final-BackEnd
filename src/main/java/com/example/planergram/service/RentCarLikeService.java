@@ -59,6 +59,12 @@ public class RentCarLikeService {
         return makeRentCarLikeDTOList(rentCarLikeList);
     }
 
+    public List<RentCarLikeDTO> findByRentCar(Long rentCarId){
+        RentCar rentCar = rentCarRepository.getById(rentCarId);
+        List<RentCarLike> rentCarLikeList = rentCarLikeRepository.findByRentCar(rentCar);
+        return makeRentCarLikeDTOList(rentCarLikeList);
+    }
+
     private RentCarLikeDTO makeRentCarLikeDTO(RentCarLike rentCarLike){
         return RentCarLikeDTO.builder()
                 .rentCarLikeId(rentCarLike.getRentCarLikeId())

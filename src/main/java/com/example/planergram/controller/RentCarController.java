@@ -1,7 +1,6 @@
 package com.example.planergram.controller;
 
 import com.example.planergram.DTO.RentCarDTO;
-import com.example.planergram.DTO.StayDTO;
 import com.example.planergram.service.RentCarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
