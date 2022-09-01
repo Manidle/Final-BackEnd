@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 public class AttractionController {
 
-
     @Autowired
     private AttractionService attractionService;
 
@@ -28,20 +27,7 @@ public class AttractionController {
 //        return attractionService.findSeletedRegion();
 //    }
 
-    @DeleteMapping("/attraction/delete/{attraction_id}")
-    public void deleteById(Long attractionId) {
-        attractionService.deleteAttraction(attractionId);
-    }
 
-    @PostMapping("/attraction/regist")
-    public void regist(AttractionDTO attractionDTO){
-        attractionService.createAttraction(attractionDTO);
-    }
-
-    @PostMapping("/attraction/edit/{attraction_id}")
-    public Attraction edit(AttractionDTO attractionDTO){
-        return attractionService.editAttraction(attractionDTO);
-    }
 
 
 }
