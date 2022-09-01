@@ -75,4 +75,47 @@ public class AttractionService {
         return attractionRepository.save(attraction);
     }
 
+    //    public List<Attraction> editAttraction(AttractionDTO attractionDTO){
+//        Attraction attraction = attractionRepository.findById(attractionDTO.getAttractionId())
+//                .orElseThrow(RuntimeException::new);
+//        Attraction.AttractionBuilder attractionBuilder = attractionDTO
+//    }
+
+    public Attraction editAttraction(AttractionDTO attractionDTO){
+        try{
+            Attraction attraction = attractionRepository.findById(attractionDTO.getAttractionId()).get();
+            attraction.setAttractionName(attractionDTO.getAttractionName());
+            attraction.setAttractionAddress(attractionDTO.getAttractionAddress());
+            attraction.setAttractionAddressDetail(attractionDTO.getAttractionAddressDetail());
+            attraction.setAttractionPrice(attractionDTO.getAttractionPrice());
+            return attractionRepository.save(attraction);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Transactional
+    private AttractionDTO toAttractionDTO(Attraction attraction){
+        return AttractionDTO.builder()
+                .attractionId(attraction.getAttractionId())
+                .attractionName(attraction.getAttractionName())
+                .attractionAddress(attraction.getAttractionAddress())
+                .attractionAddressDetail(attraction.getAttractionAddressDetail())
+                .attractionPrice(attraction.getAttractionPrice())
+                .build();
+    }
+
+    @Transactional
+    private Attraction toAttraction(AttractionDTO attractionDTO){
+        return Attraction.builder()
+                .attractionId(attractionDTO.getAttractionId())
+                .attractionName(attractionDTO.getAttractionName())
+                .attractionAddress(attractionDTO.getAttractionAddress())
+                .attractionAddressDetail(attractionDTO.getAttractionAddressDetail())
+                .attractionPrice(attractionDTO.getAttractionPrice())
+                .build();
+
+    }
+
 }
