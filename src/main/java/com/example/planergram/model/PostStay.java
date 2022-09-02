@@ -22,7 +22,7 @@ public class PostStay {
     @JoinColumn(name = "stay_id")
     private Stay stay;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Stay.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Post.class)
     @JoinColumn(name = "post_id")
     private Post post;
 }
