@@ -14,13 +14,14 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("/post")
 public class PostController {
 
     @Autowired
     private PostService postService;
 
     // 게시글 작성
-    @PostMapping("/post/posting")
+    @PostMapping
     public ResponseEntity<?> save(@RequestBody PostDTO postDTO) {
         try {
             Post newPost = postService.save(postDTO);
@@ -34,7 +35,7 @@ public class PostController {
     }
 
     // 게시글 조회
-    @GetMapping("/post")
+    @GetMapping
     public ResponseEntity<?> findAll() {
         List<Post> postList = postService.findAll();
         if (postList.size() == 0) {
@@ -47,7 +48,7 @@ public class PostController {
     }
 
     //게시글 업데이트
-    @PutMapping("/post/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id,@RequestBody PostDTO updatePostDTO) {
         try {
             Post newPost = postService.update(id,updatePostDTO);
@@ -61,7 +62,7 @@ public class PostController {
     }
 
     //게시글 삭제
-    @DeleteMapping("/post/{id}")
+    @DeleteMapping
     public List<Post> delete(@PathVariable Long id) {
         return postService.delete(id);
     }
