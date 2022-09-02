@@ -1,5 +1,6 @@
 package com.example.planergram.service;
 
+import com.example.planergram.DTO.PostStayDTO;
 import com.example.planergram.model.Post;
 import com.example.planergram.model.PostStay;
 import com.example.planergram.model.Stay;
@@ -8,6 +9,9 @@ import com.example.planergram.repository.PostStayRepository;
 import com.example.planergram.repository.StayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PostStayService {
@@ -44,5 +48,27 @@ public class PostStayService {
     private String likeCancel(PostStay postStay){
         postStayRepository.delete(postStay);
         return "좋아요 취소";
+    }
+
+    public List<PostStayDTO> findByPost(Long postId) {
+        Post post = postRepository.getById(postId);
+        List<PostStay> postStayList = postStayRepository.findByPost(post);
+        return makePostStayDTOList(postStayList);
+    }
+
+    private PostStayDTO makePostStayDTO(PostStay postStay){
+        return PostStayDTO.builder()
+                .stayId(postStay.getId())
+                .postId(postStay.getPost().getPostId())
+                .stayId(postStay.getStay().getId())
+                .build();
+    }
+
+    private List<PostStayDTO> makePostStayDTOList(List<PostStay> postStayList){
+        List<PostStayDTO> postStayDTOList = new ArrayList<>();
+        for (PostStay postStay: postStayList){
+            postStayDTOList.add(makePostStayDTO(postStay));
+        }
+        return postStayDTOList;
     }
 }
