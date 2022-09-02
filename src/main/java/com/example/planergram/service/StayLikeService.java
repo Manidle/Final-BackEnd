@@ -62,6 +62,7 @@ public class StayLikeService {
         List<StayLike> stayLikeList = stayLikeRepository.findByUser(user);
         return makeStayLikeDTOList(stayLikeList);
     }
+
     public List<StayLikeDTO> findByStay(Long stayId){
         Stay stay = stayRepository.getById(stayId);
         List<StayLike> stayLikeList = stayLikeRepository.findByStay(stay);

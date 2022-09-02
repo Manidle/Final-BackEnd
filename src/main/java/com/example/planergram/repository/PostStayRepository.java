@@ -11,4 +11,6 @@ public interface PostStayRepository extends JpaRepository<PostStay, Long> {
     PostStay findByPostAndStay(Post post, Stay stay);
 
     List<PostStay> findByPost(Post post);
+    List<PostStay> findByStay(Stay stay);
+
 }

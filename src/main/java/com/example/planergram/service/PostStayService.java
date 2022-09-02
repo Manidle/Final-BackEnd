@@ -56,6 +56,12 @@ public class PostStayService {
         return makePostStayDTOList(postStayList);
     }
 
+    public List<PostStayDTO> findByStay(Long stayId) {
+        Stay stay = stayRepository.getById(stayId);
+        List<PostStay> postStayList = postStayRepository.findByStay(stay);
+        return makePostStayDTOList(postStayList);
+    }
+
     private PostStayDTO makePostStayDTO(PostStay postStay){
         return PostStayDTO.builder()
                 .stayId(postStay.getId())

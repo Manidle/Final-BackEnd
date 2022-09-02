@@ -25,4 +25,9 @@ public class PostStayController {
     public List<PostStayDTO> postStayFindByPost(@PathVariable Long postId){
         return postStayService.findByPost(postId);
     }
+
+    @GetMapping("/stay/{stayId}")
+    public List<PostStayDTO> postStayFindByStay(@PathVariable Long stayId){
+        return postStayService.findByStay(stayId);
+    }
 }
