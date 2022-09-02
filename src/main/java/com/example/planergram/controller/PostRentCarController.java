@@ -28,5 +28,10 @@ public class PostRentCarController {
         return postRentCarService.findByPost(postId);
     }
 
+    @GetMapping("/rentcarpost/{rentCarId}")
+    public List<PostRentCarDTO> postRentCarFindByRentCar(@PathVariable Long rentCarId){
+        return postRentCarService.findByRentCar(rentCarId);
+    }
+
 
 }

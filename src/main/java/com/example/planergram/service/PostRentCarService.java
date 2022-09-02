@@ -54,8 +54,11 @@ public class PostRentCarService {
         return makePostRentCarDTOList(postRentCarList);
     }
 
-
-
+    public List<PostRentCarDTO> findByRentCar(Long rentcarId) {
+        RentCar rentCar = rentCarRepository.getById(rentcarId);
+        List<PostRentCar> postRentCarList = postRentCarRepository.findByRentCar(rentCar);
+        return makePostRentCarDTOList(postRentCarList);
+    }
 
     private PostRentCarDTO makePostRentCarDTO(PostRentCar postRentCar){
         return PostRentCarDTO
