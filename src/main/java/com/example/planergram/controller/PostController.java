@@ -27,7 +27,7 @@ public class PostController {
             PostDTO newPostDTO = postService.makePostDTO(newPost);
             return ResponseEntity.ok(newPostDTO);
         } catch (Exception e) {
-            log.error("병실 정보 저장에 실패했습니다 : " + e.getStackTrace());
+            log.error("게시글 작성에 실패했습니다 : " + e.getStackTrace());
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
             return ResponseEntity.badRequest().body(responseDTO);
         }

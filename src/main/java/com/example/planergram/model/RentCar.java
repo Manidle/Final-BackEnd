@@ -36,4 +36,7 @@ public class RentCar {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<RentCarLike> rentcarLikeList;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "rentCar")
+    private List<PostRentCar> postRentCarList;
 }
