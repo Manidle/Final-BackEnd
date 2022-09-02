@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -38,5 +39,7 @@ public class Train {
 
     @Column(name = "train_price")
     private int trainPrice;
-    //
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "train")
+    private List<PostTrain> postTrainList;
 }
