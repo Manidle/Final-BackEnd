@@ -30,4 +30,9 @@ public class PostTrainController {
     public List<PostTrainDTO> postStayFindByTrain(@PathVariable Long trainId){
         return postTrainService.findByTrain(trainId);
     }
+
+    @GetMapping("/{id}")
+    public PostTrainDTO findById(@PathVariable Long id){
+        return postTrainService.findById(id);
+    }
 }
