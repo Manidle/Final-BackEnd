@@ -1,11 +1,17 @@
 package com.example.planergram.service;
 
-import com.example.planergram.model.*;
+import com.example.planergram.DTO.PostTrainDTO;
+import com.example.planergram.model.Post;
+import com.example.planergram.model.PostTrain;
+import com.example.planergram.model.Train;
 import com.example.planergram.repository.PostRepository;
 import com.example.planergram.repository.PostTrainRepository;
 import com.example.planergram.repository.TrainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PostTrainService {
@@ -43,4 +49,28 @@ public class PostTrainService {
         postTrainRepository.delete(postTrain);
         return "게시글에 해당 기차를 제거했습니다";
     }
+
+    public List<PostTrainDTO> findByPost(Long postId) {
+        Post post = postRepository.getById(postId);
+        List<PostTrain> postTrainList = postTrainRepository.findByPost(post);
+        return makePostTrainDTOList(postTrainList);
+    }
+
+
+    private PostTrainDTO makePostTrainDTO(PostTrain postTrain){
+        return PostTrainDTO.builder()
+                .postTrainId(postTrain.getPostTrainId())
+                .postId(postTrain.getPost().getPostId())
+                .trainId(postTrain.getTrain().getTrainId())
+                .build();
+    }
+
+    private List<PostTrainDTO> makePostTrainDTOList(List<PostTrain> PostTrainList){
+        List<PostTrainDTO> postTrainDTOList = new ArrayList<>();
+        for (PostTrain postTrain: PostTrainList){
+            postTrainDTOList.add(makePostTrainDTO(postTrain));
+        }
+        return postTrainDTOList;
+    }
+
 }

@@ -1,11 +1,11 @@
 package com.example.planergram.controller;
 
+import com.example.planergram.DTO.PostTrainDTO;
 import com.example.planergram.service.PostTrainService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/posttrain")
@@ -19,5 +19,10 @@ public class PostTrainController {
             @RequestParam(value="post", defaultValue="0") Long postId,
             @RequestParam(value="train", defaultValue="0") Long trainId){
         return postTrainService.clickTrainLike(postId,trainId);
+    }
+
+    @GetMapping("/post/{postId}")
+    public List<PostTrainDTO> postStayFindByTrain(@PathVariable Long postId){
+        return postTrainService.findByPost(postId);
     }
 }
