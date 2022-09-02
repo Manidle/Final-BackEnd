@@ -15,8 +15,8 @@ import javax.persistence.*;
 public class PostStay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_stay_like_id")
-    private Long id;
+    @Column(name = "post_stay_id")
+    private Long postStayId;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Stay.class)
     @JoinColumn(name = "stay_id")

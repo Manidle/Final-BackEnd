@@ -50,6 +50,11 @@ public class PostStayService {
         return "좋아요 취소";
     }
 
+    public PostStayDTO findById(Long id){
+        PostStay postStay = postStayRepository.getById(id);
+        return makePostStayDTO(postStay);
+    }
+
     public List<PostStayDTO> findByPost(Long postId) {
         Post post = postRepository.getById(postId);
         List<PostStay> postStayList = postStayRepository.findByPost(post);
@@ -64,7 +69,7 @@ public class PostStayService {
 
     private PostStayDTO makePostStayDTO(PostStay postStay){
         return PostStayDTO.builder()
-                .stayId(postStay.getId())
+                .postStayId(postStay.getPostStayId())
                 .postId(postStay.getPost().getPostId())
                 .stayId(postStay.getStay().getId())
                 .build();

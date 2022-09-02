@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @ToString
 public class PostStayDTO {
-    private Long id;
+    private Long postStayId;
     private Long postId;
     private Long stayId;
 }
