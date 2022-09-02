@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface UserHasAttractionRepository extends JpaRepository<UserHasAttraction, Long> {
 
-    List<UserHasAttraction> findByUser(@Param("userId") int userId);
+//    List<UserHasAttraction> findByUser(@Param("userId") int userId);
 
-    List<UserHasAttraction> findByAttraction(@Param("attractionId") int attractionId);
+//    List<UserHasAttraction> findByAttraction(@Param("attractionId") int attractionId);
 }
