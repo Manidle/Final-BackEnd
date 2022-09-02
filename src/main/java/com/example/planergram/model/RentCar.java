@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -29,4 +30,10 @@ public class RentCar {
 
     @Column(name = "car_name", nullable = false)
     private String carName;
+
+    @Column(name = "like_count")
+    private int likeCount;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<RentCarLike> rentcarLikeList;
 }

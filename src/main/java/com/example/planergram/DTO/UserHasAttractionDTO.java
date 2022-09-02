@@ -2,12 +2,16 @@ package com.example.planergram.DTO;
 
 import com.example.planergram.model.Train;
 import com.example.planergram.model.UserHasAttraction;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 @Builder
-@Data
+@ToString
 public class UserHasAttractionDTO {
+    private Long userHasAttractionId;
     private Long userId;
     private Long attractionId;
 

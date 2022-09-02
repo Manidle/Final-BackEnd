@@ -6,6 +6,7 @@ import com.example.planergram.model.Attraction;
 import com.example.planergram.model.User;
 import com.example.planergram.model.UserHasAttraction;
 import com.example.planergram.repository.UserHasAttractionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,23 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class UserHasAttractionService {
 
+    @Autowired
     private UserHasAttractionRepository userHasAttractionRepository;
 
-//    public List<UserHasAttraction> findByUser(Long userId){
-//        return userHasAttractionRepository.findByUser(userId);
-//    }
 
-
-//    public List<UserHasAttractionDTO> deleteAttraction(Long attractionId){
-//    Optional<Attraction> optAttraction = attractionRepository.findById(attractionId);
-//        if(optAttraction.isPresent()){
-//        Attraction attraction = optAttraction.get();
-//        attractionRepository.deleteById(attractionId);
-//    }}
-
+    //유저아이디로 어트랙션 조회
     @Transactional(readOnly = true)
     public List<UserHasAttractionDTO> getUserHasAttractionListByUserId(Long userId){
         Optional<UserHasAttraction> optUserHasAttractions = userHasAttractionRepository.findById(userId);
@@ -51,6 +44,7 @@ public class UserHasAttractionService {
 //        return userHasAttractionRepository.findByAttraction(attractionId);
 //    }
 
+    //어트랙션으로 유저 조회
     @Transactional(readOnly = true)
     public List<UserHasAttractionDTO> getUserHasAttractionListByAttractionId(Long attractionId){
         Optional<UserHasAttraction> optUserHasAttractions = userHasAttractionRepository.findById(attractionId);
@@ -67,4 +61,6 @@ public class UserHasAttractionService {
         }
         return UserHasAttractionDtoList;
     }
+
+
 }
