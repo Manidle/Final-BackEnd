@@ -4,8 +4,7 @@ import com.example.planergram.DTO.UserHasAttractionDTO;
 import com.example.planergram.model.UserHasAttraction;
 import com.example.planergram.service.UserHasAttractionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,13 +14,13 @@ public class UserHasAttactionController {
     @Autowired
     private UserHasAttractionService userHasAttractionService;
 
-    @PutMapping("/myattraction/user/{user_id}")
-    public List<UserHasAttractionDTO> searchByUser(Long userId){
+    @GetMapping("/myattraction/user/{userId}")
+    public List<UserHasAttractionDTO> searchByUser(@PathVariable Long userId){
         return userHasAttractionService.getUserHasAttractionListByUserId(userId);
     }
 
-    @PutMapping("/myattraction/attraction/{attraction_id}")
-    public List<UserHasAttractionDTO> searchByAttraction(Long attractionId){
+    @GetMapping("/myattraction/attraction/{userHasAttractionId}")
+    public List<UserHasAttractionDTO> searchByAttraction(@PathVariable Long attractionId){
         return userHasAttractionService.getUserHasAttractionListByAttractionId(attractionId);
     }
 }
