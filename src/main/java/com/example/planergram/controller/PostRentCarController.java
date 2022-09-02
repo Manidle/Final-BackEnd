@@ -3,20 +3,18 @@ package com.example.planergram.controller;
 import com.example.planergram.DTO.PostRentCarDTO;
 import com.example.planergram.service.PostRentCarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/postrentcar")
 public class PostRentCarController {
 
     @Autowired
     private PostRentCarService postRentCarService;
 
-    @GetMapping("/postrentcar")
+    @GetMapping("/")
     public String clickStayLike(
             @RequestParam(value="post", defaultValue="0") Long postId,
             @RequestParam(value="rentcar", defaultValue="0") Long rentCarId){
@@ -28,10 +26,13 @@ public class PostRentCarController {
         return postRentCarService.findByPost(postId);
     }
 
-    @GetMapping("/rentcarpost/{rentCarId}")
+    @GetMapping("/rentCar/{rentCarId}")
     public List<PostRentCarDTO> postRentCarFindByRentCar(@PathVariable Long rentCarId){
         return postRentCarService.findByRentCar(rentCarId);
     }
 
-
+    @GetMapping("/{id}")
+    public PostRentCarDTO findById(@PathVariable Long id){
+        return postRentCarService.findById(id);
+    }
 }

@@ -60,6 +60,11 @@ public class PostRentCarService {
         return makePostRentCarDTOList(postRentCarList);
     }
 
+    public PostRentCarDTO findById(Long id){
+        PostRentCar postRentCar = postRentCarRepository.getById(id);
+        return makePostRentCarDTO(postRentCar);
+    }
+
     private PostRentCarDTO makePostRentCarDTO(PostRentCar postRentCar){
         return PostRentCarDTO
                 .builder()
