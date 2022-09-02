@@ -18,7 +18,6 @@ public class StayController {
         return stayService.signUp(stayDTO);
     }
 
-
     @GetMapping("/stay")
     public List<StayDTO> findAll(){
         return stayService.findAll();

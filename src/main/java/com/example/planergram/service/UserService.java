@@ -105,7 +105,6 @@ public class UserService {
         return findAll();
     }
 
-
     private User makeUser(UserDTO userDTO){
         List<StayLike> stayLikeList = new ArrayList<>();
         if (userDTO.getStayLikeIdList() != null){
