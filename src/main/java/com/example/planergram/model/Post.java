@@ -39,4 +39,8 @@ public class Post {
 
     @OneToMany(mappedBy = "post",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Reply> replyList;
+
+    @OneToMany(mappedBy = "post",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PostStay> postStayList;
+
 }
