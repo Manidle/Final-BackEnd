@@ -10,45 +10,46 @@ import java.util.List;
 
 @RestController
 @Slf4j
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/user")
+    @PostMapping
     public String signUp(@RequestBody UserDTO userDTO){
         System.out.println(userDTO);
         userService.signUp(userDTO);
         return "회원가입이 완료되었습니다.";
     }
 
-    @GetMapping("/user/info/{id}")
+    @GetMapping("/info/{id}")
     public UserDTO getUserAndInfo(@PathVariable Long id){
         return userService.getUserAndInfo(id);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public UserDTO getUser(@PathVariable Long id){
         return userService.getUser(id);
     }
 
-    @PutMapping("/user/info/{id}")
+    @PutMapping("/info/{id}")
     public UserDTO updateUserAndInfo(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
         return userService.updateUserAndInfo(id,userDTO);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public UserDTO updateUser(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
         return userService.updateUser(id,userDTO);
     }
 
-    @GetMapping("/user")
+    @GetMapping
     public List<UserDTO> findAll() {
         System.out.println("findAll called!");
         return userService.findAll();
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public List<UserDTO> delete(@PathVariable Long id){
         return userService.delete(id);
     };

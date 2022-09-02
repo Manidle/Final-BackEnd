@@ -8,32 +8,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/rentcar")
 public class RentCarController {
 
     @Autowired
     private RentCarService rentCarService;
 
-    @PostMapping("/rentcar")
+    @PostMapping
     public RentCarDTO signUp(@RequestBody RentCarDTO rentCarDTO){
         return rentCarService.signUp(rentCarDTO);
     }
 
-    @GetMapping("/rentcar")
+    @GetMapping
     public List<RentCarDTO> findAll(){
         return rentCarService.findAll();
     }
 
-    @GetMapping("/rentcar/{id}")
+    @GetMapping("/{id}")
     public RentCarDTO findById(@PathVariable Long id){
         return rentCarService.findById(id);
     }
 
-    @PatchMapping("/rentcar/{id}")
+    @PatchMapping("/{id}")
     public RentCarDTO update(@PathVariable Long id, @RequestBody RentCarDTO rentCarDTO){
         return rentCarService.update(id,rentCarDTO);
     }
 
-    @DeleteMapping("/rentcar/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
         rentCarService.delete(id);
     }

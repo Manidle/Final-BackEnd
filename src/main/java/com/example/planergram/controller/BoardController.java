@@ -15,13 +15,14 @@ import java.util.List;
 
 @RestController
 @Slf4j
+@RequestMapping("/board")
 public class BoardController {
 
     @Autowired
     private BoardService boardService;
 
     // 게시판 등록
-    @PostMapping("/board/posting")
+    @PostMapping
     public ResponseEntity<?> save(@RequestBody BoardDTO boardDTO) {
         try {
             Board newBoard = boardService.save(boardDTO);
@@ -35,7 +36,7 @@ public class BoardController {
     }
 
     // 게시판 조회
-    @GetMapping("/board/findall")
+    @GetMapping
     public ResponseEntity<?> findAll() {
         List<Board> boardList = boardService.findAll();
         List<BoardDTO> boardDTOList = new ArrayList<>();
@@ -58,7 +59,7 @@ public class BoardController {
     }
 
     // 게시판 업데이트
-    @PutMapping("/board/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody BoardDTO updateBoarDTO) {
         try {
             Board newBoard = boardService.update(id, updateBoarDTO);
@@ -76,7 +77,7 @@ public class BoardController {
     }
 
     // 게시판 삭제
-    @DeleteMapping("/board/delete/{id}")
+    @DeleteMapping
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         try {
             Board newBoard = boardService.delete(id);
