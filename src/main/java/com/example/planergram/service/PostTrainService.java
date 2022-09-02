@@ -56,6 +56,12 @@ public class PostTrainService {
         return makePostTrainDTOList(postTrainList);
     }
 
+    public List<PostTrainDTO> findByTrain(Long trainId) {
+        Train train = trainRepository.getById(trainId);
+        List<PostTrain> postStayList = postTrainRepository.findByTrain(train);
+        return makePostTrainDTOList(postStayList);
+    }
+
 
     private PostTrainDTO makePostTrainDTO(PostTrain postTrain){
         return PostTrainDTO.builder()

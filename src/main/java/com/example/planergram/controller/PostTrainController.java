@@ -22,7 +22,12 @@ public class PostTrainController {
     }
 
     @GetMapping("/post/{postId}")
-    public List<PostTrainDTO> postStayFindByTrain(@PathVariable Long postId){
+    public List<PostTrainDTO> postStayFindByPost(@PathVariable Long postId){
         return postTrainService.findByPost(postId);
+    }
+
+    @GetMapping("/train/{trainId}")
+    public List<PostTrainDTO> postStayFindByTrain(@PathVariable Long trainId){
+        return postTrainService.findByTrain(trainId);
     }
 }
