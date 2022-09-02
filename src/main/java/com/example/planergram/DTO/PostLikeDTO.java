@@ -8,8 +8,8 @@ import lombok.*;
 @Getter
 @Builder
 @ToString
-public class StayLikeDTO {
+public class PostLikeDTO {
     private Long id;
     private Long userId;
-    private Long stayId;
+    private Long postId;
 }
