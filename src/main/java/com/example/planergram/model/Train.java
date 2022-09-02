@@ -38,4 +38,5 @@ public class Train {
 
     @Column(name = "train_price")
     private int trainPrice;
+    //
 }
