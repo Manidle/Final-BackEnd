@@ -1,90 +1,76 @@
 package com.example.planergram.service;
 
-import com.example.planergram.DTO.AttractionDTO;
 import com.example.planergram.DTO.TrainDTO;
-import com.example.planergram.model.Attraction;
 import com.example.planergram.model.Train;
-import com.example.planergram.repository.AttractionRepository;
 import com.example.planergram.repository.TrainRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class TrainService {
 
     @Autowired
     private TrainRepository trainRepository;
 
-    private TrainDTO trainDTO;
-
-    private Train train;
-
-    @Transactional(readOnly = true)
-    public List<TrainDTO> getTrainList(){
-        List<Train> Trains = trainRepository.findAll();
-        List<TrainDTO> TrainDTOList = new ArrayList<>();
-
-        for(Train train : Trains){
-            TrainDTO dto = TrainDTO.builder()
-                    .trainId(train.getTrainId())
-                    .departureTime(train.getDepartureTime())
-                    .arriveTime(train.getArriveTime())
-                    .startPoint(train.getStartPoint())
-                    .endPoint(train.getEndPoint())
-                    .build();
-            TrainDTOList.add(dto);
-        }
-        return TrainDTOList;
+    public TrainDTO signUp(TrainDTO trainDTO) {
+        Train train = makeTrain(trainDTO);
+        train = trainRepository.save(train);
+        return makeTrainDTO(train);
     }
 
-    @Transactional
-    public void deleteTrain(Long trainId){
-        Optional<Train> optTrain = trainRepository.findById(trainId);
-        if(optTrain.isPresent()){
-            Train train = optTrain.get();
-            trainRepository.deleteById(trainId);
+    public List<TrainDTO> findAll() {
+        List<Train> trainList = trainRepository.findAll();
+        List<TrainDTO> trainDTOList = new ArrayList<>();
+        for (Train train: trainList) {
+            trainDTOList.add(makeTrainDTO(train));
         }
+        return trainDTOList;
     }
 
-    public Train createTrain(TrainDTO trainDTO){
-        Train train = Train.builder()
+    public TrainDTO findById(Long id) {
+        Train train = trainRepository.getById(id);
+        return makeTrainDTO(train);
+    }
+
+
+    public void delete(Long id) {
+        Train train = trainRepository.getById(id);
+        trainRepository.delete(train);
+    }
+
+    public TrainDTO update(Long id, TrainDTO trainDTO) {
+        Train train = trainRepository.getById(id);
+        train.setDepartureTime(trainDTO.getDepartureTime());
+        train.setArriveTime(trainDTO.getArriveTime());
+        train.setStartPoint(trainDTO.getStartPoint());
+        train.setEndPoint(trainDTO.getEndPoint());
+        train.setTrainPrice(trainDTO.getTrainPrice());
+        train = trainRepository.save(train);
+        return makeTrainDTO(train);
+    }
+
+    private Train makeTrain(TrainDTO trainDTO){
+        return Train.builder()
                 .trainId(trainDTO.getTrainId())
                 .departureTime(trainDTO.getDepartureTime())
                 .arriveTime(trainDTO.getArriveTime())
                 .startPoint(trainDTO.getStartPoint())
                 .endPoint(trainDTO.getEndPoint())
+                .trainPrice(trainDTO.getTrainPrice())
                 .build();
-        return trainRepository.save(train);
     }
 
-    public Train editTrain(TrainDTO trainDTO){
-        try{
-            Train train = trainRepository.findById(trainDTO.getTrainId()).get();
-            train.setDepartureTime(trainDTO.getDepartureTime());
-            train.setArriveTime(trainDTO.getArriveTime());
-            train.setStartPoint(trainDTO.getStartPoint());
-            train.setEndPoint(trainDTO.getEndPoint());
-            return trainRepository.save(train);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+    private TrainDTO makeTrainDTO(Train train){
+        return TrainDTO.builder()
+                .trainId(train.getTrainId())
+                .departureTime(train.getDepartureTime())
+                .arriveTime(train.getArriveTime())
+                .startPoint(train.getStartPoint())
+                .endPoint(train.getEndPoint())
+                .trainPrice(train.getTrainPrice())
+                .build();
     }
-
-
-
-
-    //보류
-//    public List<Train> findRegion(String endPoint) {
-//        return trainRepository.findBySelected(endPoint);
-//    }
-
-
 }
