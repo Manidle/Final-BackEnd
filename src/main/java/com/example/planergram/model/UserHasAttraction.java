@@ -1,23 +1,30 @@
 package com.example.planergram.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.JoinColumnOrFormula;
 
 import javax.persistence.*;
 
-@Entity
-@Getter
+@RequiredArgsConstructor
+@AllArgsConstructor
 @Setter
-@SequenceGenerator(name = "UserHasAttraction", sequenceName = "USER_has_ATTRACTION")
+@Getter
+@Builder
+@ToString
+@Entity
+@Table(name = "userhasattraction")
 public class UserHasAttraction {
 
+    @Id
+    @Column(name="userHasAttractionId",nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userHasAttractionId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumnOrFormula(column = @JoinColumn(name = "user_has_attraction_user_id", referencedColumnName = "user_id"))
-    private User user;
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private Long userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumnOrFormula(column = @JoinColumn(name = "user_has_attraction_attraction_id", referencedColumnName = "attraction_id"))
-    private Attraction attraction;
+    @ManyToOne(targetEntity = Attraction.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "attractionId")
+    private Long attractionId;
 }
