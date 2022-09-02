@@ -27,14 +27,14 @@ public class PostController {
             PostDTO newPostDTO = postService.makePostDTO(newPost);
             return ResponseEntity.ok(newPostDTO);
         } catch (Exception e) {
-            log.error("병실 정보 저장에 실패했습니다 : " + e.getStackTrace());
+            log.error("게시글 작성에 실패했습니다 : " + e.getStackTrace());
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
             return ResponseEntity.badRequest().body(responseDTO);
         }
     }
 
     // 게시글 조회
-    @GetMapping("/post/findall")
+    @GetMapping("/post")
     public ResponseEntity<?> findAll() {
         List<Post> postList = postService.findAll();
         if (postList.size() == 0) {
@@ -47,7 +47,7 @@ public class PostController {
     }
 
     //게시글 업데이트
-    @PutMapping("/post/update/{id}")
+    @PutMapping("/post/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id,@RequestBody PostDTO updatePostDTO) {
         try {
             Post newPost = postService.update(id,updatePostDTO);
@@ -61,7 +61,7 @@ public class PostController {
     }
 
     //게시글 삭제
-    @DeleteMapping("/post/delete/{id}")
+    @DeleteMapping("/post/{id}")
     public List<Post> delete(@PathVariable Long id) {
         return postService.delete(id);
     }
