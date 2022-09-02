@@ -45,4 +45,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PostRentCar> postRentCarList;
+
+    @OneToMany(mappedBy = "post",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PostTrain> postTrainList;
 }
