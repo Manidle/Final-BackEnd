@@ -25,6 +25,6 @@ public class Board {
     @Column(name = "board_img", length = 100)
     private String img;
 
-    @OneToMany(mappedBy = "board",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Post> postList; //게시글리스트
 }
