@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,9 +22,11 @@ public class Train {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long trainId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name = "departure_time")
     private LocalDateTime departureTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name = "arrive_time")
     private LocalDateTime arriveTime;
 
@@ -35,6 +38,5 @@ public class Train {
 
     @Column(name = "train_price")
     private int trainPrice;
-
-
+    //
 }
