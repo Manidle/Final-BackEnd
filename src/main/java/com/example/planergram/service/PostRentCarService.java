@@ -1,11 +1,17 @@
 package com.example.planergram.service;
 
-import com.example.planergram.model.*;
+import com.example.planergram.DTO.PostRentCarDTO;
+import com.example.planergram.model.Post;
+import com.example.planergram.model.PostRentCar;
+import com.example.planergram.model.RentCar;
 import com.example.planergram.repository.PostRentCarRepository;
 import com.example.planergram.repository.PostRepository;
 import com.example.planergram.repository.RentCarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PostRentCarService {
@@ -40,6 +46,32 @@ public class PostRentCarService {
     private String likeCancel(PostRentCar postRentCar){
         postRentCarRepository.delete(postRentCar);
         return "좋아요 취소";
+    }
+
+    public List<PostRentCarDTO> findByPost(Long postId) {
+        Post post = postRepository.getById(postId);
+        List<PostRentCar> postRentCarList = postRentCarRepository.findByPost(post);
+        return makePostRentCarDTOList(postRentCarList);
+    }
+
+
+
+
+    private PostRentCarDTO makePostRentCarDTO(PostRentCar postRentCar){
+        return PostRentCarDTO
+                .builder()
+                .postRentCarId(postRentCar.getPostRentCarId())
+                .postId(postRentCar.getPost().getPostId())
+                .rentCarId(postRentCar.getRentCar().getRentCarId())
+                .build();
+    }
+
+    private List<PostRentCarDTO> makePostRentCarDTOList(List<PostRentCar> postRentCarList){
+        List<PostRentCarDTO> postRentCarDTOList = new ArrayList<>();
+        for (PostRentCar postRentCar: postRentCarList){
+            postRentCarDTOList.add(makePostRentCarDTO(postRentCar));
+        }
+        return postRentCarDTOList;
     }
 
 
