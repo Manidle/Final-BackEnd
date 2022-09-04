@@ -11,5 +11,5 @@ import lombok.*;
 public class TrainLikeDTO {
     private Long trainLikeId;
     private Long userId;
-    private Long stayId;
+    private Long trainId;
 }

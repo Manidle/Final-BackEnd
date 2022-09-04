@@ -1,11 +1,17 @@
 package com.example.planergram.service;
 
-import com.example.planergram.model.*;
+import com.example.planergram.DTO.TrainLikeDTO;
+import com.example.planergram.model.Train;
+import com.example.planergram.model.TrainLike;
+import com.example.planergram.model.User;
 import com.example.planergram.repository.TrainLikeRepository;
 import com.example.planergram.repository.TrainRepository;
 import com.example.planergram.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TrainLikeService {
@@ -46,4 +52,27 @@ public class TrainLikeService {
         trainLikeRepository.delete(trainLike);
         return "좋아요 취소";
     }
+
+    public List<TrainLikeDTO> findByUser(Long userId){
+        User user = userRepository.getById(userId);
+        List<TrainLike> trainLikeList = trainLikeRepository.findByUser(user);
+        return makeTrainLikeDTOList(trainLikeList);
+    }
+
+    private TrainLikeDTO makeTrainLikeDTO(TrainLike trainLike){
+        return TrainLikeDTO.builder()
+                .trainLikeId(trainLike.getTrainLikeId())
+                .trainId(trainLike.getTrain().getTrainId())
+                .userId(trainLike.getUser().getUserId())
+                .build();
+    }
+
+    private List<TrainLikeDTO> makeTrainLikeDTOList(List<TrainLike> trainLikeList){
+        List<TrainLikeDTO> trainLikeDTOList = new ArrayList<>();
+        for(TrainLike trainLike:trainLikeList){
+            trainLikeDTOList.add(makeTrainLikeDTO(trainLike));
+        }
+        return trainLikeDTOList;
+    }
+
 }
