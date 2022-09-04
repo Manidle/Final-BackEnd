@@ -2,9 +2,11 @@ package com.example.planergram.service;
 
 import com.example.planergram.DTO.UserDTO;
 import com.example.planergram.DTO.UserInfoDTO;
+import com.example.planergram.model.RentCarLike;
 import com.example.planergram.model.StayLike;
 import com.example.planergram.model.User;
 import com.example.planergram.model.UserInfo;
+import com.example.planergram.repository.RentCarLikeRepository;
 import com.example.planergram.repository.StayLikeRepository;
 import com.example.planergram.repository.UserInfoRepository;
 import com.example.planergram.repository.UserRepository;
@@ -30,7 +32,10 @@ public class UserService {
     @Autowired
     private StayLikeRepository stayLikeRepository;
 
-    public String signUp(UserDTO userDTO){
+    @Autowired
+    private RentCarLikeRepository rentCarLikeRepository;
+
+    public String signUp(UserDTO userDTO) {
         User user = User.builder()
                 .password(userDTO.getPassword())
                 .nickname(userDTO.getNickname())
@@ -53,7 +58,7 @@ public class UserService {
     public List<UserDTO> findAll() {
         List<User> userList = userRepository.findAll();
         List<UserDTO> userDTOList = new ArrayList<>();
-        for (User user: userList){
+        for (User user : userList) {
             userDTOList.add(makeUserDTO(user));
         }
         return userDTOList;
@@ -79,6 +84,7 @@ public class UserService {
         newUserDTO.setUserInfoDTO(userInfoDTO);
         return newUserDTO;
     }
+
     public UserDTO updateUser(Long id, UserDTO userDTO) {
         User foundUser = userRepository.getById(id);
         User user = makeUser(userDTO);
@@ -92,7 +98,7 @@ public class UserService {
         return makeUserAndInfoDTO(user);
     }
 
-    public UserDTO getUser(Long id){
+    public UserDTO getUser(Long id) {
         User user = userRepository.getById(id);
         return makeUserDTO(user);
     }
@@ -105,23 +111,33 @@ public class UserService {
         return findAll();
     }
 
-    private User makeUser(UserDTO userDTO){
+    private User makeUser(UserDTO userDTO) {
         List<StayLike> stayLikeList = new ArrayList<>();
-        if (userDTO.getStayLikeIdList() != null){
-            for (Long stayLikeId : userDTO.getStayLikeIdList()){
+        List<RentCarLike> rentCarLikeList = new ArrayList<>();
+
+        if (userDTO.getStayLikeIdList() != null) {
+            for (Long stayLikeId : userDTO.getStayLikeIdList()) {
                 stayLikeList.add(stayLikeRepository.getById(stayLikeId));
             }
         }
+
+        if (userDTO.getRentCarLikeIdList() != null) {
+            for (Long rentCarLikeId : userDTO.getRentCarLikeIdList()) {
+                rentCarLikeList.add(rentCarLikeRepository.getById(rentCarLikeId));
+            }
+        }
+
         return User.builder()
                 .userId(userDTO.getUserId())
                 .nickname(userDTO.getNickname())
                 .loginId(userDTO.getLoginId())
                 .password(userDTO.getPassword())
                 .stayLikeList(stayLikeList)
+                .rentcarLikeList(rentCarLikeList)
                 .build();
     }
 
-    private UserDTO makeUserAndInfoDTO(User user){
+    private UserDTO makeUserAndInfoDTO(User user) {
         UserInfo userInfo = user.getUserInfo();
         UserInfoDTO userInfoDTO = UserInfoDTO.builder()
                 .profileImg(userInfo.getProfileImg())
@@ -130,34 +146,55 @@ public class UserService {
                 .email(userInfo.getEmail())
                 .build();
         List<Long> stayLikeIdList = new ArrayList<>();
+        List<Long> rentCarLikeIdList = new ArrayList<>();
+
         if (user.getStayLikeList() != null) {
             for (StayLike stayLike : user.getStayLikeList()) {
                 stayLikeIdList.add(stayLike.getId());
             }
         }
+
+        if (user.getRentcarLikeList() != null) {
+            for (RentCarLike rentCarLike : user.getRentcarLikeList()) {
+                rentCarLikeIdList.add(rentCarLike.getRentCarLikeId());
+            }
+        }
+
         return UserDTO.builder()
                 .userId(user.getUserId())
                 .userInfoDTO(userInfoDTO)
                 .stayLikeIdList(stayLikeIdList)
-                .loginId(user.getLoginId())
-                .nickname(user.getNickname())
-                .password(user.getPassword())
-                .build();
-    }
-    private UserDTO makeUserDTO(User user){
-        List<Long> stayLikeIdList = new ArrayList<>();
-        if (user.getStayLikeList() != null) {
-            for (StayLike stayLike : user.getStayLikeList()) {
-                stayLikeIdList.add(stayLike.getId());
-            }
-        }
-        return UserDTO.builder()
-                .userId(user.getUserId())
-                .stayLikeIdList(stayLikeIdList)
+                .rentCarLikeIdList(rentCarLikeIdList)
                 .loginId(user.getLoginId())
                 .nickname(user.getNickname())
                 .password(user.getPassword())
                 .build();
     }
 
+
+    private UserDTO makeUserDTO(User user) {
+        List<Long> stayLikeIdList = new ArrayList<>();
+        List<Long> rentCarLikeIdList = new ArrayList<>();
+
+        if (user.getStayLikeList() != null) {
+            for (StayLike stayLike : user.getStayLikeList()) {
+                stayLikeIdList.add(stayLike.getId());
+            }
+        }
+
+        if (user.getRentcarLikeList() != null) {
+            for (RentCarLike rentCarLike : user.getRentcarLikeList()) {
+                rentCarLikeIdList.add(rentCarLike.getRentCarLikeId());
+            }
+        }
+
+        return UserDTO.builder()
+                .userId(user.getUserId())
+                .stayLikeIdList(stayLikeIdList)
+                .rentCarLikeIdList(rentCarLikeIdList)
+                .loginId(user.getLoginId())
+                .nickname(user.getNickname())
+                .password(user.getPassword())
+                .build();
+    }
 }
