@@ -12,11 +12,15 @@ import java.util.List;
 @ToString
 public class UserDTO {
     private Long userId;
+
     private String loginId;
     private String password;
     private String nickname;
+
     private UserInfoDTO userInfoDTO;
-    private List<Long> stayLikeIdList;
+
     private List<Long> postDTOList;
 
+    private List<Long> stayLikeIdList;
+    private List<Long> rentCarLikeIdList;
 }

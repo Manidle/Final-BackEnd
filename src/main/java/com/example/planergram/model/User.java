@@ -32,11 +32,11 @@ public class User {
     @JoinColumn(name="user_id")
     private UserInfo userInfo;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<StayLike> stayLikeList;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private List<StayLike> rentcarLikeList;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<RentCarLike> rentcarLikeList;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Post> postList;
