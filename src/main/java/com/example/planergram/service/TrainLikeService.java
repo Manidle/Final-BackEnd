@@ -59,6 +59,17 @@ public class TrainLikeService {
         return makeTrainLikeDTOList(trainLikeList);
     }
 
+    public List<TrainLikeDTO> findByStay(Long trainId){
+        Train train = trainRepository.getById(trainId);
+        List<TrainLike> trainLikeList = trainLikeRepository.findByTrain(train);
+        return makeTrainLikeDTOList(trainLikeList);
+    }
+
+    public TrainLikeDTO findById(Long id){
+        TrainLike trainLike = trainLikeRepository.getById(id);
+        return makeTrainLikeDTO(trainLike);
+    }
+
     private TrainLikeDTO makeTrainLikeDTO(TrainLike trainLike){
         return TrainLikeDTO.builder()
                 .trainLikeId(trainLike.getTrainLikeId())
