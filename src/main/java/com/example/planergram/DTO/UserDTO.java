@@ -23,4 +23,5 @@ public class UserDTO {
 
     private List<Long> stayLikeIdList;
     private List<Long> rentCarLikeIdList;
+    private List<Long> trainLikeIdList;
 }
