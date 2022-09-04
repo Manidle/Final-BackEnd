@@ -20,15 +20,15 @@ public class Attraction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attractionId;
 
-    @Column(name = "attraction_name")
-    private String attractionName;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @Column(name = "attraction_address")
-    private String attractionAddress; //시 군 구
+    @Column(nullable = false)
+    private String addressDetail; //전체주소
 
-    @Column(name = "attraction_address_detail")
-    private String attractionAddressDetail; //전체주소
+    @Column(nullable = false)
+    private String address; //시 군 구
 
-    @Column(name = "attraction_price")
-    private Integer attractionPrice;
+    @Column(nullable = false)
+    private Integer price;
 }
