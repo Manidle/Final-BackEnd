@@ -2,14 +2,8 @@ package com.example.planergram.service;
 
 import com.example.planergram.DTO.UserDTO;
 import com.example.planergram.DTO.UserInfoDTO;
-import com.example.planergram.model.RentCarLike;
-import com.example.planergram.model.StayLike;
-import com.example.planergram.model.User;
-import com.example.planergram.model.UserInfo;
-import com.example.planergram.repository.RentCarLikeRepository;
-import com.example.planergram.repository.StayLikeRepository;
-import com.example.planergram.repository.UserInfoRepository;
-import com.example.planergram.repository.UserRepository;
+import com.example.planergram.model.*;
+import com.example.planergram.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +28,9 @@ public class UserService {
 
     @Autowired
     private RentCarLikeRepository rentCarLikeRepository;
+
+    @Autowired
+    private TrainLikeRepository trainLikeRepository;
 
     public String signUp(UserDTO userDTO) {
         User user = User.builder()
@@ -114,6 +111,7 @@ public class UserService {
     private User makeUser(UserDTO userDTO) {
         List<StayLike> stayLikeList = new ArrayList<>();
         List<RentCarLike> rentCarLikeList = new ArrayList<>();
+        List<TrainLike> trainLikeList = new ArrayList<>();
 
         if (userDTO.getStayLikeIdList() != null) {
             for (Long stayLikeId : userDTO.getStayLikeIdList()) {
@@ -127,6 +125,12 @@ public class UserService {
             }
         }
 
+        if (userDTO.getTrainLikeIdList() != null) {
+            for (Long trainLikeId : userDTO.getTrainLikeIdList()) {
+                trainLikeList.add(trainLikeRepository.getById(trainLikeId));
+            }
+        }
+
         return User.builder()
                 .userId(userDTO.getUserId())
                 .nickname(userDTO.getNickname())
@@ -134,6 +138,7 @@ public class UserService {
                 .password(userDTO.getPassword())
                 .stayLikeList(stayLikeList)
                 .rentcarLikeList(rentCarLikeList)
+                .trainLikeList(trainLikeList)
                 .build();
     }
 
@@ -147,6 +152,7 @@ public class UserService {
                 .build();
         List<Long> stayLikeIdList = new ArrayList<>();
         List<Long> rentCarLikeIdList = new ArrayList<>();
+        List<Long> trainLikeIdList = new ArrayList<>();
 
         if (user.getStayLikeList() != null) {
             for (StayLike stayLike : user.getStayLikeList()) {
@@ -160,11 +166,18 @@ public class UserService {
             }
         }
 
+        if (user.getTrainLikeList() != null) {
+            for (TrainLike trainLike : user.getTrainLikeList()) {
+                trainLikeIdList.add(trainLike.getTrainLikeId());
+            }
+        }
+
         return UserDTO.builder()
                 .userId(user.getUserId())
                 .userInfoDTO(userInfoDTO)
                 .stayLikeIdList(stayLikeIdList)
                 .rentCarLikeIdList(rentCarLikeIdList)
+                .trainLikeIdList(trainLikeIdList)
                 .loginId(user.getLoginId())
                 .nickname(user.getNickname())
                 .password(user.getPassword())
@@ -175,6 +188,7 @@ public class UserService {
     private UserDTO makeUserDTO(User user) {
         List<Long> stayLikeIdList = new ArrayList<>();
         List<Long> rentCarLikeIdList = new ArrayList<>();
+        List<Long> trainLikeIdList = new ArrayList<>();
 
         if (user.getStayLikeList() != null) {
             for (StayLike stayLike : user.getStayLikeList()) {
@@ -188,10 +202,17 @@ public class UserService {
             }
         }
 
+        if (user.getTrainLikeList() != null) {
+            for (TrainLike trainLike : user.getTrainLikeList()) {
+                trainLikeIdList.add(trainLike.getTrainLikeId());
+            }
+        }
+
         return UserDTO.builder()
                 .userId(user.getUserId())
                 .stayLikeIdList(stayLikeIdList)
                 .rentCarLikeIdList(rentCarLikeIdList)
+                .trainLikeIdList(trainLikeIdList)
                 .loginId(user.getLoginId())
                 .nickname(user.getNickname())
                 .password(user.getPassword())

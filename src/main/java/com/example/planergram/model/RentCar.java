@@ -34,9 +34,9 @@ public class RentCar {
     @Column(name = "like_count")
     private int likeCount;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<RentCarLike> rentcarLikeList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "rentCar")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "rentCar", cascade = CascadeType.ALL)
     private List<PostRentCar> postRentCarList;
 }

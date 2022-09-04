@@ -40,6 +40,12 @@ public class Train {
     @Column(name = "train_price")
     private int trainPrice;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "train")
+    @Column(name = "like_count")
+    private int likeCount;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stay",cascade = CascadeType.ALL)
+    private List<StayLike> stayLikeList;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "train",cascade = CascadeType.ALL)
     private List<PostTrain> postTrainList;
 }

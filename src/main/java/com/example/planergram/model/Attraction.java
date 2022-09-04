@@ -31,6 +31,4 @@ public class Attraction {
 
     @Column(name = "attraction_price")
     private Integer attractionPrice;
-
-
 }

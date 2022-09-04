@@ -35,7 +35,6 @@ public class TrainService {
         return makeTrainDTO(train);
     }
 
-
     public void delete(Long id) {
         Train train = trainRepository.getById(id);
         trainRepository.delete(train);
