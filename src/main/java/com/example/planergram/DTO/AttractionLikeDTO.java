@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @ToString
 public class AttractionLikeDTO {
-    private Long id;
+    private Long attractionLikeId;
     private Long userId;
     private Long attractionId;
 }

@@ -1,11 +1,11 @@
 package com.example.planergram.controller;
 
+import com.example.planergram.DTO.AttractionLikeDTO;
 import com.example.planergram.service.AttractionLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/attractionlike")
@@ -19,5 +19,15 @@ public class AttractionLikeController {
             @RequestParam(value="attraction", defaultValue ="0") Long attractionId
     ){
         return attractionLikeService.clickAttractionLike(userId, attractionId);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<AttractionLikeDTO> attractionLikeFindByUser(@PathVariable Long userId){
+        return attractionLikeService.findByUser(userId);
+    }
+
+    @GetMapping("/user/{attractionId}")
+    public List<AttractionLikeDTO> attractionLikeFindByAttraction(@PathVariable Long attractionId){
+        return attractionLikeService.findByAttraction(attractionId);
     }
 }
