@@ -31,10 +31,20 @@ public class AttractionLikeService {
     }
 
     private String likeClick(User user, Attraction attraction) {
+        attraction.setLikeCount(attraction.getLikeCount() + 1);
+        attractionRepository.save(attraction);
+        AttractionLike attractionLike = AttractionLike.builder()
+                .attraction(attraction)
+                .user(user)
+                .build();
+        attractionLikeRepository.save(attractionLike);
         return "좋아요 클릭";
     }
 
     private String likeCancel(Attraction attraction, AttractionLike attractionLike){
+        attraction.setLikeCount(attraction.getLikeCount() - 1);
+        attractionRepository.save(attraction);
+        attractionLikeRepository.delete(attractionLike);
         return "좋아요 취소";
     }
 }
