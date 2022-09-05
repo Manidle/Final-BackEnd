@@ -1,8 +1,8 @@
-package com.example.planergram.repository;
+package com.example.planergram.postTravel.repository;
 
-import com.example.planergram.model.Attraction;
-import com.example.planergram.model.Post;
-import com.example.planergram.model.PostAttraction;
+import com.example.planergram.travelContents.model.Attraction;
+import com.example.planergram.post.model.Post;
+import com.example.planergram.postTravel.model.PostAttraction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

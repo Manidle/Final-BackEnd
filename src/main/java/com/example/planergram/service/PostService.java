@@ -1,12 +1,12 @@
 package com.example.planergram.service;
 
 import com.example.planergram.post.DTO.PostDTO;
-import com.example.planergram.model.Board;
-import com.example.planergram.model.Post;
-import com.example.planergram.model.User;
-import com.example.planergram.repository.BoardRepository;
-import com.example.planergram.repository.PostRepository;
-import com.example.planergram.repository.UserRepository;
+import com.example.planergram.post.model.Board;
+import com.example.planergram.post.model.Post;
+import com.example.planergram.user.model.User;
+import com.example.planergram.post.repository.BoardRepository;
+import com.example.planergram.post.repository.PostRepository;
+import com.example.planergram.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

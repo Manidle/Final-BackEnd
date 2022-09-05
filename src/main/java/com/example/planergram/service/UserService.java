@@ -2,8 +2,16 @@ package com.example.planergram.service;
 
 import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.DTO.UserInfoDTO;
-import com.example.planergram.model.*;
-import com.example.planergram.repository.*;
+import com.example.planergram.user.model.User;
+import com.example.planergram.user.model.UserInfo;
+import com.example.planergram.user.repository.UserInfoRepository;
+import com.example.planergram.user.repository.UserRepository;
+import com.example.planergram.userLike.model.RentCarLike;
+import com.example.planergram.userLike.model.StayLike;
+import com.example.planergram.userLike.model.TrainLike;
+import com.example.planergram.userLike.repository.RentCarLikeRepository;
+import com.example.planergram.userLike.repository.StayLikeRepository;
+import com.example.planergram.userLike.repository.TrainLikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

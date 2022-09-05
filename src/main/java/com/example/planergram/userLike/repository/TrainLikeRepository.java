@@ -1,4 +1,4 @@
-package com.example.planergram.repository;
+package com.example.planergram.userLike.repository;
 
 import com.example.planergram.travelContents.model.Train;
 import com.example.planergram.user.model.User;

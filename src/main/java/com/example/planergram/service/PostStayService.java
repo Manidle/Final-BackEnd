@@ -1,12 +1,12 @@
 package com.example.planergram.service;
 
 import com.example.planergram.postTravel.DTO.PostStayDTO;
-import com.example.planergram.model.Post;
-import com.example.planergram.model.PostStay;
-import com.example.planergram.model.Stay;
-import com.example.planergram.repository.PostRepository;
-import com.example.planergram.repository.PostStayRepository;
-import com.example.planergram.repository.StayRepository;
+import com.example.planergram.post.model.Post;
+import com.example.planergram.postTravel.model.PostStay;
+import com.example.planergram.travelContents.model.Stay;
+import com.example.planergram.post.repository.PostRepository;
+import com.example.planergram.postTravel.repository.PostStayRepository;
+import com.example.planergram.travelContents.repository.StayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

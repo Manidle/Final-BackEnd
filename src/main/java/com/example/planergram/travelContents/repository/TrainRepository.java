@@ -1,6 +1,6 @@
-package com.example.planergram.repository;
+package com.example.planergram.travelContents.repository;
 
-import com.example.planergram.model.Train;
+import com.example.planergram.travelContents.model.Train;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

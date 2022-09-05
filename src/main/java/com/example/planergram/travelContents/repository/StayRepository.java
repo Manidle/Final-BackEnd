@@ -1,6 +1,6 @@
-package com.example.planergram.repository;
+package com.example.planergram.travelContents.repository;
 
-import com.example.planergram.model.Stay;
+import com.example.planergram.travelContents.model.Stay;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StayRepository extends JpaRepository<Stay,Long> {

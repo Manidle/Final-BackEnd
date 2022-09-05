@@ -1,8 +1,8 @@
 package com.example.planergram.service;
 
 import com.example.planergram.travelContents.DTO.AttractionDTO;
-import com.example.planergram.model.Attraction;
-import com.example.planergram.repository.AttractionRepository;
+import com.example.planergram.travelContents.model.Attraction;
+import com.example.planergram.travelContents.repository.AttractionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
