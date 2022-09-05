@@ -1,4 +1,4 @@
-package com.example.planergram.service;
+package com.example.planergram.travelContents.service;
 
 import com.example.planergram.travelContents.DTO.StayDTO;
 import com.example.planergram.travelContents.model.Stay;

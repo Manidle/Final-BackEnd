@@ -1,4 +1,4 @@
-package com.example.planergram.service;
+package com.example.planergram.post.service;
 
 import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.post.model.Board;

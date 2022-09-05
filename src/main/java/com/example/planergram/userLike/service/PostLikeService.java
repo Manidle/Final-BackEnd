@@ -1,4 +1,4 @@
-package com.example.planergram.service;
+package com.example.planergram.userLike.service;
 
 import com.example.planergram.userLike.DTO.PostLikeDTO;
 import com.example.planergram.post.model.Post;
