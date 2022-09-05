@@ -2,6 +2,8 @@ package com.example.planergram.DTO;
 
 import lombok.*;
 
+import javax.persistence.Column;
+
 
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -15,5 +17,6 @@ public class AttractionDTO {
     private String addressDetail;
     private String address;
     private Integer price;
+    private int likeCount;
 }
 
