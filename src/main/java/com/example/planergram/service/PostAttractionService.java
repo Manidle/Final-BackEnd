@@ -60,6 +60,11 @@ public class PostAttractionService {
         return makePostAttractionDTOList(postAttractionList);
     }
 
+    public PostAttractionDTO findById(Long id) {
+        PostAttraction postAttraction = postAttractionRepository.getById(id);
+        return makePostAttractionDTO(postAttraction);
+    }
+
     private PostAttractionDTO makePostAttractionDTO(PostAttraction postAttraction){
         return PostAttractionDTO.builder()
                 .postAttractionId(postAttraction.getPostAttractionId())

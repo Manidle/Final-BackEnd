@@ -30,4 +30,9 @@ public class PostAttractionController {
     public List<PostAttractionDTO> postAttractionFindByAttraction(@PathVariable Long attractionId){
         return postAttractionService.findByAttraction(attractionId);
     }
+
+    @GetMapping("/{id}")
+    public PostAttractionDTO findById(@PathVariable Long id){
+        return postAttractionService.findById(id);
+    }
 }
