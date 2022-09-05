@@ -64,10 +64,15 @@ public class AttractionLikeService {
         return makeAttractionLikeDTOList(attractionLikeList);
     }
 
+    public AttractionLikeDTO findById(Long id) {
+        AttractionLike attractionLike = attractionLikeRepository.getById(id);
+        return makeAttractionLikeDTO(attractionLike);
+    }
+
     private List<AttractionLikeDTO> makeAttractionLikeDTOList(List<AttractionLike> attractionLikeList) {
         List<AttractionLikeDTO> attractionLikeDTOList = new ArrayList<>();
         for (AttractionLike attractionLike:attractionLikeList){
-            attractionLikeDTOList.add((makeAttractionLikeDTO(attractionLike)))
+            attractionLikeDTOList.add(makeAttractionLikeDTO(attractionLike));
         }
         return attractionLikeDTOList;
     }

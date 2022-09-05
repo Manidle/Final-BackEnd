@@ -30,4 +30,9 @@ public class AttractionLikeController {
     public List<AttractionLikeDTO> attractionLikeFindByAttraction(@PathVariable Long attractionId){
         return attractionLikeService.findByAttraction(attractionId);
     }
+
+    @GetMapping("/{id}")
+    public AttractionLikeDTO findById(@PathVariable Long id){
+        return attractionLikeService.findById(id);
+    }
 }
