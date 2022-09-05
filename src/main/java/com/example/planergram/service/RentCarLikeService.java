@@ -1,6 +1,6 @@
 package com.example.planergram.service;
 
-import com.example.planergram.DTO.RentCarLikeDTO;
+import com.example.planergram.userLike.DTO.RentCarLikeDTO;
 import com.example.planergram.model.RentCar;
 import com.example.planergram.model.RentCarLike;
 import com.example.planergram.model.User;

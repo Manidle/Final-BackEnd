@@ -1,6 +1,6 @@
 package com.example.planergram.user.cotroller;
 
-import com.example.planergram.DTO.UserInfoDTO;
+import com.example.planergram.user.DTO.UserInfoDTO;
 import com.example.planergram.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

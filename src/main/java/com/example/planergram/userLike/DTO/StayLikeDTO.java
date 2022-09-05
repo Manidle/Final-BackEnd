@@ -1,4 +1,4 @@
-package com.example.planergram.DTO;
+package com.example.planergram.userLike.DTO;
 
 import lombok.*;
 
@@ -8,9 +8,8 @@ import lombok.*;
 @Getter
 @Builder
 @ToString
-public class UserInfoDTO {
+public class StayLikeDTO {
     private Long id;
-    private String profileImg;
-    private String email;
     private Long userId;
+    private Long stayId;
 }

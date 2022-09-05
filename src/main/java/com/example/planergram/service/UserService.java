@@ -1,7 +1,7 @@
 package com.example.planergram.service;
 
-import com.example.planergram.DTO.UserDTO;
-import com.example.planergram.DTO.UserInfoDTO;
+import com.example.planergram.user.DTO.UserDTO;
+import com.example.planergram.user.DTO.UserInfoDTO;
 import com.example.planergram.model.*;
 import com.example.planergram.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;

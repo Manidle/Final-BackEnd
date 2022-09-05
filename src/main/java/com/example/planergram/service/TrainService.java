@@ -1,6 +1,6 @@
 package com.example.planergram.service;
 
-import com.example.planergram.DTO.TrainDTO;
+import com.example.planergram.travelContents.DTO.TrainDTO;
 import com.example.planergram.model.Train;
 import com.example.planergram.repository.TrainRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.example.planergram.service;
 
-import com.example.planergram.DTO.StayLikeDTO;
+import com.example.planergram.userLike.DTO.StayLikeDTO;
 import com.example.planergram.model.Stay;
 import com.example.planergram.model.StayLike;
 import com.example.planergram.model.User;

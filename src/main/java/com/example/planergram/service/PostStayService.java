@@ -1,6 +1,6 @@
 package com.example.planergram.service;
 
-import com.example.planergram.DTO.PostStayDTO;
+import com.example.planergram.postTravel.DTO.PostStayDTO;
 import com.example.planergram.model.Post;
 import com.example.planergram.model.PostStay;
 import com.example.planergram.model.Stay;

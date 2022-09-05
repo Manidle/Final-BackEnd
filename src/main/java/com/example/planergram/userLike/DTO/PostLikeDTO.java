@@ -1,4 +1,4 @@
-package com.example.planergram.DTO;
+package com.example.planergram.userLike.DTO;
 
 import lombok.*;
 
@@ -7,9 +7,9 @@ import lombok.*;
 @Setter
 @Getter
 @Builder
-public class ReplyDTO {
-    private Long replyId;
-    private String contents;
+@ToString
+public class PostLikeDTO {
+    private Long id;
     private Long userId;
     private Long postId;
 }

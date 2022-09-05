@@ -1,6 +1,6 @@
 package com.example.planergram.post.cotroller;
 
-import com.example.planergram.DTO.BoardDTO;
+import com.example.planergram.post.DTO.BoardDTO;
 import com.example.planergram.DTO.ResponseDTO;
 import com.example.planergram.model.Board;
 import com.example.planergram.model.Post;

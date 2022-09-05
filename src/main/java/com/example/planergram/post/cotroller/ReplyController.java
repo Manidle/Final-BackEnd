@@ -1,6 +1,6 @@
 package com.example.planergram.post.cotroller;
 
-import com.example.planergram.DTO.ReplyDTO;
+import com.example.planergram.post.DTO.ReplyDTO;
 import com.example.planergram.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
 package com.example.planergram.service;
 
-import com.example.planergram.DTO.AttractionDTO;
+import com.example.planergram.travelContents.DTO.AttractionDTO;
 import com.example.planergram.model.Attraction;
 import com.example.planergram.repository.AttractionRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.example.planergram.service;
 
-import com.example.planergram.DTO.ReplyDTO;
+import com.example.planergram.post.DTO.ReplyDTO;
 import com.example.planergram.model.Post;
 import com.example.planergram.model.Reply;
 import com.example.planergram.model.User;

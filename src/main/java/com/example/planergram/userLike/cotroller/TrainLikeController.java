@@ -1,7 +1,6 @@
 package com.example.planergram.userLike.cotroller;
 
-import com.example.planergram.DTO.StayLikeDTO;
-import com.example.planergram.DTO.TrainLikeDTO;
+import com.example.planergram.userLike.DTO.TrainLikeDTO;
 import com.example.planergram.service.TrainLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

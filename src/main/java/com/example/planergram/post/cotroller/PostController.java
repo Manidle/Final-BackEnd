@@ -1,7 +1,7 @@
 package com.example.planergram.post.cotroller;
 
 
-import com.example.planergram.DTO.PostDTO;
+import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.DTO.ResponseDTO;
 import com.example.planergram.model.Post;
 import com.example.planergram.service.PostService;

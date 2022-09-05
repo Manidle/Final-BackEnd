@@ -1,6 +1,6 @@
 package com.example.planergram.postTravel.cotroller;
 
-import com.example.planergram.DTO.PostTrainDTO;
+import com.example.planergram.postTravel.DTO.PostTrainDTO;
 import com.example.planergram.service.PostTrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

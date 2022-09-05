@@ -1,4 +1,4 @@
-package com.example.planergram.DTO;
+package com.example.planergram.post.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

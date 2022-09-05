@@ -1,6 +1,6 @@
 package com.example.planergram.service;
 
-import com.example.planergram.DTO.BoardDTO;
+import com.example.planergram.post.DTO.BoardDTO;
 import com.example.planergram.model.Board;
 import com.example.planergram.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;

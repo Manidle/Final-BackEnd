@@ -1,4 +1,4 @@
-package com.example.planergram.DTO;
+package com.example.planergram.postTravel.DTO;
 
 import lombok.*;
 

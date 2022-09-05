@@ -1,6 +1,6 @@
 package com.example.planergram.service;
 
-import com.example.planergram.DTO.UserInfoDTO;
+import com.example.planergram.user.DTO.UserInfoDTO;
 import com.example.planergram.model.User;
 import com.example.planergram.model.UserInfo;
 import com.example.planergram.repository.UserInfoRepository;
