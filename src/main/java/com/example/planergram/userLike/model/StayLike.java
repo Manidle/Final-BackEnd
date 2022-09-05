@@ -1,5 +1,7 @@
-package com.example.planergram.model;
+package com.example.planergram.userLike.model;
 
+import com.example.planergram.travelContents.model.Stay;
+import com.example.planergram.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package com.example.planergram.model;
+package com.example.planergram.user.model;
 
 import lombok.*;
 

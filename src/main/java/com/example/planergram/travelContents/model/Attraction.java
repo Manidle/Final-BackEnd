@@ -1,6 +1,7 @@
-package com.example.planergram.model;
+package com.example.planergram.travelContents.model;
 
 
+import com.example.planergram.userLike.model.AttractionLike;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

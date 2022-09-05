@@ -1,12 +1,12 @@
-package com.example.planergram.model;
+package com.example.planergram.post.model;
 
+import com.example.planergram.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

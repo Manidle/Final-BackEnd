@@ -1,4 +1,4 @@
-package com.example.planergram.model;
+package com.example.planergram.post.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,8 @@
 package com.example.planergram.repository;
 
-import com.example.planergram.model.*;
+import com.example.planergram.travelContents.model.Train;
+import com.example.planergram.user.model.User;
+import com.example.planergram.userLike.model.TrainLike;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

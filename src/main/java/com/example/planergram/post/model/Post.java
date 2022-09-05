@@ -1,5 +1,9 @@
-package com.example.planergram.model;
+package com.example.planergram.post.model;
 
+import com.example.planergram.postTravel.model.PostRentCar;
+import com.example.planergram.postTravel.model.PostStay;
+import com.example.planergram.postTravel.model.PostTrain;
+import com.example.planergram.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
