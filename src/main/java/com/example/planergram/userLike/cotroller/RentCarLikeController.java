@@ -2,7 +2,7 @@ package com.example.planergram.userLike.cotroller;
 
 
 import com.example.planergram.userLike.DTO.RentCarLikeDTO;
-import com.example.planergram.service.RentCarLikeService;
+import com.example.planergram.userLike.service.RentCarLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

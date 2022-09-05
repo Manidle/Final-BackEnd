@@ -1,7 +1,7 @@
 package com.example.planergram.user.cotroller;
 
 import com.example.planergram.user.DTO.UserDTO;
-import com.example.planergram.service.UserService;
+import com.example.planergram.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

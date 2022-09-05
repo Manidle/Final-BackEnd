@@ -4,7 +4,7 @@ import com.example.planergram.post.DTO.BoardDTO;
 import com.example.planergram.DTO.ResponseDTO;
 import com.example.planergram.post.model.Board;
 import com.example.planergram.post.model.Post;
-import com.example.planergram.service.BoardService;
+import com.example.planergram.post.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
