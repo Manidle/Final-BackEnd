@@ -1,4 +1,4 @@
-package com.example.planergram.controller;
+package com.example.planergram.post.cotroller;
 
 import com.example.planergram.DTO.BoardDTO;
 import com.example.planergram.DTO.ResponseDTO;

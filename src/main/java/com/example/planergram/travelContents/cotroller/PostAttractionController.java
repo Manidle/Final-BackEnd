@@ -1,4 +1,4 @@
-package com.example.planergram.controller;
+package com.example.planergram.travelContents.cotroller;
 
 import com.example.planergram.DTO.PostAttractionDTO;
 import com.example.planergram.service.PostAttractionService;

@@ -1,4 +1,4 @@
-package com.example.planergram.controller;
+package com.example.planergram.user.cotroller;
 
 import com.example.planergram.DTO.UserInfoDTO;
 import com.example.planergram.service.UserInfoService;

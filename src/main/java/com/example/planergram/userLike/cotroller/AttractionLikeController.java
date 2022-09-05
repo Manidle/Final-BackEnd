@@ -1,4 +1,4 @@
-package com.example.planergram.controller;
+package com.example.planergram.userLike.cotroller;
 
 import com.example.planergram.DTO.AttractionLikeDTO;
 import com.example.planergram.service.AttractionLikeService;
