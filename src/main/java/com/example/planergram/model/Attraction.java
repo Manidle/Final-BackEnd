@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -31,4 +32,7 @@ public class Attraction {
 
     @Column(nullable = false)
     private Integer price;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "attraction", cascade = CascadeType.ALL)
+    private List<AttractionLike> attractionLikeList;
 }
