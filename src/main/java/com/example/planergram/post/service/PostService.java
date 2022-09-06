@@ -3,16 +3,15 @@ package com.example.planergram.post.service;
 import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.post.model.Board;
 import com.example.planergram.post.model.Post;
-import com.example.planergram.user.model.User;
 import com.example.planergram.post.repository.BoardRepository;
 import com.example.planergram.post.repository.PostRepository;
+import com.example.planergram.user.model.User;
 import com.example.planergram.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PostService {
@@ -26,11 +25,37 @@ public class PostService {
     @Autowired
     private UserRepository userRepository;
 
-    public Post save(PostDTO postDTO) throws Exception {
-        Board board = boardRepository.findById(postDTO.getBoardId()).orElseThrow(Exception::new);
-        User user = userRepository.findById(postDTO.getUserId()).orElseThrow(Exception::new);
-        Post newPost = Post
-                .builder()
+    public PostDTO save(PostDTO postDTO) {
+        Post post = makePost(postDTO);
+        post = postRepository.save(post);
+        return makePostDTO(post);
+    }
+
+    public List<PostDTO> findAll() {
+        List<Post> postList = postRepository.findAll();
+        List<PostDTO> postDTOList = makePostDTOList(postList);
+        return postDTOList;
+    }
+
+    //게시글 업데이트
+    public PostDTO update(Long id, PostDTO postDTO){
+        Post post = postRepository.getById(id);
+        post.setTitle(postDTO.getTitle());
+        post.setContents(postDTO.getContents());
+        post.setLikeCount(postDTO.getLikeCount());
+        post = postRepository.save(post);
+        return makePostDTO(post);
+    }
+
+    public PostDTO delete(Long id) {
+        Post post = postRepository.getById(id);
+        return makePostDTO(post);
+    }
+
+    private Post makePost(PostDTO postDTO){
+        Board board = boardRepository.getById(postDTO.getBoardId());
+        User user = userRepository.getById(postDTO.getUserId());
+        return Post.builder()
                 .postId(postDTO.getPostId())
                 .title(postDTO.getTitle())
                 .contents(postDTO.getContents())
@@ -38,28 +63,6 @@ public class PostService {
                 .board(board)
                 .user(user)
                 .build();
-        return postRepository.save(newPost);
-    }
-
-    public List<Post> findAll() {
-        return postRepository.findAll();
-    }
-
-    public List<Post> delete(Long id) {
-        final Optional<Post> foundPost = postRepository.findById(id);
-        foundPost.ifPresent(post -> {
-            postRepository.delete(post);
-        });
-        return postRepository.findAll();
-    }
-
-    //게시글 업데이트
-    public Post update(Long id, PostDTO postDTO) throws Exception {
-        Post findPost = postRepository.findById(id).orElseThrow(Exception::new);
-        findPost.setTitle(postDTO.getTitle());
-        findPost.setContents(postDTO.getContents());
-        findPost.setLikeCount(postDTO.getLikeCount());
-        return postRepository.save(findPost);
     }
 
     public PostDTO makePostDTO(Post post) {
