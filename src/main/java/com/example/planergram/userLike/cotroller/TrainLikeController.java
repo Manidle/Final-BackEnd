@@ -37,8 +37,12 @@ public class TrainLikeController {
     }
 
     @GetMapping("/train/{trainId}")
-    public List<TrainLikeDTO> StayLikeFindByTrain(@PathVariable Long trainId){
-        return trainLikeService.findByStay(trainId);
+    public ResponseEntity<?> StayLikeFindByTrain(@PathVariable Long trainId){
+        try {
+            return ResponseEntity.ok(trainLikeService.findByStay(trainId));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저가 좋아요한 열차 리스트 가져오는 것을 실패했습니다.",e);
+        }
     }
 
     @GetMapping("/{id}")

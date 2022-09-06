@@ -37,8 +37,12 @@ public class PostLikeController {
     }
 
     @GetMapping("/post/{postId}")
-    public List<PostLikeDTO> postLikeFindByPost(@PathVariable Long postId){
-        return postLikeService.findByPost(postId);
+    public ResponseEntity<?> postLikeFindByPost(@PathVariable Long postId){
+        try {
+            return ResponseEntity.ok(postLikeService.findByPost(postId));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저가 좋아요한 게시글 리스트 가져오는 것을 실패했습니다.",e);
+        }
     }
 
     @GetMapping("/{id}")

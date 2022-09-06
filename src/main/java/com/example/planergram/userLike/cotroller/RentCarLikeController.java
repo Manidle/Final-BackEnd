@@ -38,8 +38,12 @@ public class RentCarLikeController {
     }
 
     @GetMapping("/rentcar/{rentcarId}")
-    public List<RentCarLikeDTO> RentCarLikeFindByStay(@PathVariable Long rentcarId){
-        return rentCarLikeService.findByRentCar(rentcarId);
+    public ResponseEntity<?> RentCarLikeFindByStay(@PathVariable Long rentcarId){
+        try {
+            return ResponseEntity.ok(rentCarLikeService.findByRentCar(rentcarId));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저가 좋아요한 랜트카 리스트 가져오는 것을 실패했습니다.",e);
+        }
     }
 
     @GetMapping("/{id}")

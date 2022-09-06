@@ -33,13 +33,16 @@ public class AttractionLikeController {
             return ResponseEntity.ok(attractionLikeService.findByUser(userId));
         } catch (Exception e){
             return ResponseService.makeResponseEntity("유저가 좋아요한 관광지 리스트 가져오는 것을 실패했습니다.",e);
-
         }
     }
 
     @GetMapping("/user/{attractionId}")
-    public List<AttractionLikeDTO> attractionLikeFindByAttraction(@PathVariable Long attractionId){
-        return attractionLikeService.findByAttraction(attractionId);
+    public ResponseEntity<?> attractionLikeFindByAttraction(@PathVariable Long attractionId){
+        try {
+            return ResponseEntity.ok(attractionLikeService.findByAttraction(attractionId));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저가 좋아요한 관광지 리스트 가져오는 것을 실패했습니다.",e);
+        }
     }
 
     @GetMapping("/{id}")

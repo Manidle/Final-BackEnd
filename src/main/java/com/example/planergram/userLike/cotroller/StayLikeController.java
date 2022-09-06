@@ -36,8 +36,12 @@ public class StayLikeController {
     }
 
     @GetMapping("/staylike/stay/{stayId}")
-    public List<StayLikeDTO> StayLikeFindByStay(@PathVariable Long stayId){
-        return stayLikeService.findByStay(stayId);
+    public ResponseEntity<?> StayLikeFindByStay(@PathVariable Long stayId){
+        try {
+            return ResponseEntity.ok(stayLikeService.findByStay(stayId));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저가 좋아요한 숙소 리스트 가져오는 것을 실패했습니다.",e);
+        }
     }
 
     @GetMapping("/staylike/{id}")
