@@ -4,10 +4,12 @@ import com.example.planergram.user.DTO.UserInfoDTO;
 import com.example.planergram.user.model.User;
 import com.example.planergram.user.model.UserInfo;
 import com.example.planergram.user.repository.UserInfoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class UserInfoService {
 
     @Autowired
@@ -44,6 +46,7 @@ public class UserInfoService {
     public void checkByEmail(String email) throws Exception {
         try {
             userInfoRepository.findByEmail(email);
+            log.info("userInfo find By Email complete");
         } catch (Exception e){
             throw new Exception("이메일 중복");
         }
@@ -54,6 +57,7 @@ public class UserInfoService {
         userInfo.setEmail(userInfoDTO.getEmail());
         userInfo.setProfileImg(userInfoDTO.getProfileImg());
         userInfo = userInfoRepository.save(userInfo);
+        log.info("userInfo update complete");
         return makeUserInfoDTO(userInfo);
     }
 
