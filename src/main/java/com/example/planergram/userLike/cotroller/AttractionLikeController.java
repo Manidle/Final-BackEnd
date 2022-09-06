@@ -46,7 +46,11 @@ public class AttractionLikeController {
     }
 
     @GetMapping("/{id}")
-    public AttractionLikeDTO findById(@PathVariable Long id){
-        return attractionLikeService.findById(id);
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(attractionLikeService.findById(id));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("관광지 좋아요를 가져오는 것을 실패했습니다.",e);
+        }
     }
 }

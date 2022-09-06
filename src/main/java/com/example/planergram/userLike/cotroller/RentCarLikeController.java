@@ -47,7 +47,11 @@ public class RentCarLikeController {
     }
 
     @GetMapping("/{id}")
-    public RentCarLikeDTO findById(@PathVariable Long id){
-        return rentCarLikeService.findById(id);
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(rentCarLikeService.findById(id));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("랜트카 좋아요를 가져오는 것을 실패했습니다.",e);
+        }
     }
 }

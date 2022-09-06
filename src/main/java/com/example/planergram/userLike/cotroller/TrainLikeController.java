@@ -46,7 +46,11 @@ public class TrainLikeController {
     }
 
     @GetMapping("/{id}")
-    public TrainLikeDTO findById(@PathVariable Long id){
-        return trainLikeService.findById(id);
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(trainLikeService.findById(id));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("열차 좋아요를 가져오는 것을 실패했습니다.",e);
+        }
     }
 }
