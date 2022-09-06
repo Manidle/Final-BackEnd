@@ -59,6 +59,11 @@ public class BoardService {
         return makeBoardDTO(board);
     }
 
+    public BoardDTO findById(Long id) {
+        Board board = boardRepository.getById(id);
+        return makeBoardDTO(board);
+    }
+
     public BoardDTO makeBoardDTO(Board board) {
         List<Long> postDTOList = new ArrayList<>();
         if (board.getPostList() != null){

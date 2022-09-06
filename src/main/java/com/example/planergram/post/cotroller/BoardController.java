@@ -36,6 +36,15 @@ public class BoardController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(boardService.findById(id));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보 조회에 실패했습니다.",e);
+        }
+    }
+
     // 게시판 업데이트
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody BoardDTO updateBoarDTO) {

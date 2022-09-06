@@ -42,6 +42,16 @@ public class PostController {
         return ResponseEntity.ok(postDTOList);
     }
 
+    // 게시글 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(postService.findById(id));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("게시글이 없습니다.",e);
+        }
+    }
+
     //게시글 업데이트
     @PatchMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody PostDTO postDTO) {
