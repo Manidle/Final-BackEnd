@@ -28,8 +28,13 @@ public class AttractionLikeController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<AttractionLikeDTO> attractionLikeFindByUser(@PathVariable Long userId){
-        return attractionLikeService.findByUser(userId);
+    public ResponseEntity<?> attractionLikeFindByUser(@PathVariable Long userId){
+        try {
+            return ResponseEntity.ok(attractionLikeService.findByUser(userId));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저가 좋아요한 관광지 리스트 가져오는 것을 실패했습니다.",e);
+
+        }
     }
 
     @GetMapping("/user/{attractionId}")
