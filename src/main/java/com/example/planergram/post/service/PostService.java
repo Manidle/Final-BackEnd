@@ -62,6 +62,13 @@ public class PostService {
         return postDTOList;
     }
 
+    public PostDTO findById(Long id) {
+        Post post = postRepository.getById(id);
+        PostDTO postDTO = makePostDTO(post);
+        log.info("모든 게시글을 조회하였습니다.");
+        return postDTO;
+    }
+
     //게시글 업데이트
     public PostDTO update(Long id, PostDTO postDTO){
         Post post = postRepository.getById(id);
