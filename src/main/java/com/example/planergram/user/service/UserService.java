@@ -28,6 +28,9 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private UserInfoRepository userInfoRepository;
+
+    @Autowired
     private UserInfoService userInfoService;
 
     @Autowired
@@ -43,7 +46,7 @@ public class UserService {
         try {
             userRepository.findByNickname(userDTO.getNickname());
             userRepository.findByLoginId(userDTO.getLoginId());
-            userInfoService.checkByEmail(userDTO.getUserInfoDTO().getEmail());
+            userInfoRepository.findByEmail(userDTO.getUserInfoDTO().getEmail());
             log.info("중복된 정보가 없습니다.");
         } catch (Exception e){
             throw new Exception("중복된 정보로는 아이디를 만들 수 없습니다.");
@@ -55,7 +58,12 @@ public class UserService {
                 .loginId(userDTO.getLoginId())
                 .build();
         user = userRepository.save(user);
-        UserInfo userInfo = userInfoService.save(user,userDTO.getUserInfoDTO());
+
+        UserInfo userInfo = UserInfo.builder()
+                .email(userDTO.getUserInfoDTO().getEmail())
+                .user(user)
+                .profileImg(userDTO.getUserInfoDTO().getProfileImg())
+                .build();
         user.setUserInfo(userInfo);
         userRepository.save(user);
         return "회원가입이 완료되었습니다";
