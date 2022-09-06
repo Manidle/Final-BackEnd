@@ -4,6 +4,7 @@ import com.example.planergram.user.DTO.UserInfoDTO;
 import com.example.planergram.user.model.User;
 import com.example.planergram.user.model.UserInfo;
 import com.example.planergram.user.repository.UserInfoRepository;
+import com.example.planergram.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class UserInfoService {
     private UserInfoRepository userInfoRepository;
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     public UserInfoDTO signUp(UserInfoDTO userInfoDTO) {
         UserInfo userInfo = makeUserInfo(userInfoDTO);
@@ -43,15 +44,6 @@ public class UserInfoService {
 //        userInfoRepository.delete(userInfo);
 //    }
 
-    public void checkByEmail(String email) throws Exception {
-        try {
-            userInfoRepository.findByEmail(email);
-            log.info("userInfo find By Email complete");
-        } catch (Exception e){
-            throw new Exception("이메일 중복");
-        }
-    }
-
     public UserInfoDTO update(Long id,UserInfoDTO userInfoDTO){
         UserInfo userInfo = userInfoRepository.getById(id);
         userInfo.setEmail(userInfoDTO.getEmail());
@@ -62,7 +54,7 @@ public class UserInfoService {
     }
 
     public UserInfo makeUserInfo(UserInfoDTO userInfoDTO){
-        User user = userService.findById(userInfoDTO.getUserId());
+        User user = userRepository.getById(userInfoDTO.getUserId());
         return UserInfo.builder()
                 .user(user)
                 .email(userInfoDTO.getEmail())
