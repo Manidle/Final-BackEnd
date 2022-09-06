@@ -64,6 +64,7 @@ public class UserService {
                 .user(user)
                 .profileImg(userDTO.getUserInfoDTO().getProfileImg())
                 .build();
+        userInfo = userInfoRepository.save(userInfo);
         user.setUserInfo(userInfo);
         userRepository.save(user);
         return "회원가입이 완료되었습니다";
@@ -83,21 +84,30 @@ public class UserService {
     //회원 업데이트
     public User update(Long id, UserDTO userDTO) throws Exception {
         User findUser = userRepository.findById(id).orElseThrow(Exception::new);
+        UserInfo userInfo = userInfoRepository.findByEmail(userDTO.getUserInfoDTO().getEmail());
         findUser.setLoginId(userDTO.getLoginId());
         findUser.setPassword(userDTO.getPassword());
         findUser.setNickname(userDTO.getNickname());
+        findUser.setUserInfo(userInfo);
         log.info("userService : update complete");
         return userRepository.save(findUser);
     }
 
     public UserDTO updateUserAndInfo(Long id, UserDTO userDTO) {
-        User foundUser = userRepository.getById(id);
-        User user = makeUser(userDTO);
-        user.setUserId(foundUser.getUserId());
+        User user = userRepository.getById(id);
+        UserInfo userInfo = userInfoRepository.findByEmail(user.getUserInfo().getEmail());
+
+        user.setLoginId(userDTO.getLoginId());
+        user.setNickname(userDTO.getNickname());
+        user.setPassword(userDTO.getPassword());
+        userInfo.setEmail(userDTO.getUserInfoDTO().getEmail());
+        userInfo.setProfileImg(userDTO.getUserInfoDTO().getProfileImg());
+        userInfo = userInfoRepository.save(userInfo);
         user = userRepository.save(user);
 
-        UserInfoDTO userInfoDTO = userInfoService.update(user.getUserId(), userDTO.getUserInfoDTO());
+        UserInfoDTO userInfoDTO = userInfoService.makeUserInfoDTO(userInfo);
         UserDTO newUserDTO = makeUserDTO(user);
+
         newUserDTO.setUserInfoDTO(userInfoDTO);
         log.info("userinfo update");
         return newUserDTO;
