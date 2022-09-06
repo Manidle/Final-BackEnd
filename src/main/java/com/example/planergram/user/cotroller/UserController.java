@@ -34,28 +34,47 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDTO getUser(@PathVariable Long id){
-        return userService.getUser(id);
+    public ResponseEntity<?> getUser(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok( userService.getUser(id));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보를 가져오는데 실패했습니다.",e);
+        }
     }
 
     @PutMapping("/info/{id}")
-    public UserDTO updateUserAndInfo(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
-        return userService.updateUserAndInfo(id,userDTO);
+    public ResponseEntity<?> updateUserAndInfo(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
+        try {
+            return ResponseEntity.ok(userService.updateUserAndInfo(id,userDTO));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보 변경에 실패했습니다.",e);
+        }
     }
 
     @PutMapping("/{id}")
-    public UserDTO updateUser(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
-        return userService.updateUser(id,userDTO);
+    public ResponseEntity<?> updateUser(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
+        try {
+            return ResponseEntity.ok(userService.updateUser(id,userDTO));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보 변경에 실패했습니다.",e);
+        }
     }
 
     @GetMapping
-    public List<UserDTO> findAll() {
-        System.out.println("findAll called!");
-        return userService.findAll();
+    public ResponseEntity<?> findAll() {
+        try {
+            return ResponseEntity.ok(userService.findAll());
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보 조회에 실패했습니다.",e);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public List<UserDTO> delete(@PathVariable Long id){
-        return userService.delete(id);
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(userService.delete(id));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보 삭제에 실패했습니다.",e);
+        }
     };
 }
