@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @Slf4j
 @RequestMapping("/user")
@@ -19,9 +17,14 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public String signUp(@RequestBody UserDTO userDTO){
-        userService.signUp(userDTO);
-        return "회원가입이 완료되었습니다.";
+    public ResponseEntity<?> signUp(@RequestBody UserDTO userDTO){
+        try {
+            userService.signUp(userDTO);
+            return ResponseEntity.ok("회원가입이 완료되었습니다.");
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("회원가입에 실패했습니다.",e);
+
+        }
     }
 
     @GetMapping("/info/{id}")

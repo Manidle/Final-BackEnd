@@ -12,6 +12,7 @@ import com.example.planergram.userLike.model.TrainLike;
 import com.example.planergram.userLike.repository.RentCarLikeRepository;
 import com.example.planergram.userLike.repository.StayLikeRepository;
 import com.example.planergram.userLike.repository.TrainLikeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
@@ -40,7 +42,16 @@ public class UserService {
     @Autowired
     private TrainLikeRepository trainLikeRepository;
 
-    public String signUp(UserDTO userDTO) {
+    public String signUp(UserDTO userDTO) throws Exception {
+        try {
+            userRepository.findByNickname(userDTO.getNickname());
+            userRepository.findByLoginId(userDTO.getLoginId());
+            userInfoRepository.findByEmail(userDTO.getUserInfoDTO().getEmail());
+            log.info("중복된 정보가 없습니다.");
+        } catch (Exception e){
+            throw new Exception("중복된 정보로는 아이디를 만들 수 없습니다.");
+        }
+
         User user = User.builder()
                 .password(userDTO.getPassword())
                 .nickname(userDTO.getNickname())
@@ -54,8 +65,7 @@ public class UserService {
                 .build();
         userInfo = userInfoRepository.save(userInfo);
         user.setUserInfo(userInfo);
-        user = userRepository.save(user);
-        System.out.println(makeUserAndInfoDTO(user));
+        userRepository.save(user);
         return "회원가입이 완료되었습니다";
     }
 
