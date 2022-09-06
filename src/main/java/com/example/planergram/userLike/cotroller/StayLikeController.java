@@ -1,8 +1,10 @@
 package com.example.planergram.userLike.cotroller;
 
+import com.example.planergram.Response.ResponseService;
 import com.example.planergram.userLike.DTO.StayLikeDTO;
 import com.example.planergram.userLike.service.StayLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +16,14 @@ public class StayLikeController {
     private StayLikeService stayLikeService;
 
     @GetMapping("/staylike")
-    public String clickStayLike(
+    public ResponseEntity<?> clickStayLike(
             @RequestParam(value="user", defaultValue="0") Long userId,
             @RequestParam(value="stay", defaultValue="0") Long stayId){
-        return stayLikeService.clickStayLike(userId,stayId);
+        try {
+            return ResponseEntity.ok(stayLikeService.clickStayLike(userId,stayId));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("숙소 좋아요 클릭을 실패했습니다.",e);
+        }
     }
 
     @GetMapping("/staylike/user/{userId}")

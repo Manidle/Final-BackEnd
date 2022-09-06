@@ -1,8 +1,10 @@
 package com.example.planergram.userLike.cotroller;
 
+import com.example.planergram.Response.ResponseService;
 import com.example.planergram.userLike.DTO.AttractionLikeDTO;
 import com.example.planergram.userLike.service.AttractionLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,11 +16,15 @@ public class AttractionLikeController {
     private AttractionLikeService attractionLikeService;
 
     @GetMapping("/")
-    public String clickAttractionLike(
+    public ResponseEntity<?> clickAttractionLike(
             @RequestParam(value="user", defaultValue="0") Long userId,
             @RequestParam(value="attraction", defaultValue ="0") Long attractionId
     ){
-        return attractionLikeService.clickAttractionLike(userId, attractionId);
+        try {
+            return ResponseEntity.ok(attractionLikeService.clickAttractionLike(userId, attractionId));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("관광지 좋아요 클릭을 실패했습니다.",e);
+        }
     }
 
     @GetMapping("/user/{userId}")
