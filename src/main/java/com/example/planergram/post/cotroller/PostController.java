@@ -1,9 +1,8 @@
 package com.example.planergram.post.cotroller;
 
 
-import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.DTO.ResponseDTO;
-import com.example.planergram.post.model.Post;
+import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.post.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,7 @@ public class PostController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody PostDTO postDTO) {
         try {
-            Post newPost = postService.save(postDTO);
-            PostDTO newPostDTO = postService.makePostDTO(newPost);
+            PostDTO newPostDTO = postService.save(postDTO);
             return ResponseEntity.ok(newPostDTO);
         } catch (Exception e) {
             log.error("게시글 작성에 실패했습니다 : " + e.getStackTrace());
@@ -37,23 +35,21 @@ public class PostController {
     // 게시글 조회
     @GetMapping
     public ResponseEntity<?> findAll() {
-        List<Post> postList = postService.findAll();
-        if (postList.size() == 0) {
+        List<PostDTO> postDTOList = postService.findAll();
+        if (postDTOList.size() == 0) {
             log.error("게시글이 없습니다.");
             ResponseDTO responseDTO = ResponseDTO.builder().error("게시글이 없습니다.").build();
             return ResponseEntity.badRequest().body(responseDTO);
         }
-        List<PostDTO> postDTOList = postService.makePostDTOList(postList);
         return ResponseEntity.ok(postDTOList);
     }
 
     //게시글 업데이트
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Long id,@RequestBody PostDTO updatePostDTO) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id,@RequestBody PostDTO postDTO) {
         try {
-            Post newPost = postService.update(id,updatePostDTO);
-            PostDTO postDTO = postService.makePostDTO(newPost);
-            return ResponseEntity.ok(postDTO);
+            PostDTO newPostDTO = postService.update(id,postDTO);
+            return ResponseEntity.ok(newPostDTO);
         } catch (Exception e) {
             log.error("게시글 업데이트를 실패하였습니다." + e.getMessage());
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
@@ -62,8 +58,15 @@ public class PostController {
     }
 
     //게시글 삭제
-    @DeleteMapping
-    public List<Post> delete(@PathVariable Long id) {
-        return postService.delete(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        try {
+            PostDTO newPostDTO = postService.delete(id);
+            return ResponseEntity.ok(newPostDTO);
+        } catch (Exception e) {
+            log.error("게시글 삭제를 실패하였습니다." + e.getMessage());
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 }
