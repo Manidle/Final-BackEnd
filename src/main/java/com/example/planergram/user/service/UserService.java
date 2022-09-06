@@ -68,6 +68,7 @@ public class UserService {
         for (User user : userList) {
             userDTOList.add(makeUserDTO(user));
         }
+        log.info("user Find All");
         return userDTOList;
     }
 
@@ -77,6 +78,7 @@ public class UserService {
         findUser.setLoginId(userDTO.getLoginId());
         findUser.setPassword(userDTO.getPassword());
         findUser.setNickname(userDTO.getNickname());
+        log.info("userService : update complete");
         return userRepository.save(findUser);
     }
 
@@ -89,6 +91,7 @@ public class UserService {
         UserInfoDTO userInfoDTO = userInfoService.update(user.getUserId(), userDTO.getUserInfoDTO());
         UserDTO newUserDTO = makeUserDTO(user);
         newUserDTO.setUserInfoDTO(userInfoDTO);
+        log.info("userinfo update");
         return newUserDTO;
     }
 
@@ -97,28 +100,31 @@ public class UserService {
         User user = makeUser(userDTO);
         user.setUserId(foundUser.getUserId());
         user = userRepository.save(user);
+        log.info("user update");
         return makeUserDTO(user);
     }
 
     public UserDTO getUserAndInfo(Long id) {
         User user = userRepository.getById(id);
+        log.info("user & info get By Id");
         return makeUserAndInfoDTO(user);
     }
 
     public UserDTO getUser(Long id) {
         User user = userRepository.getById(id);
+        log.info("user get By Id");
         return makeUserDTO(user);
     }
 
     public User findById(Long id){
+        log.info("user Find By Id : return User");
         return userRepository.getById(id);
     }
 
     public List<UserDTO> delete(Long id) {
-        final Optional<User> foundTodo = userRepository.findById(id);
-        foundTodo.ifPresent(user -> {
-            userRepository.delete(user);
-        });
+        User user = userRepository.getById(id);
+        userRepository.delete(user);
+        log.info("delete User");
         return findAll();
     }
 
