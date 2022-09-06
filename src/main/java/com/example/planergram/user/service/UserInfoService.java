@@ -4,7 +4,6 @@ import com.example.planergram.user.DTO.UserInfoDTO;
 import com.example.planergram.user.model.User;
 import com.example.planergram.user.model.UserInfo;
 import com.example.planergram.user.repository.UserInfoRepository;
-import com.example.planergram.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ public class UserInfoService {
     private UserInfoRepository userInfoRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     public UserInfoDTO signUp(UserInfoDTO userInfoDTO) {
         UserInfo userInfo = makeUserInfo(userInfoDTO);
@@ -59,7 +58,7 @@ public class UserInfoService {
     }
 
     public UserInfo makeUserInfo(UserInfoDTO userInfoDTO){
-        User user = userRepository.getById(userInfoDTO.getUserId());
+        User user = userService.findById(userInfoDTO.getUserId());
         return UserInfo.builder()
                 .user(user)
                 .email(userInfoDTO.getEmail())

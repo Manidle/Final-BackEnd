@@ -110,6 +110,10 @@ public class UserService {
         return makeUserDTO(user);
     }
 
+    public User findById(Long id){
+        return userRepository.getById(id);
+    }
+
     public List<UserDTO> delete(Long id) {
         final Optional<User> foundTodo = userRepository.findById(id);
         foundTodo.ifPresent(user -> {
