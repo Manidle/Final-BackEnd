@@ -2,7 +2,6 @@ package com.example.planergram.userLike.cotroller;
 
 
 import com.example.planergram.Response.ResponseService;
-import com.example.planergram.userLike.DTO.RentCarLikeDTO;
 import com.example.planergram.userLike.service.RentCarLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ public class RentCarLikeController {
     @GetMapping
     public ResponseEntity<?> clickRentCarLike(
             @RequestParam(value="user", defaultValue="0") Long userId,
-            @RequestParam(value="rentCar", defaultValue="0") Long rentCarId){
+            @RequestParam(value="rentcar", defaultValue="0") Long rentCarId){
         try {
             return ResponseEntity.ok(rentCarLikeService.clickRentCarLike(userId,rentCarId));
         } catch (Exception e){
