@@ -28,10 +28,10 @@ public class UserInfoService {
         return makeUserInfoDTO(userInfo);
     }
 
-    public void delete(Long id){
-        UserInfo userInfo = userInfoRepository.getById(id);
-        userInfoRepository.delete(userInfo);
-    }
+//    public void delete(Long id){
+//        UserInfo userInfo = userInfoRepository.getById(id);
+//        userInfoRepository.delete(userInfo);
+//    }
 
     public UserInfoDTO update(Long id,UserInfoDTO userInfoDTO){
         UserInfo userInfo = userInfoRepository.getById(id);
