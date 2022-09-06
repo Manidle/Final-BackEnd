@@ -12,10 +12,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/attractionlike")
 public class AttractionLikeController {
+
     @Autowired
     private AttractionLikeService attractionLikeService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<?> clickAttractionLike(
             @RequestParam(value="user", defaultValue="0") Long userId,
             @RequestParam(value="attraction", defaultValue ="0") Long attractionId
@@ -36,7 +37,7 @@ public class AttractionLikeController {
         }
     }
 
-    @GetMapping("/user/{attractionId}")
+    @GetMapping("/attraction/{attractionId}")
     public ResponseEntity<?> attractionLikeFindByAttraction(@PathVariable Long attractionId){
         try {
             return ResponseEntity.ok(attractionLikeService.findByAttraction(attractionId));
