@@ -16,7 +16,7 @@ public class StayLikeController {
     @Autowired
     private StayLikeService stayLikeService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<?> clickStayLike(
             @RequestParam(value="user", defaultValue="0") Long userId,
             @RequestParam(value="stay", defaultValue="0") Long stayId){
