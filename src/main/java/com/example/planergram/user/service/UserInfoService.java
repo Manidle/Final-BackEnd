@@ -4,18 +4,19 @@ import com.example.planergram.user.DTO.UserInfoDTO;
 import com.example.planergram.user.model.User;
 import com.example.planergram.user.model.UserInfo;
 import com.example.planergram.user.repository.UserInfoRepository;
-import com.example.planergram.user.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class UserInfoService {
 
     @Autowired
     private UserInfoRepository userInfoRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     public UserInfoDTO signUp(UserInfoDTO userInfoDTO) {
         UserInfo userInfo = makeUserInfo(userInfoDTO);
@@ -23,14 +24,32 @@ public class UserInfoService {
         return makeUserInfoDTO(userInfo);
     }
 
+    public UserInfo save(User user, UserInfoDTO userInfoDTO){
+        UserInfo userInfo = UserInfo.builder()
+                .profileImg(userInfoDTO.getProfileImg())
+                .email(userInfoDTO.getEmail())
+                .user(user)
+                .build();
+        return userInfoRepository.save(userInfo);
+    }
+
     public UserInfoDTO findById(Long id){
         UserInfo userInfo = userInfoRepository.getById(id);
         return makeUserInfoDTO(userInfo);
     }
 
-    public void delete(Long id){
-        UserInfo userInfo = userInfoRepository.getById(id);
-        userInfoRepository.delete(userInfo);
+//    public void delete(Long id){
+//        UserInfo userInfo = userInfoRepository.getById(id);
+//        userInfoRepository.delete(userInfo);
+//    }
+
+    public void checkByEmail(String email) throws Exception {
+        try {
+            userInfoRepository.findByEmail(email);
+            log.info("userInfo find By Email complete");
+        } catch (Exception e){
+            throw new Exception("이메일 중복");
+        }
     }
 
     public UserInfoDTO update(Long id,UserInfoDTO userInfoDTO){
@@ -38,11 +57,12 @@ public class UserInfoService {
         userInfo.setEmail(userInfoDTO.getEmail());
         userInfo.setProfileImg(userInfoDTO.getProfileImg());
         userInfo = userInfoRepository.save(userInfo);
+        log.info("userInfo update complete");
         return makeUserInfoDTO(userInfo);
     }
 
     public UserInfo makeUserInfo(UserInfoDTO userInfoDTO){
-        User user = userRepository.getById(userInfoDTO.getUserId());
+        User user = userService.findById(userInfoDTO.getUserId());
         return UserInfo.builder()
                 .user(user)
                 .email(userInfoDTO.getEmail())

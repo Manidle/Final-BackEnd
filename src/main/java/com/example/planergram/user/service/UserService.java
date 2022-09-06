@@ -12,6 +12,7 @@ import com.example.planergram.userLike.model.TrainLike;
 import com.example.planergram.userLike.repository.RentCarLikeRepository;
 import com.example.planergram.userLike.repository.StayLikeRepository;
 import com.example.planergram.userLike.repository.TrainLikeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
@@ -29,33 +31,33 @@ public class UserService {
     private UserInfoService userInfoService;
 
     @Autowired
-    private UserInfoRepository userInfoRepository;
+    private RentCarLikeRepository rentCarLikeRepository;
 
     @Autowired
     private StayLikeRepository stayLikeRepository;
 
     @Autowired
-    private RentCarLikeRepository rentCarLikeRepository;
-
-    @Autowired
     private TrainLikeRepository trainLikeRepository;
 
-    public String signUp(UserDTO userDTO) {
+    public String signUp(UserDTO userDTO) throws Exception {
+        try {
+            userRepository.findByNickname(userDTO.getNickname());
+            userRepository.findByLoginId(userDTO.getLoginId());
+            userInfoService.checkByEmail(userDTO.getUserInfoDTO().getEmail());
+            log.info("중복된 정보가 없습니다.");
+        } catch (Exception e){
+            throw new Exception("중복된 정보로는 아이디를 만들 수 없습니다.");
+        }
+
         User user = User.builder()
                 .password(userDTO.getPassword())
                 .nickname(userDTO.getNickname())
                 .loginId(userDTO.getLoginId())
                 .build();
         user = userRepository.save(user);
-        UserInfo userInfo = UserInfo.builder()
-                .profileImg(userDTO.getUserInfoDTO().getProfileImg())
-                .email(userDTO.getUserInfoDTO().getEmail())
-                .user(user)
-                .build();
-        userInfo = userInfoRepository.save(userInfo);
+        UserInfo userInfo = userInfoService.save(user,userDTO.getUserInfoDTO());
         user.setUserInfo(userInfo);
-        user = userRepository.save(user);
-        System.out.println(makeUserAndInfoDTO(user));
+        userRepository.save(user);
         return "회원가입이 완료되었습니다";
     }
 
@@ -66,6 +68,7 @@ public class UserService {
         for (User user : userList) {
             userDTOList.add(makeUserDTO(user));
         }
+        log.info("user Find All");
         return userDTOList;
     }
 
@@ -75,6 +78,7 @@ public class UserService {
         findUser.setLoginId(userDTO.getLoginId());
         findUser.setPassword(userDTO.getPassword());
         findUser.setNickname(userDTO.getNickname());
+        log.info("userService : update complete");
         return userRepository.save(findUser);
     }
 
@@ -87,6 +91,7 @@ public class UserService {
         UserInfoDTO userInfoDTO = userInfoService.update(user.getUserId(), userDTO.getUserInfoDTO());
         UserDTO newUserDTO = makeUserDTO(user);
         newUserDTO.setUserInfoDTO(userInfoDTO);
+        log.info("userinfo update");
         return newUserDTO;
     }
 
@@ -95,24 +100,31 @@ public class UserService {
         User user = makeUser(userDTO);
         user.setUserId(foundUser.getUserId());
         user = userRepository.save(user);
+        log.info("user update");
         return makeUserDTO(user);
     }
 
     public UserDTO getUserAndInfo(Long id) {
         User user = userRepository.getById(id);
+        log.info("user & info get By Id");
         return makeUserAndInfoDTO(user);
     }
 
     public UserDTO getUser(Long id) {
         User user = userRepository.getById(id);
+        log.info("user get By Id");
         return makeUserDTO(user);
     }
 
+    public User findById(Long id){
+        log.info("user Find By Id : return User");
+        return userRepository.getById(id);
+    }
+
     public List<UserDTO> delete(Long id) {
-        final Optional<User> foundTodo = userRepository.findById(id);
-        foundTodo.ifPresent(user -> {
-            userRepository.delete(user);
-        });
+        User user = userRepository.getById(id);
+        userRepository.delete(user);
+        log.info("delete User");
         return findAll();
     }
 

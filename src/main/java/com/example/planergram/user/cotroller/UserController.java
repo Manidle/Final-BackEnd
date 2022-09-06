@@ -1,12 +1,12 @@
 package com.example.planergram.user.cotroller;
 
+import com.example.planergram.Response.ResponseService;
 import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -17,40 +17,67 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public String signUp(@RequestBody UserDTO userDTO){
-        System.out.println(userDTO);
-        userService.signUp(userDTO);
-        return "회원가입이 완료되었습니다.";
+    public ResponseEntity<?> signUp(@RequestBody UserDTO userDTO){
+        try {
+            userService.signUp(userDTO);
+            return ResponseEntity.ok("회원가입이 완료되었습니다.");
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("회원가입에 실패했습니다.",e);
+
+        }
     }
 
     @GetMapping("/info/{id}")
-    public UserDTO getUserAndInfo(@PathVariable Long id){
-        return userService.getUserAndInfo(id);
+    public ResponseEntity<?> getUserAndInfo(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(userService.getUserAndInfo(id));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보를 가져오는데 실패했습니다.",e);
+        }
     }
 
     @GetMapping("/{id}")
-    public UserDTO getUser(@PathVariable Long id){
-        return userService.getUser(id);
+    public ResponseEntity<?> getUser(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok( userService.getUser(id));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보를 가져오는데 실패했습니다.",e);
+        }
     }
 
     @PutMapping("/info/{id}")
-    public UserDTO updateUserAndInfo(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
-        return userService.updateUserAndInfo(id,userDTO);
+    public ResponseEntity<?> updateUserAndInfo(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
+        try {
+            return ResponseEntity.ok(userService.updateUserAndInfo(id,userDTO));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보 변경에 실패했습니다.",e);
+        }
     }
 
     @PutMapping("/{id}")
-    public UserDTO updateUser(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
-        return userService.updateUser(id,userDTO);
+    public ResponseEntity<?> updateUser(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
+        try {
+            return ResponseEntity.ok(userService.updateUser(id,userDTO));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보 변경에 실패했습니다.",e);
+        }
     }
 
     @GetMapping
-    public List<UserDTO> findAll() {
-        System.out.println("findAll called!");
-        return userService.findAll();
+    public ResponseEntity<?> findAll() {
+        try {
+            return ResponseEntity.ok(userService.findAll());
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보 조회에 실패했습니다.",e);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public List<UserDTO> delete(@PathVariable Long id){
-        return userService.delete(id);
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(userService.delete(id));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("유저 정보 삭제에 실패했습니다.",e);
+        }
     };
 }
