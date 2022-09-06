@@ -23,6 +23,15 @@ public class UserInfoService {
         return makeUserInfoDTO(userInfo);
     }
 
+    public UserInfo save(User user, UserInfoDTO userInfoDTO){
+        UserInfo userInfo = UserInfo.builder()
+                .profileImg(userInfoDTO.getProfileImg())
+                .email(userInfoDTO.getEmail())
+                .user(user)
+                .build();
+        return userInfoRepository.save(userInfo);
+    }
+
     public UserInfoDTO findById(Long id){
         UserInfo userInfo = userInfoRepository.getById(id);
         return makeUserInfoDTO(userInfo);
@@ -32,6 +41,14 @@ public class UserInfoService {
 //        UserInfo userInfo = userInfoRepository.getById(id);
 //        userInfoRepository.delete(userInfo);
 //    }
+
+    public void checkByEmail(String email) throws Exception {
+        try {
+            userInfoRepository.findByEmail(email);
+        } catch (Exception e){
+            throw new Exception("이메일 중복");
+        }
+    }
 
     public UserInfoDTO update(Long id,UserInfoDTO userInfoDTO){
         UserInfo userInfo = userInfoRepository.getById(id);
