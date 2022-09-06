@@ -24,7 +24,7 @@ public class PostLike {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Post.class)
     @JoinColumn(name = "post_id")
     private Post post;
 }
