@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,4 +21,9 @@ public class PostDTO {
 
     private Long boardId;
     private Long userId;
+
+    private List<Long> postStayList;
+    private List<Long> postRentCarList;
+    private List<Long> postTrainList;
+    private List<Long> postAttractionList;
 }

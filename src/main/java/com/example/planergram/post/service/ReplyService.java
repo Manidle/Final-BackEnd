@@ -7,6 +7,7 @@ import com.example.planergram.user.model.User;
 import com.example.planergram.post.repository.PostRepository;
 import com.example.planergram.post.repository.ReplyRepository;
 import com.example.planergram.user.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ReplyService {
     @Autowired
     private ReplyRepository replyRepository;
@@ -33,6 +35,7 @@ public class ReplyService {
                 .post(post)
                 .build();
         reply = replyRepository.save(reply);
+        log.info("댓글작성이 완료되었습니다.");
         return makeReplyDTO(reply);
     }
 
@@ -40,6 +43,7 @@ public class ReplyService {
         Reply reply = replyRepository.getById(replyId);
         reply.setContents(contents);
         reply = replyRepository.save(reply);
+        log.info("댓글 수정이 완료되었습니다");
         return makeReplyDTO(reply);
     }
 
@@ -50,6 +54,7 @@ public class ReplyService {
         for (Reply reply: replyList){
             replyDTOList.add(makeReplyDTO(reply));
         }
+        log.info("해당 게시글에 댓글들이 조회되었습니다.");
         return replyDTOList;
     }
 
@@ -57,6 +62,7 @@ public class ReplyService {
         Reply reply =  replyRepository.getById(replyId);
         Long postId = reply.getPost().getPostId();
         replyRepository.delete(reply);
+        log.info("댓글 삭제가 완료되었습니다.");
         return findReplyByPostId(postId);
     }
 
