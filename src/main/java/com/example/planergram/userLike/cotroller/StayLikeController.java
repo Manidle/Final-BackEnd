@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/staylike")
 public class StayLikeController {
 
     @Autowired
     private StayLikeService stayLikeService;
 
-    @GetMapping("/staylike")
+    @GetMapping("/")
     public ResponseEntity<?> clickStayLike(
             @RequestParam(value="user", defaultValue="0") Long userId,
             @RequestParam(value="stay", defaultValue="0") Long stayId){
@@ -26,7 +27,7 @@ public class StayLikeController {
         }
     }
 
-    @GetMapping("/staylike/user/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<?> StayLikeFindByUser(@PathVariable Long userId){
         try {
             return ResponseEntity.ok(stayLikeService.findByUser(userId));
@@ -35,7 +36,7 @@ public class StayLikeController {
         }
     }
 
-    @GetMapping("/staylike/stay/{stayId}")
+    @GetMapping("/stay/{stayId}")
     public ResponseEntity<?> StayLikeFindByStay(@PathVariable Long stayId){
         try {
             return ResponseEntity.ok(stayLikeService.findByStay(stayId));
@@ -44,7 +45,7 @@ public class StayLikeController {
         }
     }
 
-    @GetMapping("/staylike/{id}")
+    @GetMapping("/{id}")
     public StayLikeDTO findById(@PathVariable Long id){
         return stayLikeService.findById(id);
     }
