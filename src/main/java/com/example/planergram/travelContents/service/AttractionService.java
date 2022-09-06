@@ -38,9 +38,10 @@ public class AttractionService {
     }
 
 
-    public void delete(Long id) {
+    public List<AttractionDTO> delete(Long id) {
         Attraction attraction = attractionRepository.getById(id);
         attractionRepository.delete(attraction);
+        return findAll();
     }
 
     public AttractionDTO update(Long id, AttractionDTO attractionDTO) {
