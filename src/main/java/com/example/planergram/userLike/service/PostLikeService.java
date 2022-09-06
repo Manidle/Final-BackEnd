@@ -7,6 +7,7 @@ import com.example.planergram.user.model.User;
 import com.example.planergram.userLike.repository.PostLikeRepository;
 import com.example.planergram.post.repository.PostRepository;
 import com.example.planergram.user.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class PostLikeService {
 
     @Autowired
@@ -28,14 +30,18 @@ public class PostLikeService {
     public String clickPostLike(Long userId, Long postId){
         User user = userRepository.getById(userId);
         Post post = postRepository.getById(postId);
-
+        log.info("PostLike click : user, post Entity 가져옴");
         PostLike postLike = postLikeRepository.findByUserAndPost(user,post);
+        log.info("PostLike click : 가져온 user, post를 바탕으로 postLike 조회");
+
         if (postLike == null){
+            log.info("PostLike : 좋아요를 누르기");
             return likeClick(user, post);
         }
+        log.info("PostLike : 좋아요를 취소");
         return likeCancel(post, postLike);
     }
-    
+
     public PostLikeDTO findById(Long id){
         PostLike postLike = postLikeRepository.getById(id);
         return makePostLikeDTO(postLike);

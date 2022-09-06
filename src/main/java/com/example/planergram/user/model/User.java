@@ -1,9 +1,6 @@
 package com.example.planergram.user.model;
 
-import com.example.planergram.userLike.model.AttractionLike;
-import com.example.planergram.userLike.model.RentCarLike;
-import com.example.planergram.userLike.model.StayLike;
-import com.example.planergram.userLike.model.TrainLike;
+import com.example.planergram.userLike.model.*;
 import com.example.planergram.post.model.Post;
 import com.example.planergram.post.model.Reply;
 import lombok.AllArgsConstructor;
@@ -53,6 +50,9 @@ public class User {
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Post> postList;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PostLike> postLikeList;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Reply> replyList;

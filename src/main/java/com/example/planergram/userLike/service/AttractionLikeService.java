@@ -7,6 +7,7 @@ import com.example.planergram.user.model.User;
 import com.example.planergram.userLike.repository.AttractionLikeRepository;
 import com.example.planergram.travelContents.repository.AttractionRepository;
 import com.example.planergram.user.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AttractionLikeService {
     @Autowired
     private AttractionLikeRepository attractionLikeRepository;
@@ -27,10 +29,13 @@ public class AttractionLikeService {
     public String clickAttractionLike(Long userId, Long attractionId) {
         User user = userRepository.getById(userId);
         Attraction attraction = attractionRepository.getById(attractionId);
+        log.info("attractionLike : click 이후 user, attraction");
         AttractionLike attractionLike = attractionLikeRepository.findByUserAndAttraction(user, attraction);
         if (attractionLike == null){
+            log.info("attractionLike : 좋아요 클릭");
             return likeClick(user, attraction);
         }
+        log.info("attractionLike : 좋아요 취소");
         return likeCancel(attraction, attractionLike);
     }
 

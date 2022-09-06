@@ -24,7 +24,7 @@ public class AttractionLike {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = AttractionLike.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Attraction.class)
     @JoinColumn(name = "attraction_id")
     private Attraction attraction;
 }
