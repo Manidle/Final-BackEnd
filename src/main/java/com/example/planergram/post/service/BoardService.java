@@ -5,6 +5,7 @@ import com.example.planergram.post.model.Board;
 import com.example.planergram.post.model.Post;
 import com.example.planergram.post.repository.BoardRepository;
 import com.example.planergram.post.repository.PostRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class BoardService {
 
     @Autowired
@@ -20,10 +22,15 @@ public class BoardService {
     @Autowired
     private PostRepository postRepository;
 
-    public BoardDTO save(BoardDTO boardDTO) {
-        Board board = makeBoard(boardDTO);
-        board = boardRepository.save(board);
-        return makeBoardDTO(board);
+    public BoardDTO save(BoardDTO boardDTO) throws Exception {
+        try{
+            Board board = makeBoard(boardDTO);
+            board = boardRepository.save(board);
+            log.info("게시판 생성완료");
+            return makeBoardDTO(board);
+        }catch (Exception e){
+            throw new Exception("중복된 정보로는 게시판을 만들 수 없습니다.");
+        }
     }
 
     public List<BoardDTO> findAll() {
@@ -32,6 +39,7 @@ public class BoardService {
         for (Board board: BoardList) {
             boardDTOList.add(makeBoardDTO(board));
         }
+        log.info("게시판을 모두 조회하였습니다.");
         return boardDTOList;
     }
 
@@ -40,12 +48,14 @@ public class BoardService {
         board.setTitle(boardDTO.getBoardTitle());
         board.setImg(boardDTO.getImg());
         board = boardRepository.save(board);
+        log.info("게시판 이름이 변경되었습니다.");
         return makeBoardDTO(board);
     }
 
     public BoardDTO delete(Long id){
         Board board = boardRepository.getById(id);
         boardRepository.delete(board);
+        log.info("게시판이 삭제되었습니다.");
         return makeBoardDTO(board);
     }
 

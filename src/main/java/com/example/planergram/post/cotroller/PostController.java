@@ -1,7 +1,8 @@
 package com.example.planergram.post.cotroller;
 
 
-import com.example.planergram.DTO.ResponseDTO;
+import com.example.planergram.Response.ResponseDTO;
+import com.example.planergram.Response.ResponseService;
 import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.post.service.PostService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +24,9 @@ public class PostController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody PostDTO postDTO) {
         try {
-            PostDTO newPostDTO = postService.save(postDTO);
-            return ResponseEntity.ok(newPostDTO);
+            return ResponseEntity.ok(postService.save(postDTO));
         } catch (Exception e) {
-            log.error("게시글 작성에 실패했습니다 : " + e.getStackTrace());
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseService.makeResponseEntity("게시글 등록이 실패되었습니다",e);
         }
     }
 
@@ -48,12 +46,9 @@ public class PostController {
     @PatchMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody PostDTO postDTO) {
         try {
-            PostDTO newPostDTO = postService.update(id,postDTO);
-            return ResponseEntity.ok(newPostDTO);
+            return ResponseEntity.ok(postService.update(id,postDTO));
         } catch (Exception e) {
-            log.error("게시글 업데이트를 실패하였습니다." + e.getMessage());
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseService.makeResponseEntity("게시글 수정에 실패되었습니다",e);
         }
     }
 
@@ -61,12 +56,9 @@ public class PostController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
-            PostDTO newPostDTO = postService.delete(id);
-            return ResponseEntity.ok(newPostDTO);
+            return ResponseEntity.ok(postService.delete(id));
         } catch (Exception e) {
-            log.error("게시글 삭제를 실패하였습니다." + e.getMessage());
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseService.makeResponseEntity("게시글 삭제에 실패되었습니다",e);
         }
     }
 }

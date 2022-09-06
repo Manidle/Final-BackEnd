@@ -1,6 +1,7 @@
 package com.example.planergram.post.cotroller;
 
-import com.example.planergram.DTO.ResponseDTO;
+import com.example.planergram.Response.ResponseDTO;
+import com.example.planergram.Response.ResponseService;
 import com.example.planergram.post.DTO.ReplyDTO;
 import com.example.planergram.post.service.ReplyService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +25,9 @@ public class ReplyController {
             @RequestParam(value = "post") Long postId,
             @RequestParam(value = "contents") String contents) {
         try {
-            ReplyDTO replyDTO = replyService.writeReply(userId, postId, contents);
-            return ResponseEntity.ok(replyDTO);
+            return ResponseEntity.ok(replyService.writeReply(userId, postId, contents));
         } catch (Exception e) {
-            log.error("댓글 작성에 실패했습니다 : " + e.getStackTrace());
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseService.makeResponseEntity("댓글 작성에 실패했습니다.",e);
         }
     }
 
@@ -48,24 +46,18 @@ public class ReplyController {
     public ResponseEntity<?> rewriteReply(@RequestParam(value = "replyId") Long replyId,
                                           @RequestParam(value = "contents") String contents) {
         try {
-            ReplyDTO newReplyDTO = replyService.rewriteReply(replyId, contents);
-            return ResponseEntity.ok(newReplyDTO);
+            return ResponseEntity.ok(replyService.rewriteReply(replyId, contents));
         } catch (Exception e) {
-            log.error("댓글수정이 실패하였습니다." + e.getMessage());
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseService.makeResponseEntity("댓글 수정에 실패했습니다.",e);
         }
     }
 
     @DeleteMapping("/{replyId}")
     public ResponseEntity<?> delete(@PathVariable Long replyId) {
         try {
-            List<ReplyDTO> replyDTOList = replyService.delete(replyId);
-            return ResponseEntity.ok(replyDTOList);
+            return ResponseEntity.ok(replyService.delete(replyId));
         } catch (Exception e) {
-            log.error("댓글삭제를 실패하였습니다." + e.getMessage());
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseService.makeResponseEntity("댓글 삭제에 실패하였습니다.",e);
         }
     }
 }

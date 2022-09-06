@@ -1,14 +1,12 @@
 package com.example.planergram.post.cotroller;
 
-import com.example.planergram.DTO.ResponseDTO;
+import com.example.planergram.Response.ResponseService;
 import com.example.planergram.post.DTO.BoardDTO;
 import com.example.planergram.post.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -22,12 +20,9 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody BoardDTO boardDTO) {
         try {
-            BoardDTO newBoardDTO = boardService.save(boardDTO);
-            return ResponseEntity.ok(newBoardDTO);
+            return ResponseEntity.ok(boardService.save(boardDTO));
         } catch (Exception e) {
-            log.error("게시판 등록에 실패했습니다." + e.getStackTrace());
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseService.makeResponseEntity("게시판 등록에 실패했습니다.", e);
         }
     }
 
@@ -35,12 +30,9 @@ public class BoardController {
     @GetMapping
     public ResponseEntity<?> findAll() {
         try {
-            List<BoardDTO> boardDTOList = boardService.findAll();
-            return ResponseEntity.ok(boardDTOList);
+            return ResponseEntity.ok(boardService.findAll());
         } catch (Exception e) {
-            log.error("게시판 등록에 실패했습니다." + e.getStackTrace());
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseService.makeResponseEntity("게시판조회에 실패했습니다.", e);
         }
     }
 
@@ -48,12 +40,9 @@ public class BoardController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody BoardDTO updateBoarDTO) {
         try {
-            BoardDTO boardDTO = boardService.update(id,updateBoarDTO);
-            return ResponseEntity.ok(boardDTO);
+            return ResponseEntity.ok(boardService.update(id, updateBoarDTO));
         } catch (Exception e) {
-            log.error("게시판 변경에 실패하였습니다. :" + e.getMessage());
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseService.makeResponseEntity("게시판수정에 실패했습니다.",e);
         }
     }
 
@@ -61,12 +50,9 @@ public class BoardController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
-            BoardDTO boardDTO = boardService.delete(id);
-            return ResponseEntity.ok(boardDTO);
-            }catch (Exception e) {
-            log.error("게시판 삭제를 실패하였습니다: " + e.getMessage());
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseEntity.ok(boardService.delete(id));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("게시판조회에 실패했습니다.",e);
         }
     }
 }
