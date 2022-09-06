@@ -14,7 +14,7 @@ public class PostAttractionController {
     @Autowired
     private PostAttractionService postAttractionService;
 
-    @GetMapping("/")
+    @GetMapping
     public String clickPostAttraction(
             @RequestParam(value="post", defaultValue="0") Long postId,
             @RequestParam(value="stay", defaultValue="0") Long attractionId) {

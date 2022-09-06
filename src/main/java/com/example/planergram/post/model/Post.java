@@ -1,5 +1,6 @@
 package com.example.planergram.post.model;
 
+import com.example.planergram.postTravel.model.PostAttraction;
 import com.example.planergram.postTravel.model.PostRentCar;
 import com.example.planergram.postTravel.model.PostStay;
 import com.example.planergram.postTravel.model.PostTrain;
@@ -52,4 +53,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PostTrain> postTrainList;
+
+    @OneToMany(mappedBy = "post",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PostAttraction> postAttractionList;
 }
