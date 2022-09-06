@@ -50,9 +50,10 @@ public class RentCarService {
         return makeRentCarDTO(rentCar);
     }
 
-    public void delete(Long id) {
+    public List<RentCarDTO> delete(Long id) {
         RentCar rentCar = rentCarRepository.getById(id);
         rentCarRepository.delete(rentCar);
+        return findAll();
     }
 
     private RentCar makeRentCar(RentCarDTO rentCarDTO){

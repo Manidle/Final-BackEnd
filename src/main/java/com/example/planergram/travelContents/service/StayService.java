@@ -41,9 +41,10 @@ public class StayService {
     }
 
 
-    public void delete(Long id) {
+    public List<StayDTO> delete(Long id) {
         Stay stay = stayRepository.getById(id);
         stayRepository.delete(stay);
+        return findAll();
     }
 
     public StayDTO update(Long id, StayDTO stayDTO) {

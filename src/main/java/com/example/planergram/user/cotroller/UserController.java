@@ -79,5 +79,5 @@ public class UserController {
         } catch (Exception e){
             return ResponseService.makeResponseEntity("유저 정보 삭제에 실패했습니다.",e);
         }
-    };
+    }
 }
