@@ -49,7 +49,6 @@ public class PostService {
 
     public PostDTO delete(Long id) {
         Post post = postRepository.getById(id);
-        postRepository.delete(post);
         return makePostDTO(post);
     }
 
