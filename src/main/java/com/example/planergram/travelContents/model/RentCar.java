@@ -19,6 +19,7 @@ public class RentCar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "rent_car_id")
     private Long rentCarId;
 
     @Column(nullable = false, length = 30)
@@ -37,7 +38,7 @@ public class RentCar {
     private int likeCount;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private List<RentCarLike> rentcarLikeList;
+    private List<RentCarLike> rentCarLikeList;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "rentCar", cascade = CascadeType.ALL)
     private List<PostRentCar> postRentCarList;
