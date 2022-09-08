@@ -2,22 +2,27 @@ package com.example.planergram.postTravel.cotroller;
 
 import com.example.planergram.Response.ResponseService;
 import com.example.planergram.postTravel.service.PostRentCarService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/postrentcar")
+@Slf4j
 public class PostRentCarController {
 
     @Autowired
     private PostRentCarService postRentCarService;
-
+    
     @GetMapping
     public ResponseEntity<?> clickPostRentCar(
-            @RequestParam(value="post", defaultValue="0") Long postId,
-            @RequestParam(value="rentcar", defaultValue="0") Long rentCarId){
+            @RequestParam(value="rentcar", defaultValue="0") Long rentCarId,
+            @RequestParam(value="post", defaultValue="0") Long postId
+            ){
+        log.info("click Post RentCar");
         try {
+
             return ResponseEntity.ok(postRentCarService.clickRentCarLike(postId,rentCarId));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("렌트카 불러오기를 실패하였습니다.",e);

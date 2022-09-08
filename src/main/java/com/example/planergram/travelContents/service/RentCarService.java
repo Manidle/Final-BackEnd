@@ -70,14 +70,14 @@ public class RentCarService {
                 .carSort(rentCarDTO.getCarSort())
                 .carName(rentCarDTO.getCarName())
                 .likeCount(rentCarDTO.getLikeCount())
-                .rentcarLikeList(rentCarLikeList)
+                .rentCarLikeList(rentCarLikeList)
                 .build();
     }
 
     private RentCarDTO makeRentCarDTO(RentCar rentCar){
         List<Long> rentCarLikeIdList = new ArrayList<>();
-        if (rentCar.getRentcarLikeList() != null){
-            for (RentCarLike rentCarLike: rentCar.getRentcarLikeList()) {
+        if (rentCar.getRentCarLikeList() != null){
+            for (RentCarLike rentCarLike: rentCar.getRentCarLikeList()) {
                 rentCarLikeIdList.add(rentCarLike.getRentCarLikeId());
             }
         }

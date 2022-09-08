@@ -7,6 +7,7 @@ import com.example.planergram.travelContents.model.RentCar;
 import com.example.planergram.postTravel.repository.PostRentCarRepository;
 import com.example.planergram.post.repository.PostRepository;
 import com.example.planergram.travelContents.repository.RentCarRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class PostRentCarService {
     @Autowired
     private PostRentCarRepository postRentCarRepository;
@@ -25,6 +27,7 @@ public class PostRentCarService {
     private PostRepository postRepository;
 
     public String clickRentCarLike(Long postId, Long rentCarId) {
+        log.info("postId : {},     rentCarId : {}",postId,rentCarId);
         Post post = postRepository.getById(postId);
         RentCar rentCar = rentCarRepository.getById(rentCarId);
         PostRentCar postRentCar = postRentCarRepository.findByPostAndRentCar(post,rentCar);
