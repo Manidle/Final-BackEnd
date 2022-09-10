@@ -3,6 +3,8 @@ package com.example.planergram.userLike.cotroller;
 import com.example.planergram.Response.ResponseService;
 import com.example.planergram.userLike.DTO.AttractionLikeDTO;
 import com.example.planergram.userLike.service.AttractionLikeService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,16 @@ public class AttractionLikeController {
     @Autowired
     private AttractionLikeService attractionLikeService;
 
+    @ApiImplicitParams({
+                    @ApiImplicitParam(
+                            name = "user",value = "user의 아이디",
+                            required = true, dataType = "long"
+                    ),
+                    @ApiImplicitParam(
+                            name = "attraction",value = "attraction의 아이디",
+                            required = true, dataType = "long"
+                    )
+    })
     @GetMapping
     public ResponseEntity<?> clickAttractionLike(
             @RequestParam(value="user", defaultValue="0") Long userId,

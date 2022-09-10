@@ -1,5 +1,6 @@
 package com.example.planergram.user.DTO;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.util.List;
@@ -13,7 +14,9 @@ import java.util.List;
 public class UserDTO {
     private Long userId;
 
+    @ApiModelProperty(value = "사용자의 로그인 ID",example = "testlogin01",required = true)
     private String loginId;
+    @ApiModelProperty(value = "사용자의 password",example = "12341234",required = true)
     private String password;
     private String nickname;
 

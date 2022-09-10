@@ -4,13 +4,15 @@ import com.example.planergram.Response.ResponseService;
 import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = {"API 정보를 제공하는 Controller"})
+@Api(tags = {"User API 정보를 제공하는 Controller"})
 @RestController
 @Slf4j
 @RequestMapping("/user")
@@ -19,6 +21,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation(value = "사용자 회원가입시 사용하는 매소드")
+    @ApiResponse(code = 502, message = "사용자의 아이디가 중복 일때")
     @PostMapping
     public ResponseEntity<?> signUp(@RequestBody UserDTO userDTO){
         try {
