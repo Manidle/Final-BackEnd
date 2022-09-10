@@ -3,11 +3,14 @@ package com.example.planergram.user.cotroller;
 import com.example.planergram.Response.ResponseService;
 import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = {"API 정보를 제공하는 Controller"})
 @RestController
 @Slf4j
 @RequestMapping("/user")
@@ -28,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/info/{id}")
-    public ResponseEntity<?> getUserAndInfo(@PathVariable Long id){
+    public ResponseEntity<?> getUserAndInfo(@ApiParam(value = "id값") @PathVariable Long id){
         try {
             return ResponseEntity.ok(userService.getUserAndInfo(id));
         } catch (Exception e){
