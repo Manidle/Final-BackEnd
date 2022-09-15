@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             //토큰 만들어주는 작업
             UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(user.getLoginId(),user.getPassword());
+                    new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
 
            //PrincipalDetailsService의 loadUserByUsername() 함수가 실행된 후 정상이면 authentication이 리턴됨
            //DB에 있는 username과 password가 일치한다.
@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 
             PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-            System.out.println("로그인 완료됨: "+principalDetails.getUser().getLoginId()); //로그인 정상적으로 되었다는 뜻
+            System.out.println("로그인 완료됨: "+principalDetails.getUser().getUsername()); //로그인 정상적으로 되었다는 뜻
 
             // authentication 객체가 session영역에 저장을 해야하고 그 방법이 return 해주면 됨.
             // return의 이유는 권한 관리를 security가 대신해주기 때문에 편하려고 하는거임.
@@ -75,7 +75,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject("cos토큰")
                 .withExpiresAt(new Date(System.currentTimeMillis()+(60000*10)))
                 .withClaim("id", principalDetailis.getUser().getUserId())
-                .withClaim("username", principalDetailis.getUser().getLoginId())
+                .withClaim("username", principalDetailis.getUser().getUsername())
                 .sign(Algorithm.HMAC512("cos"));
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

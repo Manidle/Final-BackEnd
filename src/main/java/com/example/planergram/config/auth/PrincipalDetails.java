@@ -1,8 +1,11 @@
 package com.example.planergram.config.auth;
 
+import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.model.User;
+import com.example.planergram.user.repository.UserRepository;
 import com.example.planergram.user.service.UserService;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,12 +14,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
+@RequiredArgsConstructor
 public class PrincipalDetails implements UserDetails {
 
     private User user;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public PrincipalDetails(User user){
         this.user = user;
@@ -25,7 +32,7 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        userService.getRoleList(user.getRoles()).forEach(r ->{
+        user.getRoleList().forEach(r ->{
             authorities.add(()->r);
         });
         return authorities;
@@ -38,7 +45,7 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getLoginId();
+        return user.getUsername();
     }
 
     @Override

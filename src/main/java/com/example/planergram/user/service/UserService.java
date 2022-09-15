@@ -49,7 +49,7 @@ public class UserService {
     public String signUp(UserDTO userDTO) throws Exception {
         try {
             userRepository.findByNickname(userDTO.getNickname());
-            userRepository.findByLoginId(userDTO.getLoginId());
+            userRepository.findByUsername(userDTO.getUsername());
             userInfoRepository.findByEmail(userDTO.getUserInfoDTO().getEmail());
             log.info("중복된 정보가 없습니다.");
         } catch (Exception e){
@@ -59,7 +59,7 @@ public class UserService {
         User user = User.builder()
                 .password(bCryptPasswordEncoder.encode(userDTO.getPassword()))
                 .nickname(userDTO.getNickname())
-                .loginId(userDTO.getLoginId())
+                .username(userDTO.getUsername())
                 .roles("ROLE_USER")
                 .build();
         user = userRepository.save(user);
@@ -90,7 +90,7 @@ public class UserService {
     public User update(Long id, UserDTO userDTO) throws Exception {
         User findUser = userRepository.findById(id).orElseThrow(Exception::new);
         UserInfo userInfo = userInfoRepository.findByEmail(userDTO.getUserInfoDTO().getEmail());
-        findUser.setLoginId(userDTO.getLoginId());
+        findUser.setUsername(userDTO.getUsername());
         findUser.setPassword(userDTO.getPassword());
         findUser.setNickname(userDTO.getNickname());
         findUser.setUserInfo(userInfo);
@@ -102,7 +102,7 @@ public class UserService {
         User user = userRepository.getById(id);
         UserInfo userInfo = userInfoRepository.findByEmail(user.getUserInfo().getEmail());
 
-        user.setLoginId(userDTO.getLoginId());
+        user.setUsername(userDTO.getUsername());
         user.setNickname(userDTO.getNickname());
         user.setPassword(userDTO.getPassword());
         userInfo.setEmail(userDTO.getUserInfoDTO().getEmail());
@@ -177,7 +177,7 @@ public class UserService {
         return User.builder()
                 .userId(userDTO.getUserId())
                 .nickname(userDTO.getNickname())
-                .loginId(userDTO.getLoginId())
+                .username(userDTO.getUsername())
                 .password(userDTO.getPassword())
                 .roles(userDTO.getRoles())
                 .stayLikeList(stayLikeList)
@@ -186,7 +186,7 @@ public class UserService {
                 .build();
     }
 
-    private UserDTO makeUserAndInfoDTO(User user) {
+    public UserDTO makeUserAndInfoDTO(User user) {
         UserInfo userInfo = user.getUserInfo();
         UserInfoDTO userInfoDTO = UserInfoDTO.builder()
                 .profileImg(userInfo.getProfileImg())
@@ -223,7 +223,7 @@ public class UserService {
                 .rentCarLikeIdList(rentCarLikeIdList)
                 .trainLikeIdList(trainLikeIdList)
                 .roles(user.getRoles())
-                .loginId(user.getLoginId())
+                .username(user.getUsername())
                 .nickname(user.getNickname())
                 .password(user.getPassword())
                 .build();
@@ -258,17 +258,10 @@ public class UserService {
                 .stayLikeIdList(stayLikeIdList)
                 .rentCarLikeIdList(rentCarLikeIdList)
                 .trainLikeIdList(trainLikeIdList)
-                .loginId(user.getLoginId())
+                .username(user.getUsername())
                 .nickname(user.getNickname())
                 .password(user.getPassword())
                 .roles(user.getRoles())
                 .build();
-    }
-
-    public List<String> getRoleList(String roles){
-        if (roles.length()>0){
-            return Arrays.asList(roles.split(","));
-        }
-        return new ArrayList<>();
     }
 }

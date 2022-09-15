@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDTO {
     private Long userId;
 
-    private String loginId;
+    private String username;
     private String password;
     private String nickname;
 
