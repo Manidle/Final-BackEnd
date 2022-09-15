@@ -3,11 +3,14 @@ package com.example.planergram.post.cotroller;
 
 import com.example.planergram.Response.ResponseDTO;
 import com.example.planergram.Response.ResponseService;
+import com.example.planergram.config.auth.PrincipalDetails;
 import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.post.service.PostService;
+import com.example.planergram.user.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +25,11 @@ public class PostController {
 
     // 게시글 작성
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody PostDTO postDTO) {
+    public ResponseEntity<?> save(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody PostDTO postDTO) {
         try {
+            log.info(principalDetails.getUsername());
+            postDTO.setUserId(principalDetails.getUser().getUserId());
+
             return ResponseEntity.ok(postService.save(postDTO));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("게시글 등록이 실패되었습니다",e);
