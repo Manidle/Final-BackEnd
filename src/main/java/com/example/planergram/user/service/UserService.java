@@ -14,16 +14,19 @@ import com.example.planergram.userLike.repository.StayLikeRepository;
 import com.example.planergram.userLike.repository.TrainLikeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
 public class UserService {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -54,7 +57,7 @@ public class UserService {
         }
 
         User user = User.builder()
-                .password(userDTO.getPassword())
+                .password(bCryptPasswordEncoder.encode(userDTO.getPassword()))
                 .nickname(userDTO.getNickname())
                 .loginId(userDTO.getLoginId())
                 .roles("ROLE_USER")
