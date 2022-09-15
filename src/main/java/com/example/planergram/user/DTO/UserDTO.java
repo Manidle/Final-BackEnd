@@ -17,6 +17,8 @@ public class UserDTO {
     private String password;
     private String nickname;
 
+    private String roles; // USER,ADMIN
+
     private UserInfoDTO userInfoDTO;
 
     private List<Long> postDTOList;
@@ -25,4 +27,6 @@ public class UserDTO {
     private List<Long> rentCarLikeIdList;
     private List<Long> trainLikeIdList;
     private List<Long> postLikeIdList;
+
+
 }

@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Data
@@ -31,6 +33,8 @@ public class User {
 
     @Column(nullable = false, length = 30, unique = true)
     private String nickname;
+
+    private String roles; // USER,ADMIN
 
     @OneToOne(mappedBy = "user", orphanRemoval = true)
     @JoinColumn(name="user_id")
@@ -56,4 +60,5 @@ public class User {
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Reply> replyList;
+
 }

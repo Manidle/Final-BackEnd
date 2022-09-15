@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +57,7 @@ public class UserService {
                 .password(userDTO.getPassword())
                 .nickname(userDTO.getNickname())
                 .loginId(userDTO.getLoginId())
+                .roles("ROLE_USER")
                 .build();
         user = userRepository.save(user);
 
@@ -174,6 +176,7 @@ public class UserService {
                 .nickname(userDTO.getNickname())
                 .loginId(userDTO.getLoginId())
                 .password(userDTO.getPassword())
+                .roles(userDTO.getRoles())
                 .stayLikeList(stayLikeList)
                 .rentcarLikeList(rentCarLikeList)
                 .trainLikeList(trainLikeList)
@@ -216,6 +219,7 @@ public class UserService {
                 .stayLikeIdList(stayLikeIdList)
                 .rentCarLikeIdList(rentCarLikeIdList)
                 .trainLikeIdList(trainLikeIdList)
+                .roles(user.getRoles())
                 .loginId(user.getLoginId())
                 .nickname(user.getNickname())
                 .password(user.getPassword())
@@ -254,6 +258,14 @@ public class UserService {
                 .loginId(user.getLoginId())
                 .nickname(user.getNickname())
                 .password(user.getPassword())
+                .roles(user.getRoles())
                 .build();
+    }
+
+    public List<String> getRoleList(String roles){
+        if (roles.length()>0){
+            return Arrays.asList(roles.split(","));
+        }
+        return new ArrayList<>();
     }
 }
