@@ -64,8 +64,10 @@ public class PostService {
 
     public PostDTO findById(Long id) {
         Post post = postRepository.getById(id);
+        post.setReadCount(post.getReadCount()+1);
+        post = postRepository.save(post);
         PostDTO postDTO = makePostDTO(post);
-        log.info("모든 게시글을 조회하였습니다.");
+        log.info("게시글을 조회하였습니다.");
         return postDTO;
     }
 
