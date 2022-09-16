@@ -3,18 +3,23 @@ package com.example.planergram.travelContents.cotroller;
 import com.example.planergram.Response.ResponseService;
 import com.example.planergram.travelContents.DTO.StayDTO;
 import com.example.planergram.travelContents.service.StayService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = {"숙소에 대한 API 정보를 제공하는 Controller"})
 @RestController
-@RequestMapping("/stay")
+@RequestMapping("/api")
 public class StayController {
 
     @Autowired
     private StayService stayService;
 
-    @PostMapping
+    @ApiOperation(value = "admin이 숙소정보를 등록하는 API")
+    @PostMapping("/admin/auth/v1/register/stay")
     public ResponseEntity<?> signUp(@RequestBody StayDTO stayDTO){
         try {
             return ResponseEntity.ok(stayService.signUp(stayDTO));
@@ -23,7 +28,8 @@ public class StayController {
         }
     }
 
-    @GetMapping
+    @ApiOperation(value = "등록된 숙소정보를 모두 보여주는 API")
+    @GetMapping("/auth/v1/getlist/stay")
     public ResponseEntity<?> findAll(){
         try {
             return ResponseEntity.ok(stayService.findAll());
@@ -32,8 +38,9 @@ public class StayController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id){
+    @ApiOperation(value = "특정 숙소정보를 보여주는 API")
+    @GetMapping("/auth/v1/getstay/{id}")
+    public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 stay의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(stayService.findById(id));
         } catch (Exception e) {
@@ -41,21 +48,23 @@ public class StayController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        try {
-            return ResponseEntity.ok(stayService.delete(id));
-        } catch (Exception e){
-            return ResponseService.makeResponseEntity("숙소 정보 삭제에 실패했습니다.",e);
-        }
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody StayDTO stayDTO){
+    @ApiOperation(value = "매니저가 특정 숙소정보를 수정하는 API")
+    @PatchMapping("/admin/auth/v1/modify/stay/{id}")
+    public ResponseEntity<?> update(@ApiParam(value = "수정하고싶은 stay의 고유id") @PathVariable Long id, @RequestBody StayDTO stayDTO){
         try {
             return ResponseEntity.ok(stayService.update(id,stayDTO));
         } catch (Exception e){
             return ResponseService.makeResponseEntity("숙소 정보수정에 실패했습니다.",e);
+        }
+    }
+
+    @ApiOperation(value = "매니저가 특정 숙소정보를 삭제하는 API")
+    @DeleteMapping("/admin/auth/v1/register/stay/{id}")
+    public ResponseEntity<?> delete(@ApiParam(value = "삭제하고싶은 stay의 고유id") @PathVariable Long id){
+        try {
+            return ResponseEntity.ok(stayService.delete(id));
+        } catch (Exception e){
+            return ResponseService.makeResponseEntity("숙소 정보 삭제에 실패했습니다.",e);
         }
     }
 }

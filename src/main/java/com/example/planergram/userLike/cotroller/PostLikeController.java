@@ -2,11 +2,15 @@ package com.example.planergram.userLike.cotroller;
 
 import com.example.planergram.Response.ResponseService;
 import com.example.planergram.userLike.service.PostLikeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = {"게시글 좋아요에 대한 API 정보를 제공하는 Controller"})
 @RestController
 @RequestMapping("/api/auth")
 @Slf4j
@@ -15,7 +19,8 @@ public class PostLikeController {
     @Autowired
     private PostLikeService postLikeService;
 
-    @GetMapping("/v1/like/lick/post")
+    @ApiOperation(value = "특정유저가 특정게시글을 좋아요 클릭하는 API")
+    @GetMapping("/v1/like/click/post")
     public ResponseEntity<?> clickPostLike(@RequestParam(value = "user", defaultValue = "0") Long userId,
                                            @RequestParam(value = "post", defaultValue = "0") Long postId) {
         try {
@@ -27,8 +32,9 @@ public class PostLikeController {
 
     }
 
-    @GetMapping("/v1/currentuser/like/post/{userId}")
-    public ResponseEntity<?> postLikeFindByUser(@PathVariable Long userId){
+    @ApiOperation(value = "특정유저가 좋아요 누른 게시글을 모두 보여주는 API")
+    @GetMapping("/v1/getlist/currentuser/like/post/{userId}")
+    public ResponseEntity<?> postLikeFindByUser(@ApiParam(value = "확인하고싶은 user의 고유id") @PathVariable Long userId){
         try {
             return ResponseEntity.ok(postLikeService.findByUser(userId));
         } catch (Exception e){
@@ -36,8 +42,9 @@ public class PostLikeController {
         }
     }
 
-    @GetMapping("/v1/like/post/{postId}")
-    public ResponseEntity<?> postLikeFindByPost(@PathVariable Long postId){
+    @ApiOperation(value = "특정관광지의 게시글을 모두 보여주는 API")
+    @GetMapping("/v1/getlist/like/post/{postId}")
+    public ResponseEntity<?> postLikeFindByPost(@ApiParam(value = "확인하고싶은 post 고유id") @PathVariable Long postId){
         try {
             return ResponseEntity.ok(postLikeService.findByPost(postId));
         } catch (Exception e){
@@ -45,8 +52,9 @@ public class PostLikeController {
         }
     }
 
-    @GetMapping("/v1/like/post/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id){
+    @ApiOperation(value = "게시글&좋아요 1:1 형태로 모두 보여주는 API")
+    @GetMapping("/v1/like/getpost/{id}")
+    public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 postLike의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(postLikeService.findById(id));
         } catch (Exception e) {
