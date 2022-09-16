@@ -26,6 +26,6 @@ public class UserInfo {
     private String email;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private User user;
 }

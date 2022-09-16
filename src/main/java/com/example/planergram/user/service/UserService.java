@@ -14,15 +14,19 @@ import com.example.planergram.userLike.repository.StayLikeRepository;
 import com.example.planergram.userLike.repository.TrainLikeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
 public class UserService {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -45,7 +49,7 @@ public class UserService {
     public String signUp(UserDTO userDTO) throws Exception {
         try {
             userRepository.findByNickname(userDTO.getNickname());
-            userRepository.findByLoginId(userDTO.getLoginId());
+            userRepository.findByUsername(userDTO.getUsername());
             userInfoRepository.findByEmail(userDTO.getUserInfoDTO().getEmail());
             log.info("중복된 정보가 없습니다.");
         } catch (Exception e){
@@ -53,9 +57,10 @@ public class UserService {
         }
 
         User user = User.builder()
-                .password(userDTO.getPassword())
+                .password(bCryptPasswordEncoder.encode(userDTO.getPassword()))
                 .nickname(userDTO.getNickname())
-                .loginId(userDTO.getLoginId())
+                .username(userDTO.getUsername())
+                .roles("ROLE_USER")
                 .build();
         user = userRepository.save(user);
 
@@ -85,7 +90,7 @@ public class UserService {
     public User update(Long id, UserDTO userDTO) throws Exception {
         User findUser = userRepository.findById(id).orElseThrow(Exception::new);
         UserInfo userInfo = userInfoRepository.findByEmail(userDTO.getUserInfoDTO().getEmail());
-        findUser.setLoginId(userDTO.getLoginId());
+        findUser.setUsername(userDTO.getUsername());
         findUser.setPassword(userDTO.getPassword());
         findUser.setNickname(userDTO.getNickname());
         findUser.setUserInfo(userInfo);
@@ -97,7 +102,7 @@ public class UserService {
         User user = userRepository.getById(id);
         UserInfo userInfo = userInfoRepository.findByEmail(user.getUserInfo().getEmail());
 
-        user.setLoginId(userDTO.getLoginId());
+        user.setUsername(userDTO.getUsername());
         user.setNickname(userDTO.getNickname());
         user.setPassword(userDTO.getPassword());
         userInfo.setEmail(userDTO.getUserInfoDTO().getEmail());
@@ -172,15 +177,16 @@ public class UserService {
         return User.builder()
                 .userId(userDTO.getUserId())
                 .nickname(userDTO.getNickname())
-                .loginId(userDTO.getLoginId())
+                .username(userDTO.getUsername())
                 .password(userDTO.getPassword())
+                .roles(userDTO.getRoles())
                 .stayLikeList(stayLikeList)
                 .rentcarLikeList(rentCarLikeList)
                 .trainLikeList(trainLikeList)
                 .build();
     }
 
-    private UserDTO makeUserAndInfoDTO(User user) {
+    public UserDTO makeUserAndInfoDTO(User user) {
         UserInfo userInfo = user.getUserInfo();
         UserInfoDTO userInfoDTO = UserInfoDTO.builder()
                 .profileImg(userInfo.getProfileImg())
@@ -216,7 +222,8 @@ public class UserService {
                 .stayLikeIdList(stayLikeIdList)
                 .rentCarLikeIdList(rentCarLikeIdList)
                 .trainLikeIdList(trainLikeIdList)
-                .loginId(user.getLoginId())
+                .roles(user.getRoles())
+                .username(user.getUsername())
                 .nickname(user.getNickname())
                 .password(user.getPassword())
                 .build();
@@ -251,9 +258,10 @@ public class UserService {
                 .stayLikeIdList(stayLikeIdList)
                 .rentCarLikeIdList(rentCarLikeIdList)
                 .trainLikeIdList(trainLikeIdList)
-                .loginId(user.getLoginId())
+                .username(user.getUsername())
                 .nickname(user.getNickname())
                 .password(user.getPassword())
+                .roles(user.getRoles())
                 .build();
     }
 }

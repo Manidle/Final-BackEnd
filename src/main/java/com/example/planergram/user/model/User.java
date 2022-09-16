@@ -3,15 +3,15 @@ package com.example.planergram.user.model;
 import com.example.planergram.userLike.model.*;
 import com.example.planergram.post.model.Post;
 import com.example.planergram.post.model.Reply;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -23,8 +23,8 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "user_login_id", nullable = false, length = 30, unique = true)
-    private String loginId;
+    @Column(nullable = false, length = 30, unique = true)
+    private String username;
 
     @Column(nullable = false, length = 100)
     private String password;
@@ -32,8 +32,9 @@ public class User {
     @Column(nullable = false, length = 30, unique = true)
     private String nickname;
 
-    @OneToOne(mappedBy = "user", orphanRemoval = true)
-    @JoinColumn(name="user_id")
+    private String roles; // USER,ADMIN
+
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private UserInfo userInfo;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -56,4 +57,11 @@ public class User {
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Reply> replyList;
+
+    public List<String> getRoleList(){
+        if (this.roles.length()>0){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
 }
