@@ -8,18 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/info")
+@RequestMapping("/api/auth")
 public class UserInfoController {
 
     @Autowired
     private UserInfoService userInfoService;
 
-//    @PostMapping("/")
-//    public UserInfoDTO signUp(@RequestBody UserInfoDTO userInfoDTO){
-//        return userInfoService.signUp(userInfoDTO);
-//    }
-
-    @GetMapping("/{id}")
+    @GetMapping("/v1/getinfo/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(userInfoService.findById(id));
@@ -28,12 +23,7 @@ public class UserInfoController {
         }
     }
 
-//    @DeleteMapping("/{id}")
-//    public void delete(@PathVariable Long id){
-//        userInfoService.delete(id);
-//    };
-
-    @PatchMapping("/{id}")
+    @PatchMapping("/v1/modifyinfo/{id}")
     public ResponseEntity<?> update(@PathVariable Long id ,@RequestBody UserInfoDTO userInfoDTO) {
         try {
             return ResponseEntity.ok(userInfoService.update(id,userInfoDTO));

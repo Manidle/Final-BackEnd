@@ -1,22 +1,19 @@
 package com.example.planergram.userLike.cotroller;
 
 import com.example.planergram.Response.ResponseService;
-import com.example.planergram.userLike.DTO.StayLikeDTO;
 import com.example.planergram.userLike.service.StayLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/staylike")
+@RequestMapping("/api/auth")
 public class StayLikeController {
 
     @Autowired
     private StayLikeService stayLikeService;
 
-    @GetMapping
+    @GetMapping("/v1/like/click/stay")
     public ResponseEntity<?> clickStayLike(
             @RequestParam(value="user", defaultValue="0") Long userId,
             @RequestParam(value="stay", defaultValue="0") Long stayId){
@@ -27,7 +24,7 @@ public class StayLikeController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/v1/currentuser/like/stay/{userId}")
     public ResponseEntity<?> StayLikeFindByUser(@PathVariable Long userId){
         try {
             return ResponseEntity.ok(stayLikeService.findByUser(userId));
@@ -36,7 +33,7 @@ public class StayLikeController {
         }
     }
 
-    @GetMapping("/stay/{stayId}")
+    @GetMapping("/v1/like/stay/{stayId}")
     public ResponseEntity<?> StayLikeFindByStay(@PathVariable Long stayId){
         try {
             return ResponseEntity.ok(stayLikeService.findByStay(stayId));
@@ -45,7 +42,7 @@ public class StayLikeController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/v1/like/stay/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         try {
             return ResponseEntity.ok(stayLikeService.findById(id));

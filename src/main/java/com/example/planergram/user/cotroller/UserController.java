@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
-@RequestMapping("/user")
+@RequestMapping("/api")
 public class UserController {
-
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/v1/register")
     public ResponseEntity<?> signUp(@RequestBody UserDTO userDTO){
         try {
             userService.signUp(userDTO);
@@ -27,7 +26,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/info/{id}")
+    @GetMapping("/v1/auth/getuser/info/{id}")
     public ResponseEntity<?> getUserAndInfo(@PathVariable Long id){
         try {
             return ResponseEntity.ok(userService.getUserAndInfo(id));
@@ -36,7 +35,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/v1/auth/getuser/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id){
         try {
             return ResponseEntity.ok( userService.getUser(id));
@@ -45,7 +44,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/info/{id}")
+    @PutMapping("/v1/auth/modifyuser/info/{id}")
     public ResponseEntity<?> updateUserAndInfo(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
         try {
             return ResponseEntity.ok(userService.updateUserAndInfo(id,userDTO));
@@ -54,7 +53,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/v1/auth/modifyuser/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id ,@RequestBody UserDTO userDTO) {
         try {
             return ResponseEntity.ok(userService.updateUser(id,userDTO));
@@ -63,7 +62,7 @@ public class UserController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/v1/admin/auth/getuserlist")
     public ResponseEntity<?> findAll() {
         try {
             return ResponseEntity.ok(userService.findAll());
@@ -72,7 +71,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/v1/admin/auth/removeuser/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         try {
             return ResponseEntity.ok(userService.delete(id));

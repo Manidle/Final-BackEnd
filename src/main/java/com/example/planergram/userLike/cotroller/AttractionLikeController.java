@@ -1,22 +1,19 @@
 package com.example.planergram.userLike.cotroller;
 
 import com.example.planergram.Response.ResponseService;
-import com.example.planergram.userLike.DTO.AttractionLikeDTO;
 import com.example.planergram.userLike.service.AttractionLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/attractionlike")
+@RequestMapping("/api/auth")
 public class AttractionLikeController {
 
     @Autowired
     private AttractionLikeService attractionLikeService;
 
-    @GetMapping
+    @GetMapping("/v1/like/lick/attraction")
     public ResponseEntity<?> clickAttractionLike(
             @RequestParam(value="user", defaultValue="0") Long userId,
             @RequestParam(value="attraction", defaultValue ="0") Long attractionId
@@ -28,7 +25,7 @@ public class AttractionLikeController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/v1/currentuser/like/attraction/{userId}")
     public ResponseEntity<?> attractionLikeFindByUser(@PathVariable Long userId){
         try {
             return ResponseEntity.ok(attractionLikeService.findByUser(userId));
@@ -37,21 +34,21 @@ public class AttractionLikeController {
         }
     }
 
-    @GetMapping("/attraction/{attractionId}")
+    @GetMapping("/v1/like/attraction/{attractionId}")
     public ResponseEntity<?> attractionLikeFindByAttraction(@PathVariable Long attractionId){
         try {
             return ResponseEntity.ok(attractionLikeService.findByAttraction(attractionId));
         } catch (Exception e){
-            return ResponseService.makeResponseEntity("유저가 좋아요한 관광지 리스트 가져오는 것을 실패했습니다.",e);
+            return ResponseService.makeResponseEntity("해당관광지의 좋아요 추출을 실패했습니다.",e);
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/v1/like/attraction/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         try {
             return ResponseEntity.ok(attractionLikeService.findById(id));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("관광지 좋아요를 가져오는 것을 실패했습니다.",e);
+            return ResponseService.makeResponseEntity("좋아요를 가져오는 것을 실패했습니다.",e);
         }
     }
 }
