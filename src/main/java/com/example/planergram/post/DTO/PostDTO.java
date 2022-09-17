@@ -26,7 +26,7 @@ public class PostDTO {
     @ApiModelProperty(value = "게시글의 좋아요", example = "1")
     private int likeCount;
 
-    @ApiModelProperty(value = "게시판의 ID", example = "1")
+    @ApiModelProperty(hidden = true)
     private Long boardId;
 
     @ApiModelProperty(value = "유저의 ID", example = "1")
@@ -40,7 +40,7 @@ public class PostDTO {
 
     @ApiModelProperty(hidden = true)
     private List<Long> postTrainList;
-    
+
     @ApiModelProperty(hidden = true)
     private List<Long> postAttractionList;
 }

@@ -6,6 +6,9 @@ import com.example.planergram.Response.ResponseService;
 import com.example.planergram.config.auth.PrincipalDetails;
 import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.post.service.PostService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@Api(tags = {"게시글에 대한 API 정보를 제공하는 Controller"})
 @RequestMapping("api/auth/v1")
 public class PostController {
 
@@ -27,9 +31,10 @@ public class PostController {
     private PostService postService;
 
     // 게시글 작성
+    @ApiOperation(value = "해당 게시판에 게시글을 작성하는 API")
     @PostMapping(BOARD + "/{boardId}" + POST)
     public ResponseEntity<?> save(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                                  @PathVariable Long boardId,
+                                  @ApiParam(value = "게시판의 ID값") @PathVariable Long boardId,
                                   @RequestBody PostDTO postDTO) {
         try {
             log.info(principalDetails.getUsername());
@@ -42,6 +47,7 @@ public class PostController {
     }
 
     // 게시글 조회
+    @ApiOperation(value = "모든 게시글을 조회하는 API")
     @GetMapping(POST)
     public ResponseEntity<?> findAll() {
         List<PostDTO> postDTOList = postService.findAll();
@@ -54,8 +60,9 @@ public class PostController {
     }
 
     // 게시글 조회
+    @ApiOperation(value = "게시글을 ID로 조회하는 API")
     @GetMapping(POST + ID)
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@ApiParam(value = "게시글의 ID값") @PathVariable Long id) {
         try {
             return ResponseEntity.ok(postService.findById(id));
         } catch (Exception e) {
@@ -64,8 +71,11 @@ public class PostController {
     }
 
     //게시글 업데이트
-    @PatchMapping(POST + ID)
-    public ResponseEntity<?> update(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable Long id,@RequestBody PostDTO postDTO) {
+    @ApiOperation(value = "게시글을 수정하는 API")
+    @PutMapping(POST + ID)
+    public ResponseEntity<?> update(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                    @ApiParam(value = "게시글의 ID값") @PathVariable Long id,
+                                    @RequestBody PostDTO postDTO) {
         try {
             return ResponseEntity.ok(postService.update(principalDetails.getUser(),id,postDTO));
         } catch (Exception e) {
@@ -74,8 +84,10 @@ public class PostController {
     }
 
     //게시글 삭제
+    @ApiOperation(value = "게시글을 삭제하는 API")
     @DeleteMapping(POST + ID)
-    public ResponseEntity<?> delete(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable Long id) {
+    public ResponseEntity<?> delete(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                    @ApiParam(value = "게시글의 ID값") @PathVariable Long id) {
         try {
             return ResponseEntity.ok(postService.delete(principalDetails.getUser(),id));
         } catch (Exception e) {
