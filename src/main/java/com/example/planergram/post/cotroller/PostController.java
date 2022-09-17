@@ -33,7 +33,7 @@ public class PostController {
     private PostService postService;
 
     // 게시글 작성
-    @ApiOperation(value = "해당 게시판에 게시글을 작성하는 API")
+    @ApiOperation(value = "USER : 해당 게시판에 게시글을 작성하는 API")
     @PostMapping(AUTH + BOARD + "/{boardId}" + POST)
     public ResponseEntity<?> save(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                   @ApiParam(value = "게시판의 ID값") @PathVariable Long boardId,
@@ -49,7 +49,7 @@ public class PostController {
     }
 
     // 게시글 조회
-    @ApiOperation(value = "모든 게시글을 조회하는 API")
+    @ApiOperation(value = "ALL : 모든 게시글을 조회하는 API")
     @GetMapping(POST)
     public ResponseEntity<?> findAll() {
         List<PostDTO> postDTOList = postService.findAll();
@@ -62,7 +62,7 @@ public class PostController {
     }
 
     // 게시글 조회
-    @ApiOperation(value = "게시글을 ID로 조회하는 API")
+    @ApiOperation(value = "USER : 게시글을 ID로 조회하는 API")
     @GetMapping(AUTH + POST + ID)
     public ResponseEntity<?> findById(@ApiParam(value = "게시글의 ID값") @PathVariable Long id) {
         try {
@@ -73,7 +73,7 @@ public class PostController {
     }
 
     //게시글 업데이트
-    @ApiOperation(value = "게시글을 수정하는 API")
+    @ApiOperation(value = "USER : 게시글을 수정하는 API")
     @PutMapping(AUTH + POST + ID)
     public ResponseEntity<?> update(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                     @ApiParam(value = "게시글의 ID값") @PathVariable Long id,
@@ -86,7 +86,7 @@ public class PostController {
     }
 
     //게시글 삭제
-    @ApiOperation(value = "게시글을 삭제하는 API")
+    @ApiOperation(value = "USER : 게시글을 삭제하는 API")
     @DeleteMapping(AUTH + POST + ID)
     public ResponseEntity<?> delete(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                     @ApiParam(value = "게시글의 ID값") @PathVariable Long id) {
