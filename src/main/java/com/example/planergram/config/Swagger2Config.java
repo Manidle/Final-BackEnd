@@ -3,6 +3,7 @@ package com.example.planergram.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 
@@ -31,6 +32,7 @@ public class Swagger2Config {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo()) // API 문서에 대한 내용
+                .ignoredParameterTypes(AuthenticationPrincipal.class) //제외할 파라미터
                 .securityContexts(Arrays.asList(securityContext())) // swagger에서 jwt 토큰값 넣기위한 설정
                 .securitySchemes(Arrays.asList(apiKey())) // swagger에서 jwt 토큰값 넣기위한 설정
                 .select()
