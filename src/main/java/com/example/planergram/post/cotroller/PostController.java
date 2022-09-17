@@ -6,7 +6,6 @@ import com.example.planergram.Response.ResponseService;
 import com.example.planergram.config.auth.PrincipalDetails;
 import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.post.service.PostService;
-import com.example.planergram.user.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,19 +16,25 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/post")
+@RequestMapping("api/auth/v1")
 public class PostController {
+
+    private final String POST = "/post";
+    private final String BOARD = "/board";
+    private final String ID = "/{id}";
 
     @Autowired
     private PostService postService;
 
     // 게시글 작성
-    @PostMapping
-    public ResponseEntity<?> save(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody PostDTO postDTO) {
+    @PostMapping(BOARD + "/{boardId}" + POST)
+    public ResponseEntity<?> save(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                  @PathVariable Long boardId,
+                                  @RequestBody PostDTO postDTO) {
         try {
             log.info(principalDetails.getUsername());
             postDTO.setUserId(principalDetails.getUser().getUserId());
-
+            postDTO.setBoardId(boardId);
             return ResponseEntity.ok(postService.save(postDTO));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("게시글 등록이 실패되었습니다",e);
@@ -37,7 +42,7 @@ public class PostController {
     }
 
     // 게시글 조회
-    @GetMapping
+    @GetMapping(POST)
     public ResponseEntity<?> findAll() {
         List<PostDTO> postDTOList = postService.findAll();
         if (postDTOList.size() == 0) {
@@ -49,7 +54,7 @@ public class PostController {
     }
 
     // 게시글 조회
-    @GetMapping("/{id}")
+    @GetMapping(POST + ID)
     public ResponseEntity<?> findById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(postService.findById(id));
@@ -59,20 +64,20 @@ public class PostController {
     }
 
     //게시글 업데이트
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id,@RequestBody PostDTO postDTO) {
+    @PatchMapping(POST + ID)
+    public ResponseEntity<?> update(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable Long id,@RequestBody PostDTO postDTO) {
         try {
-            return ResponseEntity.ok(postService.update(id,postDTO));
+            return ResponseEntity.ok(postService.update(principalDetails.getUser(),id,postDTO));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("게시글 수정에 실패되었습니다",e);
         }
     }
 
     //게시글 삭제
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    @DeleteMapping(POST + ID)
+    public ResponseEntity<?> delete(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable Long id) {
         try {
-            return ResponseEntity.ok(postService.delete(id));
+            return ResponseEntity.ok(postService.delete(principalDetails.getUser(),id));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("게시글 삭제에 실패되었습니다",e);
         }

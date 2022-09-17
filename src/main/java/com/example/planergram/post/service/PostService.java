@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -70,8 +71,11 @@ public class PostService {
     }
 
     //게시글 업데이트
-    public PostDTO update(Long id, PostDTO postDTO){
+    public PostDTO update(User user, Long id, PostDTO postDTO) throws Exception{
         Post post = postRepository.getById(id);
+        if (!Objects.equals(post.getUser().getUserId(), user.getUserId())){
+            throw new Exception("게시글 작성자가 아닙니다.");
+        }
         post.setTitle(postDTO.getTitle());
         post.setContents(postDTO.getContents());
         post.setLikeCount(postDTO.getLikeCount());
@@ -80,8 +84,11 @@ public class PostService {
         return makePostDTO(post);
     }
 
-    public PostDTO delete(Long id) {
+    public PostDTO delete(User user, Long id) throws Exception{
         Post post = postRepository.getById(id);
+        if (!Objects.equals(post.getUser().getUserId(), user.getUserId())){
+            throw new Exception("게시글 작성자가 아닙니다.");
+        }
         log.info("게시글 삭제가 완료되었습니다.");
         return makePostDTO(post);
     }
