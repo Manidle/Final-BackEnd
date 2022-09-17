@@ -22,7 +22,7 @@ public class BoardController {
 
     private final String VERSION = "/v1";
     private final String AUTH = "/auth" + VERSION;
-    private final String ADMIN_AUTH = "/admin" + AUTH + VERSION;
+    private final String ADMIN_AUTH = "/admin" + AUTH;
     private final String BOARD = "/board";
 
     // 게시판 등록
