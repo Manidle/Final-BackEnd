@@ -20,9 +20,11 @@ import java.util.List;
 @Slf4j
 @RestController
 @Api(tags = {"게시글에 대한 API 정보를 제공하는 Controller"})
-@RequestMapping("api/auth/v1")
+@RequestMapping("api")
 public class PostController {
 
+    private final String VERSION = "/v1";
+    private final String AUTH = "/auth" + VERSION;
     private final String POST = "/post";
     private final String BOARD = "/board";
     private final String ID = "/{id}";
@@ -32,7 +34,7 @@ public class PostController {
 
     // 게시글 작성
     @ApiOperation(value = "해당 게시판에 게시글을 작성하는 API")
-    @PostMapping(BOARD + "/{boardId}" + POST)
+    @PostMapping(AUTH + BOARD + "/{boardId}" + POST)
     public ResponseEntity<?> save(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                   @ApiParam(value = "게시판의 ID값") @PathVariable Long boardId,
                                   @RequestBody PostDTO postDTO) {
@@ -61,7 +63,7 @@ public class PostController {
 
     // 게시글 조회
     @ApiOperation(value = "게시글을 ID로 조회하는 API")
-    @GetMapping(POST + ID)
+    @GetMapping(AUTH + POST + ID)
     public ResponseEntity<?> findById(@ApiParam(value = "게시글의 ID값") @PathVariable Long id) {
         try {
             return ResponseEntity.ok(postService.findById(id));
@@ -72,7 +74,7 @@ public class PostController {
 
     //게시글 업데이트
     @ApiOperation(value = "게시글을 수정하는 API")
-    @PutMapping(POST + ID)
+    @PutMapping(AUTH + POST + ID)
     public ResponseEntity<?> update(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                     @ApiParam(value = "게시글의 ID값") @PathVariable Long id,
                                     @RequestBody PostDTO postDTO) {
@@ -85,7 +87,7 @@ public class PostController {
 
     //게시글 삭제
     @ApiOperation(value = "게시글을 삭제하는 API")
-    @DeleteMapping(POST + ID)
+    @DeleteMapping(AUTH + POST + ID)
     public ResponseEntity<?> delete(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                     @ApiParam(value = "게시글의 ID값") @PathVariable Long id) {
         try {

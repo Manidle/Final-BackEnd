@@ -29,7 +29,7 @@ public class PostDTO {
     @ApiModelProperty(hidden = true)
     private Long boardId;
 
-    @ApiModelProperty(value = "유저의 ID", example = "1")
+    @ApiModelProperty(hidden = true)
     private Long userId;
 
     @ApiModelProperty(hidden = true)
