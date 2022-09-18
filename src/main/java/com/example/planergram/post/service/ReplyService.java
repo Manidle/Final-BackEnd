@@ -39,8 +39,11 @@ public class ReplyService {
         return makeReplyDTO(reply);
     }
 
-    public ReplyDTO rewriteReply(Long replyId, String contents) {
+    public ReplyDTO rewriteReply(User user, Long replyId, String contents) throws Exception{
         Reply reply = replyRepository.getById(replyId);
+        if(!user.getUserId().equals(reply.getUser().getUserId())){
+            throw new Exception("작성한 유저가 일치하지 않습니다.");
+        }
         reply.setContents(contents);
         reply = replyRepository.save(reply);
         log.info("댓글 수정이 완료되었습니다");
@@ -58,8 +61,11 @@ public class ReplyService {
         return replyDTOList;
     }
 
-    public List<ReplyDTO> delete(Long replyId){
+    public List<ReplyDTO> delete(User user, Long replyId) throws Exception{
         Reply reply =  replyRepository.getById(replyId);
+        if(!user.getUserId().equals(reply.getUser().getUserId())){
+            throw new Exception("작성한 유저가 일치하지 않습니다.");
+        }
         Long postId = reply.getPost().getPostId();
         replyRepository.delete(reply);
         log.info("댓글 삭제가 완료되었습니다.");

@@ -32,14 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(),userRepository))
                 .authorizeRequests()
-                .antMatchers("/api/v1/user/**")
-                .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
-                .antMatchers("/api/v1/manager/**")
-                .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
-                .antMatchers("/api/v1/admin/**")
+                .antMatchers("/api/auth/**")
+                .access("hasRole('ROLE_USER')")
+                .antMatchers("api/admin/auth/**")
                 .access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/post/**")
-                .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll();
     }
 }
