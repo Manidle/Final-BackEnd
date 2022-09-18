@@ -65,8 +65,10 @@ public class PostService {
 
     public PostDTO findById(Long id) {
         Post post = postRepository.getById(id);
+        post.setReadCount(post.getReadCount()+1);
+        post = postRepository.save(post);
         PostDTO postDTO = makePostDTO(post);
-        log.info("모든 게시글을 조회하였습니다.");
+        log.info("게시글을 조회하였습니다.");
         return postDTO;
     }
 
@@ -131,6 +133,7 @@ public class PostService {
                 .title(postDTO.getTitle())
                 .contents(postDTO.getContents())
                 .likeCount(postDTO.getLikeCount())
+                .readCount(postDTO.getReadCount())
                 .board(board)
                 .user(user)
                 .postAttractionList(PostAttractionList)
@@ -177,6 +180,7 @@ public class PostService {
                 .title(post.getTitle())
                 .contents(post.getContents())
                 .likeCount(post.getLikeCount())
+                .readCount(post.getReadCount())
                 .boardId(post.getBoard().getBoardId())
                 .userId(post.getUser().getUserId())
                 .postStayList(PostStayIdList)

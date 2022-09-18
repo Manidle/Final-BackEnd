@@ -23,8 +23,12 @@ public class PostDTO {
     @ApiModelProperty(value = "게시글의 내용", example = "test contents")
     private String contents;
 
+
     @ApiModelProperty(value = "게시글의 좋아요", example = "1")
     private int likeCount;
+    
+    @ApiModelProperty(value = "게시글의 조회수", example = "1")
+    private int readCount;
 
     @ApiModelProperty(hidden = true)
     private Long boardId;
