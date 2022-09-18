@@ -76,6 +76,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withExpiresAt(new Date(System.currentTimeMillis()+(60000*10)))
                 .withClaim("id", principalDetailis.getUser().getUserId())
                 .withClaim("username", principalDetailis.getUser().getUsername())
+                .withClaim("nickname",principalDetailis.getUser().getNickname())
+
                 .sign(Algorithm.HMAC512("cos"));
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
