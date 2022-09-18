@@ -19,7 +19,7 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
     @ApiOperation(value = "특정유저의 상세정보만 보여주는 API")
-    @GetMapping("/v1/getinfo/{id}")
+    @GetMapping("/v1/info/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 user의 고유id") @PathVariable Long id) {
         try {
             return ResponseEntity.ok(userInfoService.findById(id));
@@ -29,7 +29,7 @@ public class UserInfoController {
     }
 
     @ApiOperation(value = "특정유저의 상세정보만 수정하는 API")
-    @PatchMapping("/v1/modifyinfo/{id}")
+    @PatchMapping("/v1/modify/info/{id}")
     public ResponseEntity<?> update(@ApiParam(value = "수정하고싶은 user의 고유id") @PathVariable Long id ,@RequestBody UserInfoDTO userInfoDTO) {
         try {
             return ResponseEntity.ok(userInfoService.update(id,userInfoDTO));

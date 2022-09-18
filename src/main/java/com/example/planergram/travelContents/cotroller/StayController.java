@@ -29,7 +29,7 @@ public class StayController {
     }
 
     @ApiOperation(value = "등록된 숙소정보를 모두 보여주는 API")
-    @GetMapping("/auth/v1/getlist/stay")
+    @GetMapping("/auth/v1/list/stay")
     public ResponseEntity<?> findAll(){
         try {
             return ResponseEntity.ok(stayService.findAll());
@@ -39,7 +39,7 @@ public class StayController {
     }
 
     @ApiOperation(value = "특정 숙소정보를 보여주는 API")
-    @GetMapping("/auth/v1/getstay/{id}")
+    @GetMapping("/auth/v1/stay/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 stay의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(stayService.findById(id));
@@ -59,7 +59,7 @@ public class StayController {
     }
 
     @ApiOperation(value = "매니저가 특정 숙소정보를 삭제하는 API")
-    @DeleteMapping("/admin/auth/v1/register/stay/{id}")
+    @DeleteMapping("/admin/auth/v1/stay/{id}")
     public ResponseEntity<?> delete(@ApiParam(value = "삭제하고싶은 stay의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(stayService.delete(id));

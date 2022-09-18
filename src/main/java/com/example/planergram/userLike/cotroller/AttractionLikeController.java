@@ -31,7 +31,7 @@ public class AttractionLikeController {
     }
 
     @ApiOperation(value = "특정유저가 좋아요 누른 관광지를 모두 보여주는 API")
-    @GetMapping("/v1/getlist/currentuser/like/attraction/{userId}")
+    @GetMapping("/v1/list/currentuser/like/attraction/{userId}")
     public ResponseEntity<?> attractionLikeFindByUser(@ApiParam(value = "확인하고싶은 user의 고유id") @PathVariable Long userId){
         try {
             return ResponseEntity.ok(attractionLikeService.findByUser(userId));
@@ -41,7 +41,7 @@ public class AttractionLikeController {
     }
 
     @ApiOperation(value = "특정관광지의 좋아요를 모두 보여주는 API")
-    @GetMapping("/v1/getlist/like/attraction/{attractionId}")
+    @GetMapping("/v1/list/like/attraction/{attractionId}")
     public ResponseEntity<?> attractionLikeFindByAttraction(@ApiParam(value = "확인하고싶은 attractionLike의 고유id") @PathVariable Long attractionId){
         try {
             return ResponseEntity.ok(attractionLikeService.findByAttraction(attractionId));
@@ -51,7 +51,7 @@ public class AttractionLikeController {
     }
 
     @ApiOperation(value = "관광지&좋아요를 1:1 형태로 모두 보여주는 API")
-    @GetMapping("/v1/like/getattraction/{id}")
+    @GetMapping("/v1/like/attraction/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 attractionLike의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(attractionLikeService.findById(id));

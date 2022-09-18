@@ -31,7 +31,7 @@ public class RentCarLikeController {
     }
 
     @ApiOperation(value = "특정유저가 좋아요 누른 렌트카를 모두 보여주는 API")
-    @GetMapping("/v1/getlist/currentuser/like/rentcar/{userId}")
+    @GetMapping("/v1/list/currentuser/like/rentcar/{userId}")
     public ResponseEntity<?> RentCarLikeFindByUser(@ApiParam(value = "확인하고싶은 user의 고유id") @PathVariable Long userId){
         try {
             return ResponseEntity.ok(rentCarLikeService.findByUser(userId));
@@ -41,7 +41,7 @@ public class RentCarLikeController {
     }
 
     @ApiOperation(value = "특정관광지의 렌트카를 모두 보여주는 API")
-    @GetMapping("/v1/getlist/like/rentcar/{rentcarId}")
+    @GetMapping("/v1/list/like/rentcar/{rentcarId}")
     public ResponseEntity<?> RentCarLikeFindByStay(@ApiParam(value = "확인하고싶은 rentcar의 고유id") @PathVariable Long rentcarId){
         try {
             return ResponseEntity.ok(rentCarLikeService.findByRentCar(rentcarId));
@@ -51,7 +51,7 @@ public class RentCarLikeController {
     }
 
     @ApiOperation(value = "렌트카&좋아요를 1:1 형태로 모두 보여주는 API")
-    @GetMapping("/v1/like/getrentcar/{id}")
+    @GetMapping("/v1/like/rentcar/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 rentcarLike의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(rentCarLikeService.findById(id));

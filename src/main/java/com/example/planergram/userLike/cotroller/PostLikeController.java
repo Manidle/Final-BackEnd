@@ -33,7 +33,7 @@ public class PostLikeController {
     }
 
     @ApiOperation(value = "특정유저가 좋아요 누른 게시글을 모두 보여주는 API")
-    @GetMapping("/v1/getlist/currentuser/like/post/{userId}")
+    @GetMapping("/v1/list/currentuser/like/post/{userId}")
     public ResponseEntity<?> postLikeFindByUser(@ApiParam(value = "확인하고싶은 user의 고유id") @PathVariable Long userId){
         try {
             return ResponseEntity.ok(postLikeService.findByUser(userId));
@@ -43,7 +43,7 @@ public class PostLikeController {
     }
 
     @ApiOperation(value = "특정관광지의 게시글을 모두 보여주는 API")
-    @GetMapping("/v1/getlist/like/post/{postId}")
+    @GetMapping("/v1/list/like/post/{postId}")
     public ResponseEntity<?> postLikeFindByPost(@ApiParam(value = "확인하고싶은 post 고유id") @PathVariable Long postId){
         try {
             return ResponseEntity.ok(postLikeService.findByPost(postId));
@@ -53,7 +53,7 @@ public class PostLikeController {
     }
 
     @ApiOperation(value = "게시글&좋아요 1:1 형태로 모두 보여주는 API")
-    @GetMapping("/v1/like/getpost/{id}")
+    @GetMapping("/v1/like/post/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 postLike의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(postLikeService.findById(id));

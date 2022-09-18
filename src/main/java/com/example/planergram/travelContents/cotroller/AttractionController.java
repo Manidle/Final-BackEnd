@@ -29,7 +29,7 @@ public class AttractionController {
     }
 
     @ApiOperation(value = "등록된 관광지정보를 모두 보여주는 API")
-    @GetMapping("/auth/v1/getlist/attraction")
+    @GetMapping("/auth/v1/list/attraction")
     public ResponseEntity<?> findAll(){
         try {
             return ResponseEntity.ok(attractionService.findAll());
@@ -39,7 +39,7 @@ public class AttractionController {
     }
 
     @ApiOperation(value = "특정 관광지정보를 보여주는 API")
-    @GetMapping("/auth/v1/getattraction/{id}")
+    @GetMapping("/auth/v1/attraction/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 attraction의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(attractionService.findById(id));
@@ -59,7 +59,7 @@ public class AttractionController {
     }
 
     @ApiOperation(value = "매니저가 특정 관광지정보를 삭제하는 API")
-    @DeleteMapping("/admin/auth/v1/register/attraction/{id}")
+    @DeleteMapping("/admin/auth/v1/attraction/{id}")
     public ResponseEntity<?> delete(@ApiParam(value = "삭제하고싶은 attraction의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(attractionService.delete(id));

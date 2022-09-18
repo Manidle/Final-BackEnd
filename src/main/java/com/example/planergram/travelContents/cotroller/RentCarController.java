@@ -29,7 +29,7 @@ public class RentCarController {
     }
 
     @ApiOperation(value = "등록된 렌트카정보를 모두 보여주는 API")
-    @GetMapping("/auth/v1/getlist/rentcar")
+    @GetMapping("/auth/v1/list/rentcar")
     public ResponseEntity<?> findAll(){
         try {
             return ResponseEntity.ok(rentCarService.findAll());
@@ -39,7 +39,7 @@ public class RentCarController {
     }
 
     @ApiOperation(value = "특정 렌트카정보를 보여주는 API")
-    @GetMapping("/auth/v1/getrentcar/{id}")
+    @GetMapping("/auth/v1/rentcar/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 rentcar의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(rentCarService.findById(id));
@@ -59,7 +59,7 @@ public class RentCarController {
     }
 
     @ApiOperation(value = "매니저가 특정 렌트카정보를 삭제하는 API")
-    @DeleteMapping("/admin/auth/v1/register/rentcar/{id}")
+    @DeleteMapping("/admin/auth/v1/rentcar/{id}")
     public ResponseEntity<?> delete(@ApiParam(value = "삭제하고싶은 rentcar의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(rentCarService.delete(id));

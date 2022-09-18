@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "특정유저의 기본정보 및 세부정보를 보여주는 API")
-    @GetMapping("/auth/v1/getuser/info/{id}")
+    @GetMapping("/auth/v1/user/info/{id}")
     public ResponseEntity<?> getUserAndInfo(@ApiParam(value = "확인하고싶은 user의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(userService.getUserAndInfo(id));
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "특정유저의 기본정보만 보여주는 API")
-    @GetMapping("/auth/v1/getuser/{id}")
+    @GetMapping("/auth/v1/user/{id}")
     public ResponseEntity<?> getUser(@ApiParam(value = "확인하고싶은 user의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok( userService.getUser(id));
@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "모든유저를 모두 보여주는 API")
-    @GetMapping("/admin/auth/v1/getlist/user")
+    @GetMapping("/admin/auth/v1/list/user")
     public ResponseEntity<?> findAll() {
         try {
             return ResponseEntity.ok(userService.findAll());
@@ -82,7 +82,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "유저를 탈퇴시키는 API")
-    @DeleteMapping("/admin/auth/v1/remove/user/{id}")
+    @DeleteMapping("/admin/auth/v1/user/{id}")
     public ResponseEntity<?> delete(@ApiParam(value = "삭제하고싶은 user의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(userService.delete(id));

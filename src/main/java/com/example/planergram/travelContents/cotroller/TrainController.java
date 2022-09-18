@@ -29,7 +29,7 @@ public class TrainController {
     }
 
     @ApiOperation(value = "등록된 기차정보를 모두 보여주는 API")
-    @GetMapping("/auth/v1/getlist/train")
+    @GetMapping("/auth/v1/list/train")
     public ResponseEntity<?> findAll() {
         try {
             return ResponseEntity.ok(trainService.findAll());
@@ -39,7 +39,7 @@ public class TrainController {
     }
 
     @ApiOperation(value = "특정 기차정보를 보여주는 API")
-    @GetMapping("/auth/v1/gettrain/{id}")
+    @GetMapping("/auth/v1/train/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 train의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(trainService.findById(id));
@@ -55,7 +55,7 @@ public class TrainController {
     }
 
     @ApiOperation(value = "매니저가 특정 기차정보를 삭제하는 API")
-    @DeleteMapping("/admin/auth/v1/register/train/{id}")
+    @DeleteMapping("/admin/auth/v1/{id}")
     public ResponseEntity<?> delete(@ApiParam(value = "삭제하고싶은 train의 고유id") @PathVariable Long id){
         try {
             return ResponseEntity.ok(trainService.delete(id));
