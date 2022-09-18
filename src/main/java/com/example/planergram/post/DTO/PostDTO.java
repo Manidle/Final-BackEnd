@@ -17,7 +17,9 @@ public class PostDTO {
 
     private String title;
     private String contents;
+
     private int likeCount;
+    private int readCount;
 
     private Long boardId;
     private Long userId;

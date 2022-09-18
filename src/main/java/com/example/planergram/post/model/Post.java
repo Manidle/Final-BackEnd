@@ -35,6 +35,9 @@ public class Post {
     @Column(name = "like_count")
     private int likeCount;
 
+    @Column(name = "read_count")
+    private int readCount;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
