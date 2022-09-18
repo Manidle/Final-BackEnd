@@ -24,7 +24,7 @@ public class PostStayController {
     private final String POST_STAY = POST_CONTENTS + "/post-stay";
 
 
-    @GetMapping(AUTH + POST_STAY)
+    @GetMapping(AUTH + POST_STAY + "/click")
     @ApiOperation(value = "USER : 해당 게시글에 숙소를 추가하는 API")
     public ResponseEntity<?> clickPostStay(
             @ApiParam(value = "게시글의 ID값") @RequestParam(value="post", defaultValue="0") Long postId,
@@ -36,7 +36,7 @@ public class PostStayController {
         }
     }
 
-    @GetMapping(AUTH + "/post/{postId}" + POST_STAY)
+    @GetMapping(AUTH + "/post/{postId}" + POST_STAY + "/list")
     @ApiOperation(value = "USER : 해당 게시글에 숙소를 조회하는 API")
     public ResponseEntity<?> postStayFindByPost(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId){
         try {
@@ -46,7 +46,7 @@ public class PostStayController {
         }
     }
 
-    @GetMapping(ADMIN_AUTH + POST_STAY + "/stay/{stayId}")
+    @GetMapping(ADMIN_AUTH + POST_STAY + "/list" + "/stay/{stayId}")
     @ApiOperation(value = "ADMIN : 숙소를 게시글에 추가한 경우를 숙소로 조회하는 API")
     public ResponseEntity<?> postStayFindByStay(@ApiParam(value = "숙소의 ID값") @PathVariable Long stayId){
         try {

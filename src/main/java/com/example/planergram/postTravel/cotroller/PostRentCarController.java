@@ -26,7 +26,7 @@ public class PostRentCarController {
     private final String POST_RENT_CAR = POST_CONTENTS + "/post-rent-car";
 
 
-    @GetMapping(AUTH + POST_RENT_CAR)
+    @GetMapping(AUTH + POST_RENT_CAR + "/click")
     @ApiOperation(value = "USER : 해당 게시글에 랜트카를 추가하는 API")
     public ResponseEntity<?> clickPostRentCar(
             @ApiParam(value = "게시글의 ID값") @RequestParam(value="post", defaultValue="0") Long postId,
@@ -41,7 +41,7 @@ public class PostRentCarController {
         }
     }
 
-    @GetMapping(AUTH + "/post/{postId}" + POST_RENT_CAR)
+    @GetMapping(AUTH + "/post/{postId}" + POST_RENT_CAR + "/list")
     @ApiOperation(value = "USER : 해당 게시글에 랜트카를 조회하는 API")
     public ResponseEntity<?> postRentCarFindByPost(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId){
         try {
@@ -51,7 +51,7 @@ public class PostRentCarController {
         }
     }
 
-    @GetMapping(ADMIN_AUTH + POST_RENT_CAR + "/rent-car/{rentCarId}")
+    @GetMapping(ADMIN_AUTH + POST_RENT_CAR + "/list" + "/rent-car/{rentCarId}")
     @ApiOperation(value = "ADMIN : 랜트카를 게시글에 추가한 경우를 랜트카로 조회하는 API")
     public ResponseEntity<?> postRentCarFindByRentCar(@ApiParam(value = "랜트카의 ID값") @PathVariable Long rentCarId){
         try {

@@ -23,7 +23,7 @@ public class PostAttractionController {
     private final String POST_CONTENTS = "/post-contents";
     private final String POST_ATTRACTION = POST_CONTENTS + "/post-attraction";
 
-    @GetMapping(AUTH + POST_ATTRACTION)
+    @GetMapping(AUTH + POST_ATTRACTION+ "/click")
     @ApiOperation(value = "USER : 해당 게시글에 관광지를 추가하는 API")
     public ResponseEntity<?> clickPostAttraction(
             @ApiParam(value = "게시글의 ID값") @RequestParam(value="post", defaultValue="0") Long postId,
@@ -35,7 +35,7 @@ public class PostAttractionController {
         }
     }
 
-    @GetMapping(AUTH + "/post/{postId}" + POST_ATTRACTION)
+    @GetMapping(AUTH + "/post/{postId}" + POST_ATTRACTION + "/list")
     @ApiOperation(value = "USER : 해당 게시글에 관광지를 조회하는 API")
     public ResponseEntity<?> postAttractionFindByPost(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId){
         try {
@@ -45,7 +45,7 @@ public class PostAttractionController {
         }
     }
 
-    @GetMapping(ADMIN_AUTH + POST_ATTRACTION + "/attraction/{attractionId}")
+    @GetMapping(ADMIN_AUTH + POST_ATTRACTION + "/list/attraction/{attractionId}")
     @ApiOperation(value = "ADMIN : 관광지를 게시글에 추가한 경우를 관광차로 조회하는 API")
     public ResponseEntity<?> postAttractionFindByAttraction(@ApiParam(value = "관광지의 ID값") @PathVariable Long attractionId){
         try {

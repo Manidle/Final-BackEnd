@@ -24,7 +24,7 @@ public class PostTrainController {
     private final String POST_TRAIN = POST_CONTENTS + "/post-train";
 
 
-    @GetMapping(AUTH + POST_TRAIN)
+    @GetMapping(AUTH + POST_TRAIN + "/click")
     @ApiOperation(value = "USER : 해당 게시글에 기차를 추가하는 API")
     public ResponseEntity<?> clickTrainLike(
             @ApiParam(value = "게시글의 ID값") @RequestParam(value="post", defaultValue="0") Long postId,
@@ -36,7 +36,7 @@ public class PostTrainController {
         }
     }
 
-    @GetMapping(AUTH + "/post/{postId}" + POST_TRAIN)
+    @GetMapping(AUTH + "/post/{postId}" + POST_TRAIN + "/list")
     @ApiOperation(value = "USER : 해당 게시글에 기차를 조회하는 API")
     public ResponseEntity<?> postTrainFindByPost(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId){
         try {
@@ -46,7 +46,7 @@ public class PostTrainController {
         }
     }
 
-    @GetMapping(ADMIN_AUTH + POST_TRAIN + "/train/{trainId}")
+    @GetMapping(ADMIN_AUTH + POST_TRAIN + "/list" + "/train/{trainId}")
     @ApiOperation(value = "ADMIN : 기차를 게시글에 추가한 경우를 기차로 조회하는 API")
     public ResponseEntity<?> postTrainFindByTrain(@ApiParam(value = "기차의 ID값") @PathVariable Long trainId){
         try {
