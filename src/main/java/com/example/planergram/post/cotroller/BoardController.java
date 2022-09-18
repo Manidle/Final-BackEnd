@@ -27,7 +27,7 @@ public class BoardController {
 
     // 게시판 등록
     @ApiOperation(value = "ADMIN : 게시판 생성 API")
-    @PostMapping(ADMIN_AUTH + BOARD)
+    @PostMapping(ADMIN_AUTH + BOARD + "/register")
     public ResponseEntity<?> save(@RequestBody BoardDTO boardDTO) {
         try {
             return ResponseEntity.ok(boardService.save(boardDTO));
@@ -58,7 +58,7 @@ public class BoardController {
 
     // 게시판 업데이트
     @ApiOperation(value = "ADMIN : 게시판 업데이트 API")
-    @PutMapping(ADMIN_AUTH + BOARD + "/{id}")
+    @PutMapping(ADMIN_AUTH + BOARD + "/modify" + "/{id}")
     public ResponseEntity<?> update(@ApiParam(value = "게시판의 ID값") @PathVariable Long id, @RequestBody BoardDTO updateBoarDTO) {
         try {
             return ResponseEntity.ok(boardService.update(id, updateBoarDTO));

@@ -30,7 +30,7 @@ public class ReplyController {
 
     private final String REPLY = "/reply";
 
-    @GetMapping(AUTH + REPLY)
+    @GetMapping(AUTH + REPLY + "/register")
     @ApiOperation(value = "USER : 해당 게시글에 댓글을 작성하는 API")
     public ResponseEntity<?> writeReply(
             @AuthenticationPrincipal PrincipalDetails principalDetails,
@@ -55,7 +55,7 @@ public class ReplyController {
         return ResponseEntity.ok(replyDTOList);
     }
 
-    @PatchMapping(AUTH + REPLY)
+    @PatchMapping(AUTH + REPLY + "/modify")
     @ApiOperation(value = "USER : 해당 댓글의 내용을 수정하는 API")
     public ResponseEntity<?> rewriteReply(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                           @ApiParam(value = "댓글의 ID값") @RequestParam(value = "replyId") Long replyId,

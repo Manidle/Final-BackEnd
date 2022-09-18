@@ -34,7 +34,7 @@ public class PostController {
 
     // 게시글 작성
     @ApiOperation(value = "USER : 해당 게시판에 게시글을 작성하는 API")
-    @PostMapping(AUTH + BOARD + "/{boardId}" + POST)
+    @PostMapping(AUTH + BOARD + "/{boardId}" + POST + "/register")
     public ResponseEntity<?> save(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                   @ApiParam(value = "게시판의 ID값") @PathVariable Long boardId,
                                   @RequestBody PostDTO postDTO) {
@@ -74,7 +74,7 @@ public class PostController {
 
     //게시글 업데이트
     @ApiOperation(value = "USER : 게시글을 수정하는 API")
-    @PutMapping(AUTH + POST + ID)
+    @PutMapping(AUTH + POST + "/modify" + ID)
     public ResponseEntity<?> update(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                     @ApiParam(value = "게시글의 ID값") @PathVariable Long id,
                                     @RequestBody PostDTO postDTO) {
