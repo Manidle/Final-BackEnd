@@ -77,6 +77,13 @@ public class PostService {
         return postDTOList;
     }
 
+    public List<PostDTO> findByTitleLike(String title) {
+        List<Post> postList = postRepository.findByTitleLike("%"+title+"%");
+        List<PostDTO> postDTOList = makePostDTOList(postList);
+        log.info("모든 게시글을 조회하였습니다.");
+        return postDTOList;
+    }
+
     public PostDTO findById(Long id) {
         Post post = postRepository.getById(id);
         post.setReadCount(post.getReadCount()+1);

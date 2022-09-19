@@ -96,6 +96,17 @@ public class PostController {
         }
     }
 
+    //지역으로 filtering된 게시글 조회
+    @ApiOperation(value = "지역 + 상세지역으로 filtering 조회 API")
+    @GetMapping("/filter/address/1")
+    public ResponseEntity<?> findByTitleLike(@RequestParam(value = "title") String title) {
+        try {
+            return ResponseEntity.ok(postService.findByTitleLike(title));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("게시글이 없습니다.",e);
+        }
+    }
+
     //게시글 업데이트
     @ApiOperation(value = "USER : 게시글을 수정하는 API")
     @PutMapping(AUTH + POST + "/modify" + ID)
