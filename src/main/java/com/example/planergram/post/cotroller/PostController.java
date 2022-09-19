@@ -107,6 +107,19 @@ public class PostController {
         }
     }
 
+    // 게시글 조회
+    @ApiOperation(value = "ALL : 모든 게시글을 조회하는 API")
+    @GetMapping("/filter/address/2")
+    public ResponseEntity<?> findAllByOrderByLikeCountDesc() {
+        List<PostDTO> postDTOList = postService.findAllByOrderByLikeCountDesc();
+        if (postDTOList.size() == 0) {
+            log.error("게시글이 없습니다.");
+            ResponseDTO responseDTO = ResponseDTO.builder().error("게시글이 없습니다.").build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+        return ResponseEntity.ok(postDTOList);
+    }
+
     //게시글 업데이트
     @ApiOperation(value = "USER : 게시글을 수정하는 API")
     @PutMapping(AUTH + POST + "/modify" + ID)

@@ -17,6 +17,7 @@ import com.example.planergram.user.model.User;
 import com.example.planergram.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -63,8 +64,8 @@ public class PostService {
         return postDTOList;
     }
 
-    public List<PostDTO> findByDetailAddressAndAddress(String detailAddress,String address) {
-        List<Post> postList = postRepository.findByDetailAddressAndAddress(detailAddress,address);
+    public List<PostDTO> findByDetailAddressAndAddress(String detailAddress, String address) {
+        List<Post> postList = postRepository.findByDetailAddressAndAddress(detailAddress, address);
         List<PostDTO> postDTOList = makePostDTOList(postList);
         log.info("모든 게시글을 조회하였습니다.");
         return postDTOList;
@@ -78,7 +79,14 @@ public class PostService {
     }
 
     public List<PostDTO> findByTitleLike(String title) {
-        List<Post> postList = postRepository.findByTitleLike("%"+title+"%");
+        List<Post> postList = postRepository.findByTitleLike("%" + title + "%");
+        List<PostDTO> postDTOList = makePostDTOList(postList);
+        log.info("모든 게시글을 조회하였습니다.");
+        return postDTOList;
+    }
+
+    public List<PostDTO> findAllByOrderByLikeCountDesc() {
+        List<Post> postList = postRepository.findAll(Sort.by(Sort.Direction.DESC, "likeCount"));
         List<PostDTO> postDTOList = makePostDTOList(postList);
         log.info("모든 게시글을 조회하였습니다.");
         return postDTOList;
@@ -86,7 +94,7 @@ public class PostService {
 
     public PostDTO findById(Long id) {
         Post post = postRepository.getById(id);
-        post.setReadCount(post.getReadCount()+1);
+        post.setReadCount(post.getReadCount() + 1);
         post = postRepository.save(post);
         PostDTO postDTO = makePostDTO(post);
         log.info("게시글을 조회하였습니다.");
@@ -94,9 +102,9 @@ public class PostService {
     }
 
     //게시글 업데이트
-    public PostDTO update(User user, Long id, PostDTO postDTO) throws Exception{
+    public PostDTO update(User user, Long id, PostDTO postDTO) throws Exception {
         Post post = postRepository.getById(id);
-        if (!Objects.equals(post.getUser().getUserId(), user.getUserId())){
+        if (!Objects.equals(post.getUser().getUserId(), user.getUserId())) {
             throw new Exception("게시글 작성자가 아닙니다.");
         }
         post.setTitle(postDTO.getTitle());
@@ -109,16 +117,16 @@ public class PostService {
         return makePostDTO(post);
     }
 
-    public PostDTO delete(User user, Long id) throws Exception{
+    public PostDTO delete(User user, Long id) throws Exception {
         Post post = postRepository.getById(id);
-        if (!Objects.equals(post.getUser().getUserId(), user.getUserId())){
+        if (!Objects.equals(post.getUser().getUserId(), user.getUserId())) {
             throw new Exception("게시글 작성자가 아닙니다.");
         }
         log.info("게시글 삭제가 완료되었습니다.");
         return makePostDTO(post);
     }
 
-    private Post makePost(PostDTO postDTO){
+    private Post makePost(PostDTO postDTO) {
         Board board = boardRepository.getById(postDTO.getBoardId());
         User user = userRepository.getById(postDTO.getUserId());
 
