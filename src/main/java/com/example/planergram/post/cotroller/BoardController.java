@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
-@RequestMapping("api")
+@RequestMapping("/all")
 @Api(tags = {"게시판에 대한 API 정보를 제공하는 Controller"})
 public class BoardController {
 
@@ -27,7 +27,8 @@ public class BoardController {
 
     // 게시판 등록
     @ApiOperation(value = "ADMIN : 게시판 생성 API")
-    @PostMapping(ADMIN_AUTH + BOARD + "/register")
+//    @PostMapping(ADMIN_AUTH + BOARD + "/register")
+    @PostMapping("qq")
     public ResponseEntity<?> save(@RequestBody BoardDTO boardDTO) {
         try {
             return ResponseEntity.ok(boardService.save(boardDTO));
@@ -38,7 +39,8 @@ public class BoardController {
 
     // 게시판 조회
     @ApiOperation(value = "ALL : 게시판 전체 조회 API")
-    @GetMapping(BOARD)
+//    @GetMapping(BOARD)
+    @GetMapping("/qwe")
     public ResponseEntity<?> findAll() {
         try {
             return ResponseEntity.ok(boardService.findAll());

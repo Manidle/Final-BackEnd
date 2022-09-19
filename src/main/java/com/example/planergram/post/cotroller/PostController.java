@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @Api(tags = {"게시글에 대한 API 정보를 제공하는 Controller"})
-@RequestMapping("api")
+@RequestMapping("all")
 public class PostController {
 
     private final String VERSION = "/v1";
@@ -34,7 +34,8 @@ public class PostController {
 
     // 게시글 작성
     @ApiOperation(value = "USER : 해당 게시판에 게시글을 작성하는 API")
-    @PostMapping(AUTH + BOARD + "/{boardId}" + POST + "/register")
+//    @PostMapping(AUTH + BOARD + "/{boardId}" + POST + "/register")
+    @PostMapping("ww/{boardId}")
     public ResponseEntity<?> save(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                   @ApiParam(value = "게시판의 ID값") @PathVariable Long boardId,
                                   @RequestBody PostDTO postDTO) {
@@ -72,6 +73,17 @@ public class PostController {
         }
     }
 
+    // 세부지역 + 상세지역으로 filtering된 게시글 조회
+    @ApiOperation(value = "세부지역 + 상세지역으로 filtering")
+    @GetMapping("/filter/address/detail")
+    public ResponseEntity<?> findByDetailAddressAndAddress(@RequestParam(value = "address") String address,
+                                                           @RequestParam(value = "detailAddress") String detailAddress) {
+        try {
+            return ResponseEntity.ok(postService.findByDetailAddressAndAddress(detailAddress,address));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("게시글이 없습니다.",e);
+        }
+    }
     //게시글 업데이트
     @ApiOperation(value = "USER : 게시글을 수정하는 API")
     @PutMapping(AUTH + POST + "/modify" + ID)

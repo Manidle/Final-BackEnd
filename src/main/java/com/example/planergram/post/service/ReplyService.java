@@ -10,7 +10,6 @@ import com.example.planergram.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class ReplyService {
         return makeReplyDTO(reply);
     }
 
-    public ReplyDTO rewriteReply(User user, Long replyId, String contents) throws Exception{
+    public ReplyDTO rewriteReply(User user,Long replyId,String contents) throws Exception{
         Reply reply = replyRepository.getById(replyId);
         if(!user.getUserId().equals(reply.getUser().getUserId())){
             throw new Exception("작성한 유저가 일치하지 않습니다.");
