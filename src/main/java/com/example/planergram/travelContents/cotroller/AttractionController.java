@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"관광지에 대한 API 정보를 제공하는 Controller"})
-@RequestMapping("/api")
+@RequestMapping("/all")
 @RestController
 public class AttractionController {
 
@@ -19,7 +19,8 @@ public class AttractionController {
     private AttractionService attractionService;
 
     @ApiOperation(value = "admin이 관광지정보를 등록하는 API")
-    @PostMapping("/admin/auth/v1/register/attraction")
+//    @PostMapping("/admin/auth/v1/register/attraction")
+    @PostMapping("/register/attraction/eqwe")
     public ResponseEntity<?> signUp(@RequestBody AttractionDTO attractionDTO){
         try {
             return ResponseEntity.ok(attractionService.signUp(attractionDTO));
@@ -33,6 +34,27 @@ public class AttractionController {
     public ResponseEntity<?> findAll(){
         try {
             return ResponseEntity.ok(attractionService.findAll());
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
+        }
+    }
+
+    @ApiOperation(value = "등록된 관광지정보를 모두 보여주는 API")
+    @GetMapping("/filter/attraction/address")
+    public ResponseEntity<?> findByAddressAndDetailAddress(@RequestParam(value = "address") String address,
+                                                           @RequestParam(value = "detailAddress") String detailAddress){
+        try {
+            return ResponseEntity.ok(attractionService.findByAddressAndDetailAddress(address,detailAddress));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
+        }
+    }
+
+    @ApiOperation(value = "등록된 관광지정보를 모두 보여주는 API")
+    @GetMapping("/filter/attraction/address/detail")
+    public ResponseEntity<?> findByAddress(@RequestParam(value = "address") String address){
+        try {
+            return ResponseEntity.ok(attractionService.findByAddress(address));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
         }
