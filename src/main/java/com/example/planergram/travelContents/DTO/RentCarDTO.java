@@ -30,5 +30,6 @@ public class RentCarDTO {
     @ApiModelProperty(value = "좋아요 숫자",example = "0",required = true)
     private int likeCount;
 
+    @ApiModelProperty(hidden = true)
     private List<Long> rentCarLikeIdList;
 }

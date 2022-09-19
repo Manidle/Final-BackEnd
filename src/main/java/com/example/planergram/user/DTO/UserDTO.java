@@ -23,15 +23,24 @@ public class UserDTO {
     @ApiModelProperty(value = "사용자의 닉네임",example = "플래너그램",required = true)
     private String nickname;
 
+    @ApiModelProperty(value = "회원가입시, 부여권한",example = "ROLE_USER",required = true)
     private String roles; // USER,ADMIN
 
     private UserInfoDTO userInfoDTO;
 
+    @ApiModelProperty(hidden = true)
     private List<Long> postDTOList;
 
+    @ApiModelProperty(hidden = true)
     private List<Long> stayLikeIdList;
+
+    @ApiModelProperty(hidden = true)
     private List<Long> rentCarLikeIdList;
+
+    @ApiModelProperty(hidden = true)
     private List<Long> trainLikeIdList;
+
+    @ApiModelProperty(hidden = true)
     private List<Long> postLikeIdList;
 
 

@@ -18,5 +18,6 @@ public class UserInfoDTO {
     @ApiModelProperty(value = "사용자의 이메일",example = "planergram@naver.com",required = true)
     private String email;
 
+    @ApiModelProperty(hidden = true)
     private Long userId;
 }
