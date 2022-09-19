@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"숙소에 대한 API 정보를 제공하는 Controller"})
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/all")
 public class StayController {
 
     @Autowired
@@ -33,6 +33,37 @@ public class StayController {
     public ResponseEntity<?> findAll(){
         try {
             return ResponseEntity.ok(stayService.findAll());
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
+        }
+    }
+
+    @ApiOperation(value = "등록된 숙소정보를 모두 보여주는 API")
+    @GetMapping("/auth/v1/list/stay/1")
+    public ResponseEntity<?> findByAddressAndDetailAddress(@RequestParam(value = "address") String address,
+                                                           @RequestParam(value = "detailAddress") String detailAddress){
+        try {
+            return ResponseEntity.ok(stayService.findByAddressAndDetailAddress(address,detailAddress));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
+        }
+    }
+
+    @ApiOperation(value = "등록된 숙소정보를 모두 보여주는 API")
+    @GetMapping("/auth/v1/list/stay/2")
+    public ResponseEntity<?> findByAddress(@RequestParam(value = "address") String address){
+        try {
+            return ResponseEntity.ok(stayService.findByAddress(address));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
+        }
+    }
+
+    @ApiOperation(value = "등록된 숙소정보를 모두 보여주는 API")
+    @GetMapping("/auth/v1/list/stay/3")
+    public ResponseEntity<?> findByNameLike(@RequestParam(value = "name") String name){
+        try {
+            return ResponseEntity.ok(stayService.findByNameLike(name));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
         }
