@@ -8,4 +8,5 @@ import java.util.List;
 public interface RentCarRepository extends JpaRepository<RentCar, Long> {
     List<RentCar> findByAddressAndDetailAddress(String address, String detailAddress);
     List<RentCar> findByAddress(String address);
+    List<RentCar> findByCarNameLike(String carName);
 }

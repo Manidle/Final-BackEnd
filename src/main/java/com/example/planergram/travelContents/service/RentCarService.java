@@ -52,6 +52,15 @@ public class RentCarService {
         return rentCarDTOList;
     }
 
+    public List<RentCarDTO> findByCarNameLike(String carName) {
+        List<RentCar> rentCarList = rentCarRepository.findByCarNameLike("%"+carName+"%");
+        List<RentCarDTO> rentCarDTOList = new ArrayList<>();
+        for (RentCar rentCar: rentCarList) {
+            rentCarDTOList.add(makeRentCarDTO(rentCar));
+        }
+        return rentCarDTOList;
+    }
+
     public RentCarDTO findById(Long id) {
         RentCar rentCar = rentCarRepository.getById(id);
         return makeRentCarDTO(rentCar);
