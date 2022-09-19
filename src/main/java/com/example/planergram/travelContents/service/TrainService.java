@@ -30,6 +30,15 @@ public class TrainService {
         return trainDTOList;
     }
 
+    public List<TrainDTO> findByStartPointAndEndPoint(String startPoint, String endPoint) {
+        List<Train> trainList = trainRepository.findByStartPointAndEndPoint(startPoint,endPoint);
+        List<TrainDTO> trainDTOList = new ArrayList<>();
+        for (Train train: trainList) {
+            trainDTOList.add(makeTrainDTO(train));
+        }
+        return trainDTOList;
+    }
+
     public TrainDTO findById(Long id) {
         Train train = trainRepository.getById(id);
         return makeTrainDTO(train);

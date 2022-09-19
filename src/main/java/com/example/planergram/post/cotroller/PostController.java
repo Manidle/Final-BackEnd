@@ -85,7 +85,7 @@ public class PostController {
         }
     }
 
-    // 지역으로 filtering된 게시글 조회
+    //지역으로 filtering된 게시글 조회
     @ApiOperation(value = "세부지역 + 상세지역으로 filtering")
     @GetMapping("/filter/address")
     public ResponseEntity<?> findByDetailAddressAndAddress(@RequestParam(value = "address") String address) {
@@ -95,7 +95,6 @@ public class PostController {
             return ResponseService.makeResponseEntity("게시글이 없습니다.",e);
         }
     }
-
 
     //게시글 업데이트
     @ApiOperation(value = "USER : 게시글을 수정하는 API")
