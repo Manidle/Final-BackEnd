@@ -6,7 +6,9 @@ import com.example.planergram.Response.ResponseService;
 import com.example.planergram.config.auth.PrincipalDetails;
 import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.post.service.PostService;
-import com.example.planergram.user.model.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,19 +19,29 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/post")
+@Api(tags = {"게시글에 대한 API 정보를 제공하는 Controller"})
+@RequestMapping("api")
 public class PostController {
+
+    private final String VERSION = "/v1";
+    private final String AUTH = "/auth" + VERSION;
+    private final String POST = "/post";
+    private final String BOARD = "/board";
+    private final String ID = "/{id}";
 
     @Autowired
     private PostService postService;
 
     // 게시글 작성
-    @PostMapping
-    public ResponseEntity<?> save(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody PostDTO postDTO) {
+    @ApiOperation(value = "USER : 해당 게시판에 게시글을 작성하는 API")
+    @PostMapping(AUTH + BOARD + "/{boardId}" + POST + "/register")
+    public ResponseEntity<?> save(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                  @ApiParam(value = "게시판의 ID값") @PathVariable Long boardId,
+                                  @RequestBody PostDTO postDTO) {
         try {
             log.info(principalDetails.getUsername());
             postDTO.setUserId(principalDetails.getUser().getUserId());
-
+            postDTO.setBoardId(boardId);
             return ResponseEntity.ok(postService.save(postDTO));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("게시글 등록이 실패되었습니다",e);
@@ -37,7 +49,8 @@ public class PostController {
     }
 
     // 게시글 조회
-    @GetMapping
+    @ApiOperation(value = "ALL : 모든 게시글을 조회하는 API")
+    @GetMapping(POST)
     public ResponseEntity<?> findAll() {
         List<PostDTO> postDTOList = postService.findAll();
         if (postDTOList.size() == 0) {
@@ -49,8 +62,9 @@ public class PostController {
     }
 
     // 게시글 조회
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    @ApiOperation(value = "USER : 게시글을 ID로 조회하는 API")
+    @GetMapping(AUTH + POST + ID)
+    public ResponseEntity<?> findById(@ApiParam(value = "게시글의 ID값") @PathVariable Long id) {
         try {
             return ResponseEntity.ok(postService.findById(id));
         } catch (Exception e) {
@@ -59,20 +73,25 @@ public class PostController {
     }
 
     //게시글 업데이트
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id,@RequestBody PostDTO postDTO) {
+    @ApiOperation(value = "USER : 게시글을 수정하는 API")
+    @PutMapping(AUTH + POST + "/modify" + ID)
+    public ResponseEntity<?> update(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                    @ApiParam(value = "게시글의 ID값") @PathVariable Long id,
+                                    @RequestBody PostDTO postDTO) {
         try {
-            return ResponseEntity.ok(postService.update(id,postDTO));
+            return ResponseEntity.ok(postService.update(principalDetails.getUser(),id,postDTO));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("게시글 수정에 실패되었습니다",e);
         }
     }
 
     //게시글 삭제
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    @ApiOperation(value = "USER : 게시글을 삭제하는 API")
+    @DeleteMapping(AUTH + POST + ID)
+    public ResponseEntity<?> delete(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                    @ApiParam(value = "게시글의 ID값") @PathVariable Long id) {
         try {
-            return ResponseEntity.ok(postService.delete(id));
+            return ResponseEntity.ok(postService.delete(principalDetails.getUser(),id));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("게시글 삭제에 실패되었습니다",e);
         }
