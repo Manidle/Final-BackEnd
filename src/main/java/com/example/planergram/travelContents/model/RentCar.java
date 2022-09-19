@@ -25,6 +25,9 @@ public class RentCar {
     @Column(nullable = false, length = 30)
     private String address;
 
+    @Column(nullable = false, length = 30)
+    private String detailAddress;
+
     @Column(name = "company_name", nullable = false)
     private String companyName;
 

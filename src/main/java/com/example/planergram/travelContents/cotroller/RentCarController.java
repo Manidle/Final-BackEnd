@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"렌트카에 대한 API 정보를 제공하는 Controller"})
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/all")
 public class RentCarController {
 
     @Autowired
@@ -33,6 +33,27 @@ public class RentCarController {
     public ResponseEntity<?> findAll(){
         try {
             return ResponseEntity.ok(rentCarService.findAll());
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("렌트카 정보를 부르는데 실패하였습니다.",e);
+        }
+    }
+
+    @ApiOperation(value = "지역 + 상세지역으로 filtering 조회 API")
+    @GetMapping("/filter/rentcar/detail")
+    public ResponseEntity<?> findByDetailAddressAndAddress(@RequestParam(value = "address") String address,
+                                                           @RequestParam(value = "detailAddress") String detailAddress){
+        try {
+            return ResponseEntity.ok(rentCarService.findByAddressAndDetailAddress(address,detailAddress));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("렌트카 정보를 부르는데 실패하였습니다.",e);
+        }
+    }
+
+    @ApiOperation(value = "지역 + 상세지역으로 filtering 조회 API")
+    @GetMapping("/filter/rentcar")
+    public ResponseEntity<?> findByAddress(@RequestParam(value = "address") String address){
+        try {
+            return ResponseEntity.ok(rentCarService.findByAddress(address));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("렌트카 정보를 부르는데 실패하였습니다.",e);
         }

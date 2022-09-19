@@ -86,7 +86,7 @@ public class PostController {
     }
 
     //지역으로 filtering된 게시글 조회
-    @ApiOperation(value = "세부지역 + 상세지역으로 filtering")
+    @ApiOperation(value = "지역 + 상세지역으로 filtering 조회 API")
     @GetMapping("/filter/address")
     public ResponseEntity<?> findByDetailAddressAndAddress(@RequestParam(value = "address") String address) {
         try {
