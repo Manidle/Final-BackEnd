@@ -10,4 +10,5 @@ import java.util.List;
 public interface AttractionRepository extends JpaRepository<Attraction, Long> {
     List<Attraction> findByAddressAndDetailAddress(String address, String detailAddress);
     List<Attraction> findByAddress(String address);
+    List<Attraction> findByNameLike(String name);
 }

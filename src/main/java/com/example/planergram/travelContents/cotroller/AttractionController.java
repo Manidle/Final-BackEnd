@@ -60,6 +60,17 @@ public class AttractionController {
         }
     }
 
+    @ApiOperation(value = "등록된 관광지정보를 모두 보여주는 API")
+    @GetMapping("/filter/attraction/name")
+    public ResponseEntity<?> findByNameLike(@RequestParam(value = "name") String name){
+        try {
+            return ResponseEntity.ok(attractionService.findByNameLike(name));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
+        }
+    }
+
+
     @ApiOperation(value = "특정 관광지정보를 보여주는 API")
     @GetMapping("/auth/v1/attraction/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 attraction의 고유id") @PathVariable Long id){

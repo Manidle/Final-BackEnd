@@ -50,6 +50,15 @@ public class AttractionService {
         return attractionDTOList;
     }
 
+    public List<AttractionDTO> findByNameLike(String name) {
+        List<Attraction> attractionList = attractionRepository.findByNameLike("%"+name+"%");
+        List<AttractionDTO> attractionDTOList = new ArrayList<>();
+        for (Attraction attraction: attractionList) {
+            attractionDTOList.add(makeAttractionDTO(attraction));
+        }
+        return attractionDTOList;
+    }
+
     public AttractionDTO findById(Long id) {
         Attraction attraction = attractionRepository.getById(id);
         return makeAttractionDTO(attraction);
