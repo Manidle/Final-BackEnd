@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByDetailAddressAndAddress(String detailAddress, String address);
-    List<Post> findByAddress(Post Address);
+    List<Post> findByAddress(String Address);
 }

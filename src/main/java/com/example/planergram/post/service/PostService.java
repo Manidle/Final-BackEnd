@@ -70,6 +70,13 @@ public class PostService {
         return postDTOList;
     }
 
+    public List<PostDTO> findByAddress(String address) {
+        List<Post> postList = postRepository.findByAddress(address);
+        List<PostDTO> postDTOList = makePostDTOList(postList);
+        log.info("모든 게시글을 조회하였습니다.");
+        return postDTOList;
+    }
+
     public PostDTO findById(Long id) {
         Post post = postRepository.getById(id);
         post.setReadCount(post.getReadCount()+1);
