@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"렌트카에 대한 API 정보를 제공하는 Controller"})
 @RestController
-@RequestMapping("/all")
+@RequestMapping("/api")
 public class RentCarController {
 
     @Autowired
@@ -38,8 +38,9 @@ public class RentCarController {
         }
     }
 
+    // 지역 + 상세지역으로 filtering된 렌트카 조회
     @ApiOperation(value = "지역 + 상세지역으로 filtering 조회 API")
-    @GetMapping("/filter/rentcar/detail")
+    @GetMapping("/auth/v1/filter/list/rentcar/address/detail")
     public ResponseEntity<?> findByDetailAddressAndAddress(@RequestParam(value = "address") String address,
                                                            @RequestParam(value = "detailAddress") String detailAddress){
         try {
@@ -49,8 +50,9 @@ public class RentCarController {
         }
     }
 
-    @ApiOperation(value = "지역으로 filtering 조회 API")
-    @GetMapping("/filter/rentcar")
+    //지역으로만 filtering된 렌트카 조회
+    @ApiOperation(value = "지역으로만 filtering 조회 API")
+    @GetMapping("/auth/v1/filter/list/rentcar/address")
     public ResponseEntity<?> findByAddress(@RequestParam(value = "address") String address){
         try {
             return ResponseEntity.ok(rentCarService.findByAddress(address));
@@ -59,8 +61,9 @@ public class RentCarController {
         }
     }
 
+    //렌트카 이름으로 filtering된 렌트카 조회
     @ApiOperation(value = "렌트카 이름으로 filtering 조회 API")
-    @GetMapping("/filter/carname")
+    @GetMapping("/auth/v1/filter/list/rentcar/name")
     public ResponseEntity<?> findByCarNameLike(@RequestParam(value = "carname") String carName){
         try {
             return ResponseEntity.ok(rentCarService.findByCarNameLike(carName));

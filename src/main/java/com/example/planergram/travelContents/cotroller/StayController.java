@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"숙소에 대한 API 정보를 제공하는 Controller"})
 @RestController
-@RequestMapping("/all")
+@RequestMapping("/api")
 public class StayController {
 
     @Autowired
@@ -38,8 +38,9 @@ public class StayController {
         }
     }
 
-    @ApiOperation(value = "등록된 숙소정보를 모두 보여주는 API")
-    @GetMapping("/auth/v1/list/stay/1")
+    // 지역 + 상세지역으로 filtering된 숙소 조회
+    @ApiOperation(value = "지역 + 상세지역으로 filtering")
+    @GetMapping("/auth/v1/filter/list/stay/address/detail")
     public ResponseEntity<?> findByAddressAndDetailAddress(@RequestParam(value = "address") String address,
                                                            @RequestParam(value = "detailAddress") String detailAddress){
         try {
@@ -49,8 +50,9 @@ public class StayController {
         }
     }
 
-    @ApiOperation(value = "등록된 숙소정보를 모두 보여주는 API")
-    @GetMapping("/auth/v1/list/stay/2")
+    // 지역으로만 filtering된 숙소 조회
+    @ApiOperation(value = "지역으로만 filtering")
+    @GetMapping("/auth/v1/filter/list/stay/address")
     public ResponseEntity<?> findByAddress(@RequestParam(value = "address") String address){
         try {
             return ResponseEntity.ok(stayService.findByAddress(address));
@@ -59,8 +61,9 @@ public class StayController {
         }
     }
 
-    @ApiOperation(value = "등록된 숙소정보를 모두 보여주는 API")
-    @GetMapping("/auth/v1/list/stay/3")
+    // 숙소명으로 filtering된 숙소 조회
+    @ApiOperation(value = "숙소명으로만 filtering")
+    @GetMapping("/auth/v1/filter/list/stay/name")
     public ResponseEntity<?> findByNameLike(@RequestParam(value = "name") String name){
         try {
             return ResponseEntity.ok(stayService.findByNameLike(name));
@@ -69,8 +72,9 @@ public class StayController {
         }
     }
 
-    @ApiOperation(value = "등록된 숙소정보를 모두 보여주는 API")
-    @GetMapping("/auth/v1/list/stay/5")
+    //숙소 이름,지역,상세지역 중 Like filtering된 게시글 조회
+    @ApiOperation(value = "검색필터 숙소정보를 모두 보여주는 API")
+    @GetMapping("/auth/v1/filter/list/stay/search")
     public ResponseEntity<?> findByNameOrDetailAddressLike(@RequestParam(value = "search") String search){
         try {
             return ResponseEntity.ok(stayService.findByNameOrDetailAddressLike(search));

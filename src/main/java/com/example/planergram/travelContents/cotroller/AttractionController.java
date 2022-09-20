@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"관광지에 대한 API 정보를 제공하는 Controller"})
-@RequestMapping("/all")
+@RequestMapping("/api")
 @RestController
 public class AttractionController {
 
@@ -19,8 +19,7 @@ public class AttractionController {
     private AttractionService attractionService;
 
     @ApiOperation(value = "admin이 관광지정보를 등록하는 API")
-//    @PostMapping("/admin/auth/v1/register/attraction")
-    @PostMapping("/register/attraction/eqwe")
+    @PostMapping("/admin/auth/v1/register/attraction")
     public ResponseEntity<?> signUp(@RequestBody AttractionDTO attractionDTO){
         try {
             return ResponseEntity.ok(attractionService.signUp(attractionDTO));
@@ -39,8 +38,9 @@ public class AttractionController {
         }
     }
 
-    @ApiOperation(value = "등록된 관광지정보를 모두 보여주는 API")
-    @GetMapping("/filter/attraction/address")
+    // 지역 + 상세지역으로 filtering된 관광지 조회
+    @ApiOperation(value = "지역 + 상세지역으로 filtering")
+    @GetMapping("/auth/v1/list/filter/attraction/address/detail")
     public ResponseEntity<?> findByAddressAndDetailAddress(@RequestParam(value = "address") String address,
                                                            @RequestParam(value = "detailAddress") String detailAddress){
         try {
@@ -50,8 +50,9 @@ public class AttractionController {
         }
     }
 
-    @ApiOperation(value = "등록된 관광지정보를 모두 보여주는 API")
-    @GetMapping("/filter/attraction/address/detail")
+    //지역으로만 filtering된 관광지 조회
+    @ApiOperation(value = "지역으로만 filtering 조회 API")
+    @GetMapping("/auth/v1/list/filter/attraction/address")
     public ResponseEntity<?> findByAddress(@RequestParam(value = "address") String address){
         try {
             return ResponseEntity.ok(attractionService.findByAddress(address));
@@ -60,8 +61,9 @@ public class AttractionController {
         }
     }
 
-    @ApiOperation(value = "등록된 관광지정보를 모두 보여주는 API")
-    @GetMapping("/filter/attraction/name")
+    //관광지 이름으로 filtering된 게시글 조회
+    @ApiOperation(value = "관광지 이름으로 filtering 조회 API")
+    @GetMapping("/auth/v1/list/filter/attraction/name")
     public ResponseEntity<?> findByNameLike(@RequestParam(value = "name") String name){
         try {
             return ResponseEntity.ok(attractionService.findByNameLike(name));
@@ -69,9 +71,9 @@ public class AttractionController {
             return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
         }
     }
-
-    @ApiOperation(value = "등록된 관광지정보를 모두 보여주는 API")
-    @GetMapping("/filter/attraction/name/12")
+    //관광지 이름,지역,상세지역 중 Like filtering된 게시글 조회
+    @ApiOperation(value = "검색필터 관광지정보를 모두 보여주는 API")
+    @GetMapping("/filter/attraction/search")
     public ResponseEntity<?> findByNameOrDetailAddressLike(@RequestParam("search") String search){
         try {
             return ResponseEntity.ok(attractionService.findByNameOrDetailAddressLike(search));
@@ -79,7 +81,6 @@ public class AttractionController {
             return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
         }
     }
-
 
     @ApiOperation(value = "특정 관광지정보를 보여주는 API")
     @GetMapping("/auth/v1/attraction/{id}")

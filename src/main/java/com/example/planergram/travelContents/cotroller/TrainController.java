@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"기차에 대한 API 정보를 제공하는 Controller"})
 @RestController
-@RequestMapping("/all")
+@RequestMapping("/api")
 public class TrainController {
 
     @Autowired
@@ -50,9 +50,9 @@ public class TrainController {
 
     // 출발지 + 도착지로 filtering된 기차정보 조회
     @ApiOperation(value = "출발지 + 도착지로 filtering")
-    @GetMapping("/filter/train/dep/arr")
+    @GetMapping("/auth/v1/filter/list/train/dep/arr")
     public ResponseEntity<?> findByStartPointAndEndPoint(@RequestParam(value = "startPoint") String startPoint,
-                                               @RequestParam(value = "endPoint") String endPoint) {
+                                                         @RequestParam(value = "endPoint") String endPoint) {
         try {
             return ResponseEntity.ok(trainService.findByStartPointAndEndPoint(startPoint,endPoint));
         } catch (Exception e) {
