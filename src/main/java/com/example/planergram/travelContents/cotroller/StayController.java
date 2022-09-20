@@ -69,6 +69,16 @@ public class StayController {
         }
     }
 
+    @ApiOperation(value = "등록된 숙소정보를 모두 보여주는 API")
+    @GetMapping("/auth/v1/list/stay/5")
+    public ResponseEntity<?> findByNameOrDetailAddressLike(@RequestParam(value = "search") String search){
+        try {
+            return ResponseEntity.ok(stayService.findByNameOrDetailAddressLike(search));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
+        }
+    }
+
     @ApiOperation(value = "특정 숙소정보를 보여주는 API")
     @GetMapping("/auth/v1/stay/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 stay의 고유id") @PathVariable Long id){

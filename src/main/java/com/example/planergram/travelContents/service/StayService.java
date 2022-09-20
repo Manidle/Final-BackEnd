@@ -62,6 +62,15 @@ public class StayService {
         return stayDTOList;
     }
 
+    public List<StayDTO> findByNameOrDetailAddressLike(String search) {
+        List<Stay> stayList = stayRepository.findByNameOrDetailAddressLike(search);
+        List<StayDTO> stayDTOList = new ArrayList<>();
+        for (Stay stay: stayList) {
+            stayDTOList.add(makeStayDTO(stay));
+        }
+        return stayDTOList;
+    }
+
     public StayDTO findById(Long id) {
         Stay stay = stayRepository.getById(id);
         return makeStayDTO(stay);
