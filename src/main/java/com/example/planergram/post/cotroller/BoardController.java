@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
-@RequestMapping("api")
+@RequestMapping("/api")
 @Api(tags = {"게시판에 대한 API 정보를 제공하는 Controller"})
 public class BoardController {
 
@@ -25,7 +25,6 @@ public class BoardController {
     private final String ADMIN_AUTH = "/admin" + AUTH;
     private final String BOARD = "/board";
 
-    // 게시판 등록
     @ApiOperation(value = "ADMIN : 게시판 생성 API")
     @PostMapping(ADMIN_AUTH + BOARD + "/register")
     public ResponseEntity<?> save(@RequestBody BoardDTO boardDTO) {
@@ -36,7 +35,6 @@ public class BoardController {
         }
     }
 
-    // 게시판 조회
     @ApiOperation(value = "ALL : 게시판 전체 조회 API")
     @GetMapping(BOARD)
     public ResponseEntity<?> findAll() {
@@ -46,6 +44,7 @@ public class BoardController {
             return ResponseService.makeResponseEntity("게시판조회에 실패했습니다.", e);
         }
     }
+
     @ApiOperation(value = "USER : 게시판 ID로 조회 API")
     @GetMapping(AUTH + BOARD + "/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "게시판의 ID값") @PathVariable Long id) {
@@ -56,7 +55,6 @@ public class BoardController {
         }
     }
 
-    // 게시판 업데이트
     @ApiOperation(value = "ADMIN : 게시판 업데이트 API")
     @PutMapping(ADMIN_AUTH + BOARD + "/modify" + "/{id}")
     public ResponseEntity<?> update(@ApiParam(value = "게시판의 ID값") @PathVariable Long id, @RequestBody BoardDTO updateBoarDTO) {
@@ -67,7 +65,6 @@ public class BoardController {
         }
     }
 
-    // 게시판 삭제
     @ApiOperation(value = "ADMIN : 게시판 삭제 API")
     @DeleteMapping(ADMIN_AUTH + BOARD + "/{id}")
     public ResponseEntity<?> delete(@ApiParam(value = "게시판의 ID값") @PathVariable Long id) {

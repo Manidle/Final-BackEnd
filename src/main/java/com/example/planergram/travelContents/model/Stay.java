@@ -26,8 +26,11 @@ public class Stay {
     @Column(length = 30)
     private String name;
 
-    @Column(nullable = false,length = 100, unique = true)
+    @Column(nullable = false)
     private String address;
+
+    @Column(nullable = false)
+    private String detailAddress;
 
     @Column(nullable = false)
     private int price;

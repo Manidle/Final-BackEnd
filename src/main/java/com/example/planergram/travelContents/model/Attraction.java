@@ -26,13 +26,13 @@ public class Attraction {
     private String name;
 
     @Column(nullable = false)
-    private String addressDetail; //전체주소
+    private String address;
 
     @Column(nullable = false)
-    private String address; //시 군 구
+    private String detailAddress;
 
     @Column(nullable = false)
-    private Integer price;
+    private int price;
 
     @Column(name = "like_count")
     private int likeCount;

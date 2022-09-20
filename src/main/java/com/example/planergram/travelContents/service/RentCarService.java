@@ -34,6 +34,33 @@ public class RentCarService {
         return rentCarDTOList;
     }
 
+    public List<RentCarDTO> findByAddressAndDetailAddress(String address,String detailAddress) {
+        List<RentCar> rentCarList = rentCarRepository.findByAddressAndDetailAddress(address,detailAddress);
+        List<RentCarDTO> rentCarDTOList = new ArrayList<>();
+        for (RentCar rentCar: rentCarList) {
+            rentCarDTOList.add(makeRentCarDTO(rentCar));
+        }
+        return rentCarDTOList;
+    }
+
+    public List<RentCarDTO> findByAddress(String address) {
+        List<RentCar> rentCarList = rentCarRepository.findByAddress(address);
+        List<RentCarDTO> rentCarDTOList = new ArrayList<>();
+        for (RentCar rentCar: rentCarList) {
+            rentCarDTOList.add(makeRentCarDTO(rentCar));
+        }
+        return rentCarDTOList;
+    }
+
+    public List<RentCarDTO> findByCarNameLike(String carName) {
+        List<RentCar> rentCarList = rentCarRepository.findByCarNameLike("%"+carName+"%");
+        List<RentCarDTO> rentCarDTOList = new ArrayList<>();
+        for (RentCar rentCar: rentCarList) {
+            rentCarDTOList.add(makeRentCarDTO(rentCar));
+        }
+        return rentCarDTOList;
+    }
+
     public RentCarDTO findById(Long id) {
         RentCar rentCar = rentCarRepository.getById(id);
         return makeRentCarDTO(rentCar);
@@ -66,6 +93,7 @@ public class RentCarService {
         return RentCar.builder()
                 .rentCarId(rentCarDTO.getRentCarId())
                 .address(rentCarDTO.getAddress())
+                .detailAddress(rentCarDTO.getDetailAddress())
                 .companyName(rentCarDTO.getCompanyName())
                 .carSort(rentCarDTO.getCarSort())
                 .carName(rentCarDTO.getCarName())
@@ -84,6 +112,7 @@ public class RentCarService {
         return RentCarDTO.builder()
                 .rentCarId(rentCar.getRentCarId())
                 .address(rentCar.getAddress())
+                .detailAddress(rentCar.getDetailAddress())
                 .companyName(rentCar.getCompanyName())
                 .carSort(rentCar.getCarSort())
                 .carName(rentCar.getCarName())

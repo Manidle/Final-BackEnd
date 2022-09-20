@@ -38,6 +38,12 @@ public class Post {
     @Column(name = "read_count")
     private int readCount;
 
+    @Column(name = "detail_address",nullable = false, length = 30)
+    private String detailAddress;
+
+    @Column(name = "address",nullable = false, length = 30)
+    private String address;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;

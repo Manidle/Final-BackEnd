@@ -35,6 +35,42 @@ public class StayService {
         return stayDTOList;
     }
 
+    public List<StayDTO> findByAddressAndDetailAddress(String address,String detailAddress) {
+        List<Stay> stayList = stayRepository.findByAddressAndDetailAddress(address,detailAddress);
+        List<StayDTO> stayDTOList = new ArrayList<>();
+        for (Stay stay: stayList) {
+            stayDTOList.add(makeStayDTO(stay));
+        }
+        return stayDTOList;
+    }
+
+    public List<StayDTO> findByAddress(String address) {
+        List<Stay> stayList = stayRepository.findByAddress(address);
+        List<StayDTO> stayDTOList = new ArrayList<>();
+        for (Stay stay: stayList) {
+            stayDTOList.add(makeStayDTO(stay));
+        }
+        return stayDTOList;
+    }
+
+    public List<StayDTO> findByNameLike(String name) {
+        List<Stay> stayList = stayRepository.findByNameLike("%"+name+"%");
+        List<StayDTO> stayDTOList = new ArrayList<>();
+        for (Stay stay: stayList) {
+            stayDTOList.add(makeStayDTO(stay));
+        }
+        return stayDTOList;
+    }
+
+    public List<StayDTO> findByNameOrDetailAddressLike(String search) {
+        List<Stay> stayList = stayRepository.findByNameOrDetailAddressLike(search);
+        List<StayDTO> stayDTOList = new ArrayList<>();
+        for (Stay stay: stayList) {
+            stayDTOList.add(makeStayDTO(stay));
+        }
+        return stayDTOList;
+    }
+
     public StayDTO findById(Long id) {
         Stay stay = stayRepository.getById(id);
         return makeStayDTO(stay);
@@ -50,6 +86,7 @@ public class StayService {
     public StayDTO update(Long id, StayDTO stayDTO) {
         Stay stay = stayRepository.getById(id);
         stay.setAddress(stayDTO.getAddress());
+        stay.setDetailAddress(stay.getDetailAddress());
         stay.setCheckIn(stayDTO.getCheckIn());
         stay.setCheckOut(stayDTO.getCheckOut());
         stay.setPrice(stayDTO.getPrice());
@@ -68,6 +105,7 @@ public class StayService {
         return Stay.builder()
                 .id(stayDTO.getId())
                 .address(stayDTO.getAddress())
+                .detailAddress(stayDTO.getDetailAddress())
                 .checkIn(stayDTO.getCheckIn())
                 .checkOut(stayDTO.getCheckOut())
                 .name(stayDTO.getName())
@@ -88,6 +126,7 @@ public class StayService {
         return StayDTO.builder()
                 .id(stay.getId())
                 .address(stay.getAddress())
+                .detailAddress(stay.getDetailAddress())
                 .checkIn(stay.getCheckIn())
                 .checkOut(stay.getCheckOut())
                 .likeCount(stay.getLikeCount())

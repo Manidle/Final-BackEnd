@@ -46,7 +46,7 @@ public class PostAttractionController {
     }
 
     @GetMapping(ADMIN_AUTH + POST_ATTRACTION + "/list/attraction/{attractionId}")
-    @ApiOperation(value = "ADMIN : 관광지를 게시글에 추가한 경우를 관광차로 조회하는 API")
+    @ApiOperation(value = "ADMIN : 관광지를 게시글에 추가한 경우를 관광지로 조회하는 API")
     public ResponseEntity<?> postAttractionFindByAttraction(@ApiParam(value = "관광지의 ID값") @PathVariable Long attractionId){
         try {
             return ResponseEntity.ok(postAttractionService.findByAttraction(attractionId));

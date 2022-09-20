@@ -48,6 +48,18 @@ public class TrainController {
         }
     }
 
+    // 출발지 + 도착지로 filtering된 기차정보 조회
+    @ApiOperation(value = "출발지 + 도착지로 filtering")
+    @GetMapping("/auth/v1/filter/list/train/dep/arr")
+    public ResponseEntity<?> findByStartPointAndEndPoint(@RequestParam(value = "startPoint") String startPoint,
+                                                         @RequestParam(value = "endPoint") String endPoint) {
+        try {
+            return ResponseEntity.ok(trainService.findByStartPointAndEndPoint(startPoint,endPoint));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("게시글이 없습니다.",e);
+        }
+    }
+
     @ApiOperation(value = "매니저가 특정 기차정보를 수정하는 API")
     @PatchMapping("/admin/auth/v1/modify/train/{id}")
     public TrainDTO update(@ApiParam(value = "수정하고싶은 train의 고유id") @PathVariable Long id, @RequestBody TrainDTO trainDTO){
