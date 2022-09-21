@@ -32,6 +32,15 @@ public class AttractionService {
         return attractionDTOList;
     }
 
+    public List<AttractionDTO> findTop5ByOrderByLikeCountDesc() {
+        List<Attraction> attractionList = attractionRepository.findTop5ByOrderByLikeCountDesc();
+        List<AttractionDTO> attractionDTOList = new ArrayList<>();
+        for (Attraction attraction: attractionList) {
+            attractionDTOList.add(makeAttractionDTO(attraction));
+        }
+        return attractionDTOList;
+    }
+
     public List<AttractionDTO> findByAddressAndDetailAddress(String address,String detailAddress) {
         List<Attraction> attractionList = attractionRepository.findByAddressAndDetailAddress(address,detailAddress);
         List<AttractionDTO> attractionDTOList = new ArrayList<>();

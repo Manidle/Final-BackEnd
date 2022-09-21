@@ -103,11 +103,11 @@ public class PostController {
         }
     }
 
-    // HOT게시글용 : 모든게시글을 좋아요 순으로 내림차순 정렬
+    // HOT 게시글용 : 모든게시글을 좋아요 순으로 내림차순 정렬하여 상위5개만 출력
     @ApiOperation(value = "HOT게시글용 : 모든게시글을 좋아요 순으로 내림차순 정렬조회하는 API")
-    @GetMapping(AUTH + POST + "/filter/list/desc")
+    @GetMapping("v1/filter/list/post/desc/top")
     public ResponseEntity<?> findAllByOrderByLikeCountDesc() {
-        List<PostDTO> postDTOList = postService.findAllByOrderByLikeCountDesc();
+        List<PostDTO> postDTOList = postService.findTop5ByOrderByLikeCountDesc();
         if (postDTOList.size() == 0) {
             log.error("게시글이 없습니다.");
             ResponseDTO responseDTO = ResponseDTO.builder().error("게시글이 없습니다.").build();

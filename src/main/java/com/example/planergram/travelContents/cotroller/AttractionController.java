@@ -38,6 +38,17 @@ public class AttractionController {
         }
     }
 
+    // HOT 관광지용 : 모든 관광지를 좋아요 순으로 내림차순 정렬하여 상위5개만 출력
+    @ApiOperation(value = "모든 관광지를 좋아요 순으로 내림차순 정렬하여 상위5개만 보여주는 API")
+    @GetMapping("v1/filter/list/attraction/desc/top")
+    public ResponseEntity<?> findAllByOrderByLikeCountDesc(){
+        try {
+            return ResponseEntity.ok(attractionService.findTop5ByOrderByLikeCountDesc());
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("HOT 관광지 리스트를 불러내는데 실패하였습니다.",e);
+        }
+    }
+
     // 지역 + 상세지역으로 filtering된 관광지 조회
     @ApiOperation(value = "지역 + 상세지역으로 filtering")
     @GetMapping("/auth/v1/list/filter/attraction/address/detail")

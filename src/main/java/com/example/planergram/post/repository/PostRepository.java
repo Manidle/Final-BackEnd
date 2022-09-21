@@ -9,4 +9,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByDetailAddressAndAddress(String detailAddress, String address);
     List<Post> findByAddress(String address);
     List<Post> findByTitleLike(String title);
+    List<Post> findTop5ByOrderByLikeCountDesc();
 }
