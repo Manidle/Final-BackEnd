@@ -45,7 +45,7 @@ public class StayController {
         try {
             return ResponseEntity.ok(stayService.findTop5ByOrderByLikeCountDesc());
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
+            return ResponseService.makeResponseEntity("Hot한 숙소검색에 실패하였습니다.",e);
         }
     }
 

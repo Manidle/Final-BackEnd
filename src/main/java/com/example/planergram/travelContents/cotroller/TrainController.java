@@ -38,6 +38,17 @@ public class TrainController {
         }
     }
 
+    // HOT 게시글용 : 모든 기차를 좋아요 순으로 내림차순 정렬하여 상위5개만 출력
+    @ApiOperation(value = "HOT 기차용 : 모든기차를 좋아요 순으로 내림차순 정렬조회하는 API")
+    @GetMapping("v1/filter/list/train/desc/top")
+    public ResponseEntity<?> findTop5ByOrderByLikeCountDesc() {
+        try {
+            return ResponseEntity.ok(trainService.findTop5ByOrderByLikeCountDesc());
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("Hot한 관광지 리스트를 불러내는데 실패하였습니다.",e);
+        }
+    }
+
     @ApiOperation(value = "특정 기차정보를 보여주는 API")
     @GetMapping("/auth/v1/train/{id}")
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 train의 고유id") @PathVariable Long id){
