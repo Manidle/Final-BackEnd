@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TrainRepository extends JpaRepository<Train, Long> {
     List<Train> findByStartPointAndEndPoint(String startPoint, String endPoint);
+    List<Train> findTop5ByOrderByLikeCountDesc();
 }

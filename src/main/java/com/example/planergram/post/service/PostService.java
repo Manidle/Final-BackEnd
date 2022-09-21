@@ -17,7 +17,6 @@ import com.example.planergram.user.model.User;
 import com.example.planergram.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -85,8 +84,8 @@ public class PostService {
         return postDTOList;
     }
 
-    public List<PostDTO> findAllByOrderByLikeCountDesc() {
-        List<Post> postList = postRepository.findAll(Sort.by(Sort.Direction.DESC, "likeCount"));
+    public List<PostDTO> findTop5ByOrderByLikeCountDesc() {
+        List<Post> postList = postRepository.findTop5ByOrderByLikeCountDesc();
         List<PostDTO> postDTOList = makePostDTOList(postList);
         log.info("모든 게시글을 조회하였습니다.");
         return postDTOList;

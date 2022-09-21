@@ -35,6 +35,15 @@ public class StayService {
         return stayDTOList;
     }
 
+    public List<StayDTO> findTop5ByOrderByLikeCountDesc() {
+        List<Stay> stayList = stayRepository.findTop5ByOrderByLikeCountDesc();
+        List<StayDTO> stayDTOList = new ArrayList<>();
+        for (Stay stay: stayList) {
+            stayDTOList.add(makeStayDTO(stay));
+        }
+        return stayDTOList;
+    }
+
     public List<StayDTO> findByAddressAndDetailAddress(String address,String detailAddress) {
         List<Stay> stayList = stayRepository.findByAddressAndDetailAddress(address,detailAddress);
         List<StayDTO> stayDTOList = new ArrayList<>();

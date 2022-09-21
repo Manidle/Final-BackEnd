@@ -30,6 +30,15 @@ public class TrainService {
         return trainDTOList;
     }
 
+    public List<TrainDTO> findTop5ByOrderByLikeCountDesc() {
+        List<Train> trainList = trainRepository.findTop5ByOrderByLikeCountDesc();
+        List<TrainDTO> trainDTOList = new ArrayList<>();
+        for (Train train: trainList) {
+            trainDTOList.add(makeTrainDTO(train));
+        }
+        return trainDTOList;
+    }
+
     public List<TrainDTO> findByStartPointAndEndPoint(String startPoint, String endPoint) {
         List<Train> trainList = trainRepository.findByStartPointAndEndPoint(startPoint,endPoint);
         List<TrainDTO> trainDTOList = new ArrayList<>();
@@ -69,6 +78,7 @@ public class TrainService {
                 .startPoint(trainDTO.getStartPoint())
                 .endPoint(trainDTO.getEndPoint())
                 .trainPrice(trainDTO.getTrainPrice())
+                .likeCount(trainDTO.getLikeCount())
                 .build();
     }
 
@@ -80,6 +90,7 @@ public class TrainService {
                 .startPoint(train.getStartPoint())
                 .endPoint(train.getEndPoint())
                 .trainPrice(train.getTrainPrice())
+                .likeCount(train.getLikeCount())
                 .build();
     }
 }

@@ -19,7 +19,7 @@ public class RentCarController {
     private RentCarService rentCarService;
 
     @ApiOperation(value = "admin이 렌트카정보를 등록하는 API")
-    @PostMapping("/admin/auth/v1/register/rentcar")
+    @PostMapping("/v1/register/rentcar")
     public ResponseEntity<?> signUp(@RequestBody RentCarDTO rentCarDTO){
         try {
             return ResponseEntity.ok(rentCarService.signUp(rentCarDTO));
@@ -35,6 +35,17 @@ public class RentCarController {
             return ResponseEntity.ok(rentCarService.findAll());
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("렌트카 정보를 부르는데 실패하였습니다.",e);
+        }
+    }
+
+    // HOT 렌트카용 : 모든 렌트카를 좋아요 순으로 내림차순 정렬하여 상위5개만 출력
+    @ApiOperation(value = "HOT렌트카용 : 모든렌트카를 좋아요 순으로 내림차순 정렬조회하는 API")
+    @GetMapping("v1/filter/list/rentcar/desc/top")
+    public ResponseEntity<?> findTop5ByOrderByLikeCountDesc(){
+        try {
+            return ResponseEntity.ok(rentCarService.findTop5ByOrderByLikeCountDesc());
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("Hot 렌트카 정보를 부르는데 실패하였습니다.",e);
         }
     }
 

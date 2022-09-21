@@ -28,4 +28,8 @@ public class TrainDTO {
 
     @ApiModelProperty(value = "기차표 가격",example = "61000",required = true)
     private int trainPrice;
+
+    @ApiModelProperty(value = "좋아요 숫자",example = "0",required = true)
+    private int likeCount;
+
 }

@@ -10,6 +10,8 @@ public interface StayRepository extends JpaRepository<Stay,Long> {
     List<Stay> findByAddressAndDetailAddress(String address, String detailAddress);
     List<Stay> findByAddress(String address);
     List<Stay> findByNameLike(String name);
+    List<Stay> findTop5ByOrderByLikeCountDesc();
+
 
     @Query(value = "SELECT * FROM Stay WHERE NAME LIKE %:search% OR detailAddress LIKE %:search% OR address LIKE %:search%",nativeQuery = true)
     List<Stay> findByNameOrDetailAddressLike(String search);

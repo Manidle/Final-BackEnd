@@ -19,7 +19,7 @@ public class TrainController {
     private TrainService trainService;
 
     @ApiOperation(value = "admin이 기차정보를 등록하는 API")
-    @PostMapping("/admin/auth/v1/register/train")
+    @PostMapping("/v1/register/train")
     public ResponseEntity<?> signUp(@RequestBody TrainDTO trainDTO){
         try {
             return ResponseEntity.ok(trainService.signUp(trainDTO));
@@ -35,6 +35,17 @@ public class TrainController {
             return ResponseEntity.ok(trainService.findAll());
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
+        }
+    }
+
+    // HOT 게시글용 : 모든 기차를 좋아요 순으로 내림차순 정렬하여 상위5개만 출력
+    @ApiOperation(value = "HOT 기차용 : 모든기차를 좋아요 순으로 내림차순 정렬조회하는 API")
+    @GetMapping("v1/filter/list/train/desc/top")
+    public ResponseEntity<?> findTop5ByOrderByLikeCountDesc() {
+        try {
+            return ResponseEntity.ok(trainService.findTop5ByOrderByLikeCountDesc());
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("Hot한 관광지 리스트를 불러내는데 실패하였습니다.",e);
         }
     }
 

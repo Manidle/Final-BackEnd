@@ -19,7 +19,7 @@ public class StayController {
     private StayService stayService;
 
     @ApiOperation(value = "admin이 숙소정보를 등록하는 API")
-    @PostMapping("/admin/auth/v1/register/stay")
+    @PostMapping("/v1/register/stay")
     public ResponseEntity<?> signUp(@RequestBody StayDTO stayDTO){
         try {
             return ResponseEntity.ok(stayService.signUp(stayDTO));
@@ -35,6 +35,17 @@ public class StayController {
             return ResponseEntity.ok(stayService.findAll());
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
+        }
+    }
+
+    // HOT 숙소용 : 모든숙소를 좋아요 순으로 내림차순 정렬하여 상위5개만 출력
+    @ApiOperation(value = "HOT 숙소용 : 모든숙소를 좋아요 순으로 내림차순 정렬조회하는 API")
+    @GetMapping("v1/filter/list/stay/desc/top")
+    public ResponseEntity<?> findTop5ByOrderByLikeCountDesc(){
+        try {
+            return ResponseEntity.ok(stayService.findTop5ByOrderByLikeCountDesc());
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("Hot한 숙소검색에 실패하였습니다.",e);
         }
     }
 

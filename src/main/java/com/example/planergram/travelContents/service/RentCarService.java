@@ -34,6 +34,15 @@ public class RentCarService {
         return rentCarDTOList;
     }
 
+    public List<RentCarDTO> findTop5ByOrderByLikeCountDesc() {
+        List<RentCar> rentCarList = rentCarRepository.findTop5ByOrderByLikeCountDesc();
+        List<RentCarDTO> rentCarDTOList = new ArrayList<>();
+        for (RentCar rentCar: rentCarList) {
+            rentCarDTOList.add(makeRentCarDTO(rentCar));
+        }
+        return rentCarDTOList;
+    }
+
     public List<RentCarDTO> findByAddressAndDetailAddress(String address,String detailAddress) {
         List<RentCar> rentCarList = rentCarRepository.findByAddressAndDetailAddress(address,detailAddress);
         List<RentCarDTO> rentCarDTOList = new ArrayList<>();
