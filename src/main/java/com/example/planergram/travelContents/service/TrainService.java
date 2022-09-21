@@ -78,6 +78,7 @@ public class TrainService {
                 .startPoint(trainDTO.getStartPoint())
                 .endPoint(trainDTO.getEndPoint())
                 .trainPrice(trainDTO.getTrainPrice())
+                .likeCount(trainDTO.getLikeCount())
                 .build();
     }
 
@@ -89,6 +90,7 @@ public class TrainService {
                 .startPoint(train.getStartPoint())
                 .endPoint(train.getEndPoint())
                 .trainPrice(train.getTrainPrice())
+                .likeCount(train.getLikeCount())
                 .build();
     }
 }
