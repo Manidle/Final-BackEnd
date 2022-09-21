@@ -49,24 +49,12 @@ public class RentCarController {
         }
     }
 
-    // 지역 + 상세지역으로 filtering된 렌트카 조회
-    @ApiOperation(value = "지역 + 상세지역으로 filtering 조회 API")
-    @GetMapping("/auth/v1/filter/list/rentcar/address/detail")
-    public ResponseEntity<?> findByDetailAddressAndAddress(@RequestParam(value = "address") String address,
-                                                           @RequestParam(value = "detailAddress") String detailAddress){
-        try {
-            return ResponseEntity.ok(rentCarService.findByAddressAndDetailAddress(address,detailAddress));
-        } catch (Exception e) {
-            return ResponseService.makeResponseEntity("렌트카 정보를 부르는데 실패하였습니다.",e);
-        }
-    }
-
     //지역으로만 filtering된 렌트카 조회
     @ApiOperation(value = "지역으로만 filtering 조회 API")
     @GetMapping("/auth/v1/filter/list/rentcar/address")
-    public ResponseEntity<?> findByAddress(@RequestParam(value = "address") String address){
+    public ResponseEntity<?> findByAddressLike(@RequestParam(value = "address") String address){
         try {
-            return ResponseEntity.ok(rentCarService.findByAddress(address));
+            return ResponseEntity.ok(rentCarService.findByAddressLike(address));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("렌트카 정보를 부르는데 실패하였습니다.",e);
         }

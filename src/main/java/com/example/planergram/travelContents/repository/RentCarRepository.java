@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RentCarRepository extends JpaRepository<RentCar, Long> {
-    List<RentCar> findByAddressAndDetailAddress(String address, String detailAddress);
-    List<RentCar> findByAddress(String address);
+    List<RentCar> findByAddressLike(String address);
     List<RentCar> findByCarNameLike(String carName);
     List<RentCar> findTop5ByOrderByLikeCountDesc();
 }
