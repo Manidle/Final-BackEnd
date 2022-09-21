@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class platform {
+public class Platform {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

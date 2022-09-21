@@ -18,9 +18,6 @@ public class RentCarDTO {
     @ApiModelProperty(value = "렌트카 업체주소",example = "강원도",required = true)
     private String address;
 
-    @ApiModelProperty(value = "렌트카 업체 상세주소",example = "강릉",required = true)
-    private String detailAddress;
-
     @ApiModelProperty(value = "렌트카 업체명",example = "씽씽렌트카",required = true)
     private String companyName;
 
