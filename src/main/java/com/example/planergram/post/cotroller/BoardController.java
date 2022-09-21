@@ -26,7 +26,7 @@ public class BoardController {
     private final String BOARD = "/board";
 
     @ApiOperation(value = "ADMIN : 게시판 생성 API")
-    @PostMapping(ADMIN_AUTH + BOARD + "/register")
+    @PostMapping("/board/register")
     public ResponseEntity<?> save(@RequestBody BoardDTO boardDTO) {
         try {
             return ResponseEntity.ok(boardService.save(boardDTO));

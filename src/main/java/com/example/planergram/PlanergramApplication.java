@@ -15,5 +15,4 @@ public class PlanergramApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PlanergramApplication.class, args);
 	}
-
 }
