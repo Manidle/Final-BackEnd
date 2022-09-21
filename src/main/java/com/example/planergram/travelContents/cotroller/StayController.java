@@ -38,6 +38,17 @@ public class StayController {
         }
     }
 
+    // HOT 숙소용 : 모든숙소를 좋아요 순으로 내림차순 정렬하여 상위5개만 출력
+    @ApiOperation(value = "HOT 숙소용 : 모든숙소를 좋아요 순으로 내림차순 정렬조회하는 API")
+    @GetMapping("v1/filter/list/stay/desc/top")
+    public ResponseEntity<?> findTop5ByOrderByLikeCountDesc(){
+        try {
+            return ResponseEntity.ok(stayService.findTop5ByOrderByLikeCountDesc());
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
+        }
+    }
+
     // 지역 + 상세지역으로 filtering된 숙소 조회
     @ApiOperation(value = "지역 + 상세지역으로 filtering")
     @GetMapping("/auth/v1/filter/list/stay/address/detail")
