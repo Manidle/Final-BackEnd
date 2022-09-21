@@ -19,7 +19,7 @@ public class StayController {
     private StayService stayService;
 
     @ApiOperation(value = "admin이 숙소정보를 등록하는 API")
-    @PostMapping("/admin/auth/v1/register/stay")
+    @PostMapping("/v1/register/stay")
     public ResponseEntity<?> signUp(@RequestBody StayDTO stayDTO){
         try {
             return ResponseEntity.ok(stayService.signUp(stayDTO));

@@ -19,7 +19,7 @@ public class TrainController {
     private TrainService trainService;
 
     @ApiOperation(value = "admin이 기차정보를 등록하는 API")
-    @PostMapping("/admin/auth/v1/register/train")
+    @PostMapping("/v1/register/train")
     public ResponseEntity<?> signUp(@RequestBody TrainDTO trainDTO){
         try {
             return ResponseEntity.ok(trainService.signUp(trainDTO));

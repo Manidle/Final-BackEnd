@@ -19,7 +19,7 @@ public class AttractionController {
     private AttractionService attractionService;
 
     @ApiOperation(value = "admin이 관광지정보를 등록하는 API")
-    @PostMapping("/admin/auth/v1/register/attraction")
+    @PostMapping("/v1/register/attraction")
     public ResponseEntity<?> signUp(@RequestBody AttractionDTO attractionDTO){
         try {
             return ResponseEntity.ok(attractionService.signUp(attractionDTO));
