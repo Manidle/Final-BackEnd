@@ -13,7 +13,7 @@ import java.net.URLEncoder;
 @SpringBootTest
 class PlanergramApplicationTests {
 
-    private static final String URL = "http://localhost:8080/api/auth/v1/post/1";
+    private static final String URL = "http://localhost:8080/api/auth/v1/rentcar/1";
     private static final String GET = "GET";
     private static final String USER_AGENT = "Mozilla/5.0";
     private static final String DATA = "test data";
@@ -27,7 +27,7 @@ class PlanergramApplicationTests {
 
         connection.setRequestMethod(GET);
         connection.setRequestProperty("User-Agent", USER_AGENT);
-        connection.setRequestProperty("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJuaWNrbmFtZSI6Iuq4gOuhnOumrCIsImlkIjoxLCJleHAiOjE2NjM2OTA1NzMsInVzZXJuYW1lIjoiZHVkcmhrZDY1NTAifQ.rMjrabrhxkWzFt1vWhrllpcqoAe5h0rEbfR1qhnFq1ZokYLJbjP13eamtx-5PiiqfMXaGHDkVlRp4MNNkLPzzQ");
+        connection.setRequestProperty("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJuaWNrbmFtZSI6Iuq4gOuhnOumrCIsImlkIjoxLCJleHAiOjE2NjM4MjkyODMsInVzZXJuYW1lIjoiZHVkcmhrZDY1NTAifQ.4hPy-ESizsm3alVOE1HE-pP4_IZuV0HCBqRAfLgxnZpq-BxF2H8959XmXSFaBYFtDHvG4R6dzMh-78njDbYauA");
 
         int responseCode = connection.getResponseCode();
 
@@ -41,7 +41,10 @@ class PlanergramApplicationTests {
         bufferedReader.close();
 
         String response = stringBuffer.toString();
+        System.out.println("====================================================================");
+        System.out.println("rentCar 중 id가 1번인 rentcar를 JWT토큰 활용하여 인증받아 가져오는 API테스트");
         System.out.println(response);
+        System.out.println("====================================================================");
     }
 
     @Test

@@ -22,11 +22,15 @@ public class Attraction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attractionId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private String address;
+
+    @Lob
+    @Column(nullable = false)
+    private String description;
 
     @Column(nullable = false)
     private int price;

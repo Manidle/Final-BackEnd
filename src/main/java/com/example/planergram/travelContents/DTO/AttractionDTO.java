@@ -20,6 +20,9 @@ public class AttractionDTO {
     @ApiModelProperty(value = "관광지 주소",example = "강원도",required = true)
     private String address;
 
+    @ApiModelProperty(value = "관광지 설명",example = "아름다운 동상입니다.",required = true)
+    private String description;
+
     @ApiModelProperty(value = "관람료",example = "5000",required = true)
     private int price;
 
