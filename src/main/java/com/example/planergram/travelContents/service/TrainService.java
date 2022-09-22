@@ -39,8 +39,8 @@ public class TrainService {
         return trainDTOList;
     }
 
-    public List<TrainDTO> findByStartPointAndEndPoint(String startPoint, String endPoint) {
-        List<Train> trainList = trainRepository.findByStartPointAndEndPoint(startPoint,endPoint);
+    public List<TrainDTO> findByStartPointLikeAndEndPointLike(String startPoint, String endPoint) {
+        List<Train> trainList = trainRepository.findByStartPointLikeAndEndPointLike("%"+startPoint+"%","%"+endPoint+"%");
         List<TrainDTO> trainDTOList = new ArrayList<>();
         for (Train train: trainList) {
             trainDTOList.add(makeTrainDTO(train));
