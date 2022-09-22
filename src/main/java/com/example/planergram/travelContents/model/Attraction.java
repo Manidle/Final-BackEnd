@@ -29,9 +29,6 @@ public class Attraction {
     private String address;
 
     @Column(nullable = false)
-    private String detailAddress;
-
-    @Column(nullable = false)
     private int price;
 
     @Column(name = "like_count")

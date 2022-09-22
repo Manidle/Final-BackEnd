@@ -22,9 +22,6 @@ public class StayDTO {
     @ApiModelProperty(value = "숙소 지역",example = "강원도",required = true)
     private String address;
 
-    @ApiModelProperty(value = "숙소 상세지역",example = "강릉",required = true)
-    private String detailAddress;
-
     @ApiModelProperty(value = "1박당 가격",example = "130000",required = true)
     private int price;
 

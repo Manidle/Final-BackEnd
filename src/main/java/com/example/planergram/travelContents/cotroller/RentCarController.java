@@ -38,6 +38,17 @@ public class RentCarController {
         }
     }
 
+    //렌트카 렌트카 업체 이름,지역, 자동차이름 중 Like filtering된 게시글 조회
+    @ApiOperation(value = "검색필터 렌트카정보를 모두 보여주는 API")
+    @GetMapping("/filter/list/rentcar")
+    public ResponseEntity<?> findByNameLikeOrAddressLikeOrCompanyName(@RequestParam("search") String search){
+        try {
+            return ResponseEntity.ok(rentCarService.findByNameLikeOrAddressLikeOrCompanyName(search));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
+        }
+    }
+
     // HOT 렌트카용 : 모든 렌트카를 좋아요 순으로 내림차순 정렬하여 상위5개만 출력
     @ApiOperation(value = "HOT렌트카용 : 모든렌트카를 좋아요 순으로 내림차순 정렬조회하는 API")
     @GetMapping("v1/filter/list/rentcar/desc/top")
@@ -46,28 +57,6 @@ public class RentCarController {
             return ResponseEntity.ok(rentCarService.findTop5ByOrderByLikeCountDesc());
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("Hot 렌트카 정보를 부르는데 실패하였습니다.",e);
-        }
-    }
-
-    //지역으로만 filtering된 렌트카 조회
-    @ApiOperation(value = "지역으로만 filtering 조회 API")
-    @GetMapping("/auth/v1/filter/list/rentcar/address")
-    public ResponseEntity<?> findByAddressLike(@RequestParam(value = "address") String address){
-        try {
-            return ResponseEntity.ok(rentCarService.findByAddressLike(address));
-        } catch (Exception e) {
-            return ResponseService.makeResponseEntity("렌트카 정보를 부르는데 실패하였습니다.",e);
-        }
-    }
-
-    //렌트카 이름으로 filtering된 렌트카 조회
-    @ApiOperation(value = "렌트카 이름으로 filtering 조회 API")
-    @GetMapping("/auth/v1/filter/list/rentcar/name")
-    public ResponseEntity<?> findByCarNameLike(@RequestParam(value = "carname") String carName){
-        try {
-            return ResponseEntity.ok(rentCarService.findByCarNameLike(carName));
-        } catch (Exception e) {
-            return ResponseService.makeResponseEntity("렌트카 정보를 부르는데 실패하였습니다.",e);
         }
     }
 

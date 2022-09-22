@@ -49,45 +49,13 @@ public class AttractionController {
         }
     }
 
-    // 지역 + 상세지역으로 filtering된 관광지 조회
-    @ApiOperation(value = "지역 + 상세지역으로 filtering")
-    @GetMapping("/auth/v1/list/filter/attraction/address/detail")
-    public ResponseEntity<?> findByAddressAndDetailAddress(@RequestParam(value = "address") String address,
-                                                           @RequestParam(value = "detailAddress") String detailAddress){
-        try {
-            return ResponseEntity.ok(attractionService.findByAddressAndDetailAddress(address,detailAddress));
-        } catch (Exception e) {
-            return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
-        }
-    }
 
-    //지역으로만 filtering된 관광지 조회
-    @ApiOperation(value = "지역으로만 filtering 조회 API")
-    @GetMapping("/auth/v1/list/filter/attraction/address")
-    public ResponseEntity<?> findByAddress(@RequestParam(value = "address") String address){
-        try {
-            return ResponseEntity.ok(attractionService.findByAddress(address));
-        } catch (Exception e) {
-            return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
-        }
-    }
-
-    //관광지 이름으로 filtering된 게시글 조회
-    @ApiOperation(value = "관광지 이름으로 filtering 조회 API")
-    @GetMapping("/auth/v1/list/filter/attraction/name")
-    public ResponseEntity<?> findByNameLike(@RequestParam(value = "name") String name){
-        try {
-            return ResponseEntity.ok(attractionService.findByNameLike(name));
-        } catch (Exception e) {
-            return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
-        }
-    }
-    //관광지 이름,지역,상세지역 중 Like filtering된 게시글 조회
+    //관광지 이름,지역 중 Like filtering된 게시글 조회
     @ApiOperation(value = "검색필터 관광지정보를 모두 보여주는 API")
-    @GetMapping("/filter/attraction/search")
-    public ResponseEntity<?> findByNameOrDetailAddressLike(@RequestParam("search") String search){
+    @GetMapping("/filter/list/attraction")
+    public ResponseEntity<?> findByNameLikeOrAddressLike(@RequestParam("search") String search){
         try {
-            return ResponseEntity.ok(attractionService.findByNameOrDetailAddressLike(search));
+            return ResponseEntity.ok(attractionService.findByNameLikeOrAddressLike(search));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("관광지 리스트를 불러내는데 실패하였습니다.",e);
         }

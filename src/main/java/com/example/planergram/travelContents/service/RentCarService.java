@@ -2,11 +2,12 @@ package com.example.planergram.travelContents.service;
 
 import com.example.planergram.travelContents.DTO.RentCarDTO;
 import com.example.planergram.travelContents.model.RentCar;
+import com.example.planergram.travelContents.repository.RentCarRepository;
 import com.example.planergram.userLike.model.RentCarLike;
 import com.example.planergram.userLike.repository.RentCarLikeRepository;
-import com.example.planergram.travelContents.repository.RentCarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +44,8 @@ public class RentCarService {
         return rentCarDTOList;
     }
 
-    public List<RentCarDTO> findByAddressLike(String address) {
-        List<RentCar> rentCarList = rentCarRepository.findByAddressLike("%"+address+"%");
+    public List<RentCarDTO> findByNameLikeOrAddressLikeOrCompanyName(String search) {
+        List<RentCar> rentCarList = rentCarRepository.findByNameLikeOrAddressLikeOrCompanyName(search);
         List<RentCarDTO> rentCarDTOList = new ArrayList<>();
         for (RentCar rentCar: rentCarList) {
             rentCarDTOList.add(makeRentCarDTO(rentCar));
@@ -52,14 +53,6 @@ public class RentCarService {
         return rentCarDTOList;
     }
 
-    public List<RentCarDTO> findByCarNameLike(String carName) {
-        List<RentCar> rentCarList = rentCarRepository.findByCarNameLike("%"+carName+"%");
-        List<RentCarDTO> rentCarDTOList = new ArrayList<>();
-        for (RentCar rentCar: rentCarList) {
-            rentCarDTOList.add(makeRentCarDTO(rentCar));
-        }
-        return rentCarDTOList;
-    }
 
     public RentCarDTO findById(Long id) {
         RentCar rentCar = rentCarRepository.getById(id);
