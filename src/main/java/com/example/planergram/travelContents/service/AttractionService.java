@@ -66,6 +66,7 @@ public class AttractionService {
         Attraction attraction = attractionRepository.getById(id);
         attraction.setName(attractionDTO.getName());
         attraction.setAddress(attractionDTO.getAddress());
+        attraction.setDescription(attractionDTO.getDescription());
         attraction.setLikeCount(attraction.getLikeCount());
         attraction.setPrice(attractionDTO.getPrice());
         return makeAttractionDTO(attraction);
@@ -76,6 +77,7 @@ public class AttractionService {
                 .attractionId(attractionDTO.getAttractionId())
                 .name(attractionDTO.getName())
                 .address(attractionDTO.getAddress())
+                .description(attractionDTO.getDescription())
                 .likeCount(attractionDTO.getLikeCount())
                 .price(attractionDTO.getPrice())
                 .build();
@@ -87,6 +89,7 @@ public class AttractionService {
                   .name(attraction.getName())
                   .likeCount(attraction.getLikeCount())
                   .address(attraction.getAddress())
+                  .description(attraction.getDescription())
                   .price(attraction.getPrice())
                   .build();
     }
