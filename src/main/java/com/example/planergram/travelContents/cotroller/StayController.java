@@ -49,46 +49,12 @@ public class StayController {
         }
     }
 
-    // 지역 + 상세지역으로 filtering된 숙소 조회
-    @ApiOperation(value = "지역 + 상세지역으로 filtering")
-    @GetMapping("/auth/v1/filter/list/stay/address/detail")
-    public ResponseEntity<?> findByAddressAndDetailAddress(@RequestParam(value = "address") String address,
-                                                           @RequestParam(value = "detailAddress") String detailAddress){
-        try {
-            return ResponseEntity.ok(stayService.findByAddressAndDetailAddress(address,detailAddress));
-        } catch (Exception e) {
-            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
-        }
-    }
-
-    // 지역으로만 filtering된 숙소 조회
-    @ApiOperation(value = "지역으로만 filtering")
-    @GetMapping("/auth/v1/filter/list/stay/address")
-    public ResponseEntity<?> findByAddress(@RequestParam(value = "address") String address){
-        try {
-            return ResponseEntity.ok(stayService.findByAddress(address));
-        } catch (Exception e) {
-            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
-        }
-    }
-
-    // 숙소명으로 filtering된 숙소 조회
-    @ApiOperation(value = "숙소명으로만 filtering")
-    @GetMapping("/auth/v1/filter/list/stay/name")
-    public ResponseEntity<?> findByNameLike(@RequestParam(value = "name") String name){
-        try {
-            return ResponseEntity.ok(stayService.findByNameLike(name));
-        } catch (Exception e) {
-            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
-        }
-    }
-
-    //숙소 이름,지역,상세지역 중 Like filtering된 게시글 조회
+    //숙소 이름,지역 중 Like filtering된 게시글 조회
     @ApiOperation(value = "검색필터 숙소정보를 모두 보여주는 API")
-    @GetMapping("/auth/v1/filter/list/stay/search")
-    public ResponseEntity<?> findByNameOrDetailAddressLike(@RequestParam(value = "search") String search){
+    @GetMapping("/auth/v1/filter/list/stay")
+    public ResponseEntity<?> findByNameLikeOrAddressLike(@RequestParam(value = "search") String search){
         try {
-            return ResponseEntity.ok(stayService.findByNameOrDetailAddressLike(search));
+            return ResponseEntity.ok(stayService.findByNameLikeOrAddressLike(search));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
         }

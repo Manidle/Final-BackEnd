@@ -41,35 +41,8 @@ public class AttractionService {
         return attractionDTOList;
     }
 
-    public List<AttractionDTO> findByAddressAndDetailAddress(String address,String detailAddress) {
-        List<Attraction> attractionList = attractionRepository.findByAddressAndDetailAddress(address,detailAddress);
-        List<AttractionDTO> attractionDTOList = new ArrayList<>();
-        for (Attraction attraction: attractionList) {
-            attractionDTOList.add(makeAttractionDTO(attraction));
-        }
-        return attractionDTOList;
-    }
-
-    public List<AttractionDTO> findByAddress(String address) {
-        List<Attraction> attractionList = attractionRepository.findByAddress(address);
-        List<AttractionDTO> attractionDTOList = new ArrayList<>();
-        for (Attraction attraction: attractionList) {
-            attractionDTOList.add(makeAttractionDTO(attraction));
-        }
-        return attractionDTOList;
-    }
-
-    public List<AttractionDTO> findByNameLike(String name) {
-        List<Attraction> attractionList = attractionRepository.findByNameLike("%"+name+"%");
-        List<AttractionDTO> attractionDTOList = new ArrayList<>();
-        for (Attraction attraction: attractionList) {
-            attractionDTOList.add(makeAttractionDTO(attraction));
-        }
-        return attractionDTOList;
-    }
-
-    public List<AttractionDTO> findByNameOrDetailAddressLike(String search) {
-        List<Attraction> attractionList = attractionRepository.findByNameOrDetailAddressLike(search);
+    public List<AttractionDTO> findByNameLikeOrAddressLike(String search) {
+        List<Attraction> attractionList = attractionRepository.findByNameLikeOrAddressLike(search);
         List<AttractionDTO> attractionDTOList = new ArrayList<>();
         for (Attraction attraction: attractionList) {
             attractionDTOList.add(makeAttractionDTO(attraction));
@@ -92,7 +65,6 @@ public class AttractionService {
     public AttractionDTO update(Long id, AttractionDTO attractionDTO) {
         Attraction attraction = attractionRepository.getById(id);
         attraction.setName(attractionDTO.getName());
-        attraction.setDetailAddress(attraction.getDetailAddress());
         attraction.setAddress(attractionDTO.getAddress());
         attraction.setLikeCount(attraction.getLikeCount());
         attraction.setPrice(attractionDTO.getPrice());
@@ -103,7 +75,6 @@ public class AttractionService {
         return Attraction.builder()
                 .attractionId(attractionDTO.getAttractionId())
                 .name(attractionDTO.getName())
-                .detailAddress(attractionDTO.getDetailAddress())
                 .address(attractionDTO.getAddress())
                 .likeCount(attractionDTO.getLikeCount())
                 .price(attractionDTO.getPrice())
@@ -115,7 +86,6 @@ public class AttractionService {
                   .attractionId(attraction.getAttractionId())
                   .name(attraction.getName())
                   .likeCount(attraction.getLikeCount())
-                  .detailAddress(attraction.getDetailAddress())
                   .address(attraction.getAddress())
                   .price(attraction.getPrice())
                   .build();
