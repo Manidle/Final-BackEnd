@@ -44,6 +44,8 @@ public class Post {
     @Column(name = "address",nullable = false, length = 30)
     private String address;
 
+    private String nickname;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;

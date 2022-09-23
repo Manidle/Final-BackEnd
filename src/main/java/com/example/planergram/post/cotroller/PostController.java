@@ -40,6 +40,7 @@ public class PostController {
         try {
             log.info(principalDetails.getUsername());
             postDTO.setUserId(principalDetails.getUser().getUserId());
+            postDTO.setNickname(principalDetails.getUser().getNickname());
             postDTO.setBoardId(boardId);
             return ResponseEntity.ok(postService.save(postDTO));
         } catch (Exception e) {

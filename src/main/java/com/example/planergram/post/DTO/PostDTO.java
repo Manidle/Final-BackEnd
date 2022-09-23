@@ -35,6 +35,9 @@ public class PostDTO {
     @ApiModelProperty(value = "게시글의 조회수", example = "1")
     private int readCount;
 
+    @ApiModelProperty(value = "게시글 작성자의 닉네임", example = "글로리")
+    private String nickname;
+
     @ApiModelProperty(hidden = true)
     private Long boardId;
 
