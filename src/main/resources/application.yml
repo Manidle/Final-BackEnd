@@ -9,12 +9,20 @@ server:
 
 spring:
   mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
 
+#   swagger UI : http://localhost:8080/swagger-ui/
+
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://basecamp.cu19nennfljc.ap-northeast-2.rds.amazonaws.com:3306/plannergram?serverTimezone=Asia/Seoul
+#    username: army
+#    password: 123456789
+#    RDB 안쓰고 로컬DB 쓸 때
     url: jdbc:mariadb://localhost:3307/planergram?serverTimezone=Asia/Seoul
     username: cos
     password: cos1234
@@ -22,7 +30,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
