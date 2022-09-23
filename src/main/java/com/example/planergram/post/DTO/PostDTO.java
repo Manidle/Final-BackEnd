@@ -45,10 +45,13 @@ public class PostDTO {
     private Long userId;
 
     @ApiModelProperty(hidden = true)
-    private List<Long> postStayList;
+    private List<Long> replyList;
 
     @ApiModelProperty(hidden = true)
     private List<Long> postRentCarList;
+
+    @ApiModelProperty(hidden = true)
+    private List<Long> postStayList;
 
     @ApiModelProperty(hidden = true)
     private List<Long> postTrainList;

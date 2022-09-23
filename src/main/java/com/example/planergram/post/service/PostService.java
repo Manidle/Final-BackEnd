@@ -3,8 +3,10 @@ package com.example.planergram.post.service;
 import com.example.planergram.post.DTO.PostDTO;
 import com.example.planergram.post.model.Board;
 import com.example.planergram.post.model.Post;
+import com.example.planergram.post.model.Reply;
 import com.example.planergram.post.repository.BoardRepository;
 import com.example.planergram.post.repository.PostRepository;
+import com.example.planergram.post.repository.ReplyRepository;
 import com.example.planergram.postTravel.model.PostAttraction;
 import com.example.planergram.postTravel.model.PostRentCar;
 import com.example.planergram.postTravel.model.PostStay;
@@ -47,6 +49,9 @@ public class PostService {
 
     @Autowired
     private PostRentCarRepository postRentCarRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
 
     public PostDTO save(PostDTO postDTO) {
@@ -133,6 +138,7 @@ public class PostService {
         List<PostRentCar> PostRentCarList = new ArrayList<>();
         List<PostTrain> PostTrainList = new ArrayList<>();
         List<PostAttraction> PostAttractionList = new ArrayList<>();
+        List<Reply> replyList = new ArrayList<>();
 
         if (postDTO.getPostStayList() != null) {
             for (Long PostStayId : postDTO.getPostStayList()) {
@@ -158,6 +164,12 @@ public class PostService {
             }
         }
 
+        if (postDTO.getReplyList() != null) {
+            for (Long ReplyId : postDTO.getReplyList()) {
+                replyList.add(replyRepository.getById(ReplyId));
+            }
+        }
+
         return Post.builder()
                 .postId(postDTO.getPostId())
                 .title(postDTO.getTitle())
@@ -173,6 +185,7 @@ public class PostService {
                 .postRentCarList(PostRentCarList)
                 .postStayList(PostStayList)
                 .postTrainList(PostTrainList)
+                .replyList(replyList)
                 .build();
     }
 
@@ -182,6 +195,7 @@ public class PostService {
         List<Long> PostRentCarIdList = new ArrayList<>();
         List<Long> PostTrainIdList = new ArrayList<>();
         List<Long> PostAttractionIdList = new ArrayList<>();
+        List<Long> replyIdList = new ArrayList<>();
 
         if (post.getPostStayList() != null) {
             for (PostStay postStay : post.getPostStayList()) {
@@ -207,6 +221,12 @@ public class PostService {
             }
         }
 
+        if (post.getReplyList() != null) {
+            for (Reply reply : post.getReplyList()) {
+                replyIdList.add(reply.getReplyId());
+            }
+        }
+
         return PostDTO
                 .builder()
                 .postId(post.getPostId())
@@ -223,6 +243,7 @@ public class PostService {
                 .postRentCarList(PostRentCarIdList)
                 .postTrainList(PostTrainIdList)
                 .postAttractionList(PostAttractionIdList)
+                .replyList(replyIdList)
                 .build();
     }
 
