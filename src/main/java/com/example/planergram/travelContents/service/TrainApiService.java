@@ -69,6 +69,6 @@ public class TrainApiService {
         System.out.println(sb.toString());
         System.out.println("==================================================");
 
-        return "콘솔창 확인";
+        return "json";
     }
 }

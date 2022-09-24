@@ -77,6 +77,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("id", principalDetailis.getUser().getUserId())
                 .withClaim("username", principalDetailis.getUser().getUsername())
                 .withClaim("nickname",principalDetailis.getUser().getNickname())
+                .withClaim("email",principalDetailis.getUser().getUserInfo().getEmail())
 
                 .sign(Algorithm.HMAC512("cos"));
         response.setContentType("application/json");
