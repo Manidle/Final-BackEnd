@@ -1,6 +1,7 @@
 package com.example.planergram.user.cotroller;
 
 import com.example.planergram.Response.ResponseService;
+import com.example.planergram.travelContents.repository.PlatformRepository;
 import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.service.UserService;
 import io.swagger.annotations.Api;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PlatformRepository platformRepository;
 
     @ApiOperation(value = "회원가입 API")
     @PostMapping("/v1/register")

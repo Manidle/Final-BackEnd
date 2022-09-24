@@ -1,12 +1,17 @@
 package com.example.planergram.userLike.cotroller;
 
 import com.example.planergram.Response.ResponseService;
+import com.example.planergram.config.auth.PrincipalDetails;
+import com.example.planergram.travelContents.model.Platform;
+import com.example.planergram.travelContents.repository.PlatformRepository;
+import com.example.planergram.userLike.DTO.TrainLikeDTO;
 import com.example.planergram.userLike.service.TrainLikeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"기차 좋아요에 대한 API 정보를 제공하는 Controller"})
@@ -17,13 +22,28 @@ public class TrainLikeController {
     @Autowired
     private TrainLikeService trainLikeService;
 
+    @Autowired
+    private PlatformRepository platformRepository;
+
     @ApiOperation(value = "특정유저가 특정기차를 좋아요 클릭하는 API")
     @GetMapping("/v1/like/click/train")
     public ResponseEntity<?> clickTrainLike(
-            @RequestParam(value="user", defaultValue="0") Long userId,
-            @RequestParam(value="train", defaultValue="0") Long trainId){
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestBody TrainLikeDTO trainLikeDTO
+    ){
+
+        Platform startPoint = platformRepository.findByNodeName(trainLikeDTO.getDepplacename());
+        String encStartPoint = startPoint.getNodeId();
+        trainLikeDTO.setDepplacename(encStartPoint);
+
+        Platform endPoint = platformRepository.findByNodeName(trainLikeDTO.getArrplacename());
+        String encEndPoint = endPoint.getNodeId();
+        trainLikeDTO.setArrplacename(encEndPoint);
+
+        trainLikeDTO.setUserId(principalDetails.getUser().getUserId());
+
         try {
-            return ResponseEntity.ok(trainLikeService.clickTrainLike(userId,trainId));
+            return ResponseEntity.ok(trainLikeService.clickTrainLike(trainLikeDTO));
         } catch (Exception e){
             return ResponseService.makeResponseEntity("열차 좋아요 클릭을 실패했습니다.",e);
         }
