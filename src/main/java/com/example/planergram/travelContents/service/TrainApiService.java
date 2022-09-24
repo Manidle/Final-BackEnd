@@ -69,6 +69,6 @@ public class TrainApiService {
         System.out.println(sb.toString());
         System.out.println("==================================================");
 
-        return "json";
+        return sb.toString();
     }
 }

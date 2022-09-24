@@ -1,7 +1,10 @@
 package com.example.planergram.postTravel.cotroller;
 
 import com.example.planergram.Response.ResponseService;
+import com.example.planergram.postTravel.DTO.PostTrainDTO;
 import com.example.planergram.postTravel.service.PostTrainService;
+import com.example.planergram.travelContents.model.Platform;
+import com.example.planergram.travelContents.repository.PlatformRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -17,6 +20,9 @@ public class PostTrainController {
     @Autowired
     private PostTrainService postTrainService;
 
+    @Autowired
+    private PlatformRepository platformRepository;
+
     private final String VERSION = "/v1";
     private final String AUTH = "/auth" + VERSION;
     private final String ADMIN_AUTH = "/admin" + AUTH;
@@ -24,25 +30,32 @@ public class PostTrainController {
     private final String POST_TRAIN = POST_CONTENTS + "/post-train";
 
 
-    @GetMapping(AUTH + POST_TRAIN + "/click")
+    @GetMapping("/auth/v1/post-contents/post-train/click/{postId}")
     @ApiOperation(value = "USER : 해당 게시글에 기차를 추가하는 API")
-    public ResponseEntity<?> clickTrainLike(
-            @ApiParam(value = "게시글의 ID값") @RequestParam(value="post", defaultValue="0") Long postId,
-            @ApiParam(value = "기차의 ID값") @RequestParam(value="train", defaultValue="0") Long trainId){
+    public ResponseEntity<?> clickTrainLike(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId,@RequestBody PostTrainDTO postTrainDTO){
+
+        Platform startPoint = platformRepository.findByNodeName(postTrainDTO.getDepplacename());
+        String encStartPoint = startPoint.getNodeId();
+        postTrainDTO.setDepplacename(encStartPoint);
+
+        Platform endPoint = platformRepository.findByNodeName(postTrainDTO.getArrplacename());
+        String encEndPoint = endPoint.getNodeId();
+        postTrainDTO.setArrplacename(encEndPoint);
+
         try {
-            return ResponseEntity.ok(postTrainService.clickTrainLike(postId,trainId ));
+            return ResponseEntity.ok(postTrainService.clickTrainLike(postId,postTrainDTO));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("저장된 postRentCar 불러오기 실패하였습니다.",e);
         }
     }
 
-    @GetMapping(AUTH + "/post/{postId}" + POST_TRAIN + "/list")
+    @GetMapping("/auth/v1/post/{postId}/post-contents/post-train/list")
     @ApiOperation(value = "USER : 해당 게시글에 기차를 조회하는 API")
     public ResponseEntity<?> postTrainFindByPost(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId){
         try {
             return ResponseEntity.ok(postTrainService.findByPost(postId));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("저장된 렌트카 불러오기를 실패하였습니다.",e);
+            return ResponseService.makeResponseEntity("지정된 렌트카 불러오기를 실패하였습니다.",e);
         }
     }
 
