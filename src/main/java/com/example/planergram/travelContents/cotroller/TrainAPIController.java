@@ -1,6 +1,7 @@
 package com.example.planergram.travelContents.cotroller;
 
 import com.example.planergram.Response.ResponseService;
+import com.example.planergram.travelContents.repository.PlatformRepository;
 import com.example.planergram.travelContents.service.TrainApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,11 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+//프론트 엔드에서 할 작업인데 일단 안지움
 @RestController
 public class TrainAPIController {
 
     @Autowired
     private TrainApiService trainApiService;
+    @Autowired
+    private PlatformRepository platformRepository;
 
     @GetMapping("/train/api")
     public ResponseEntity<?> TrainAPI(@RequestParam(value = "start") String start,

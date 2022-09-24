@@ -2,7 +2,6 @@ package com.example.planergram.travelContents.service;
 
 import com.example.planergram.travelContents.model.Platform;
 import com.example.planergram.travelContents.repository.PlatformRepository;
-import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
 
+//프론트 엔드에서 할 작업인데 일단 안지움
 @Service
 public class TrainApiService {
 
@@ -68,6 +69,6 @@ public class TrainApiService {
         System.out.println(sb.toString());
         System.out.println("==================================================");
 
-        return "이클립스 콘솔창 확인하기";
+        return "콘솔창 확인";
     }
 }
