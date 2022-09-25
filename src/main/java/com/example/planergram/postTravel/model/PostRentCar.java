@@ -1,7 +1,7 @@
 package com.example.planergram.postTravel.model;
 
-import com.example.planergram.travelContents.model.RentCar;
 import com.example.planergram.post.model.Post;
+import com.example.planergram.travelContents.model.RentCar;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,4 +27,5 @@ public class PostRentCar {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Post.class)
     @JoinColumn(name = "post_id")
     private Post post;
+
 }

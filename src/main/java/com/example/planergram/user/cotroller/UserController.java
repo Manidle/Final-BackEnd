@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = {"User 혹은 UserInfo와 함께 API 정보를 제공하는 Controller"})
 @RestController
 @Slf4j
-@RequestMapping("/all")
+@RequestMapping("/api")
 public class UserController {
     @Autowired
     private UserService userService;

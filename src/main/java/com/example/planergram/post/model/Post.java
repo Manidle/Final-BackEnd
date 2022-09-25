@@ -38,12 +38,6 @@ public class Post {
     @Column(name = "read_count")
     private int readCount;
 
-    @Column(name = "detail_address",nullable = false, length = 30)
-    private String detailAddress;
-
-    @Column(name = "address",nullable = false, length = 30)
-    private String address;
-
     private String nickname;
 
     private String boardName;
@@ -70,4 +64,13 @@ public class Post {
 
     @OneToMany(mappedBy = "post",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PostAttraction> postAttractionList;
+
+//===============================================================================================
+//================================활용 x 차후 Develop때 사용예정 ====================================
+//================================================================================================
+
+//    @Column(name = "detail_address")
+//    private String detailAddress;
+//
+//    private String address;
 }

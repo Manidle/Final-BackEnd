@@ -1,5 +1,10 @@
 package com.example.planergram.post.DTO;
 
+import com.example.planergram.post.model.Reply;
+import com.example.planergram.postTravel.model.PostAttraction;
+import com.example.planergram.postTravel.model.PostRentCar;
+import com.example.planergram.postTravel.model.PostStay;
+import com.example.planergram.postTravel.model.PostTrain;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,12 +27,6 @@ public class PostDTO {
 
     @ApiModelProperty(value = "게시글의 내용", example = "test contents")
     private String contents;
-
-    @ApiModelProperty(value = "게시글 지역구", example = "강원도")
-    private String detailAddress;
-
-    @ApiModelProperty(value = "게시글 세부지역", example = "원주")
-    private String address;
 
     @ApiModelProperty(value = "게시글의 좋아요", example = "1")
     private int likeCount;
@@ -61,4 +60,29 @@ public class PostDTO {
 
     @ApiModelProperty(hidden = true)
     private List<Long> postAttractionList;
+
+    @ApiModelProperty(hidden = true)
+    private List<Reply> replys;
+
+    @ApiModelProperty(hidden = true)
+    private List<PostRentCar> postRentCars;
+
+    @ApiModelProperty(hidden = true)
+    private List<PostStay> postStays;
+
+    @ApiModelProperty(hidden = true)
+    private List<PostTrain> postTrains;
+
+    @ApiModelProperty(hidden = true)
+    private List<PostAttraction> postAttractions;
+
+//===============================================================================================
+//================================활용 x 차후 Develop때 사용예정 ====================================
+//================================================================================================
+
+//    @ApiModelProperty(hidden = true)
+//    private String detailAddress;
+//
+//    @ApiModelProperty(hidden = true)
+//    private String address;
 }

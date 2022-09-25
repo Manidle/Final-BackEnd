@@ -54,9 +54,9 @@ public class PostService {
     private ReplyRepository replyRepository;
 
 
+    // Date 변경을 하는 메서드 save,update,delete
     public PostDTO save(PostDTO postDTO) {
         Long boardId = postDTO.getBoardId();
-        Board board = boardRepository.getById(boardId);
         postDTO.setBoardName(postDTO.getBoardName());
         Post post = makePost(postDTO);
         post = postRepository.save(post);
@@ -64,67 +64,6 @@ public class PostService {
         return makePostDTO(post);
     }
 
-    public List<PostDTO> findAll() {
-        List<Post> postList = postRepository.findAll();
-        List<PostDTO> postDTOList = makePostDTOList(postList);
-        log.info("모든 게시글을 조회하였습니다.");
-        return postDTOList;
-    }
-
-    public List<PostDTO> findByBoard(Long boardId) {
-        Board board = boardRepository.getById(boardId);
-        List<Post> postList = postRepository.findByBoard(board);
-        List<PostDTO> postDTOList = makePostDTOList(postList);
-        log.info("모든 게시글을 조회하였습니다.");
-        return postDTOList;
-    }
-
-    public List<PostDTO> findByBoardAndTitleLike(Long boardId,String title) {
-        Board board = boardRepository.getById(boardId);
-        List<Post> postList = postRepository.findByBoardAndTitleLike(board,"%"+title+"%");
-        List<PostDTO> postDTOList = makePostDTOList(postList);
-        log.info("모든 게시글을 조회하였습니다.");
-        return postDTOList;
-    }
-
-    public List<PostDTO> findByDetailAddressAndAddress(String detailAddress, String address) {
-        List<Post> postList = postRepository.findByDetailAddressAndAddress(detailAddress, address);
-        List<PostDTO> postDTOList = makePostDTOList(postList);
-        log.info("모든 게시글을 조회하였습니다.");
-        return postDTOList;
-    }
-
-    public List<PostDTO> findByAddress(String address) {
-        List<Post> postList = postRepository.findByAddress(address);
-        List<PostDTO> postDTOList = makePostDTOList(postList);
-        log.info("모든 게시글을 조회하였습니다.");
-        return postDTOList;
-    }
-
-    public List<PostDTO> findByTitleLike(String title) {
-        List<Post> postList = postRepository.findByTitleLike("%" + title + "%");
-        List<PostDTO> postDTOList = makePostDTOList(postList);
-        log.info("모든 게시글을 조회하였습니다.");
-        return postDTOList;
-    }
-
-    public List<PostDTO> findTop5ByOrderByLikeCountDesc() {
-        List<Post> postList = postRepository.findTop5ByOrderByLikeCountDesc();
-        List<PostDTO> postDTOList = makePostDTOList(postList);
-        log.info("모든 게시글을 조회하였습니다.");
-        return postDTOList;
-    }
-
-    public PostDTO findById(Long id) {
-        Post post = postRepository.getById(id);
-        post.setReadCount(post.getReadCount() + 1);
-        post = postRepository.save(post);
-        PostDTO postDTO = makePostDTO(post);
-        log.info("게시글을 조회하였습니다.");
-        return postDTO;
-    }
-
-    //게시글 업데이트
     public PostDTO update(User user, Long id, PostDTO postDTO) throws Exception {
         Post post = postRepository.getById(id);
         if (!Objects.equals(post.getUser().getUserId(), user.getUserId())) {
@@ -133,8 +72,6 @@ public class PostService {
         post.setTitle(postDTO.getTitle());
         post.setContents(postDTO.getContents());
         post.setLikeCount(postDTO.getLikeCount());
-        post.setDetailAddress(postDTO.getDetailAddress());
-        post.setAddress(postDTO.getAddress());
         post = postRepository.save(post);
         log.info("게시글 수정이 완료되었습니다.");
         return makePostDTO(post);
@@ -149,6 +86,54 @@ public class PostService {
         return makePostDTO(post);
     }
 
+
+
+    //findList
+    public List<PostDTO> findAll() {
+        List<Post> postList = postRepository.findAll();
+        List<PostDTO> postDTOList = makeListPostDTOList(postList);
+        log.info("모든 게시글을 조회하였습니다.");
+        return postDTOList;
+    }
+
+    public List<PostDTO> findByBoard(Long boardId) {
+        Board board = boardRepository.getById(boardId);
+        List<Post> postList = postRepository.findByBoard(board);
+        List<PostDTO> postDTOList = makeListPostDTOList(postList);
+        log.info("모든 게시글을 조회하였습니다.");
+        return postDTOList;
+    }
+
+    public List<PostDTO> findByBoardAndTitleLike(Long boardId,String title) {
+        Board board = boardRepository.getById(boardId);
+        List<Post> postList = postRepository.findByBoardAndTitleLike(board,"%"+title+"%");
+        List<PostDTO> postDTOList = makeListPostDTOList(postList);
+        log.info("모든 게시글을 조회하였습니다.");
+        return postDTOList;
+    }
+
+    public List<PostDTO> findTop5ByOrderByLikeCountDesc() {
+        List<Post> postList = postRepository.findTop5ByOrderByLikeCountDesc();
+        List<PostDTO> postDTOList = makeListPostDTOList(postList);
+        log.info("모든 게시글을 조회하였습니다.");
+        return postDTOList;
+    }
+
+
+
+    //findOne
+    public PostDTO findById(Long id) {
+        Post post = postRepository.getById(id);
+        post.setReadCount(post.getReadCount() + 1);
+        post = postRepository.save(post);
+        PostDTO postDTO = makeDetailPostDTO(post);
+        log.info("게시글을 조회하였습니다.");
+        return postDTO;
+    }
+
+
+
+    // Date 변경을 하는 메서드 save,update,deleted 에 대한 make
     private Post makePost(PostDTO postDTO) {
         Board board = boardRepository.getById(postDTO.getBoardId());
         User user = userRepository.getById(postDTO.getUserId());
@@ -195,8 +180,6 @@ public class PostService {
                 .contents(postDTO.getContents())
                 .likeCount(postDTO.getLikeCount())
                 .readCount(postDTO.getReadCount())
-                .detailAddress(postDTO.getDetailAddress())
-                .address(postDTO.getAddress())
                 .nickname(user.getNickname())
                 .boardName(board.getBoardName())
                 .board(board)
@@ -254,8 +237,6 @@ public class PostService {
                 .contents(post.getContents())
                 .likeCount(post.getLikeCount())
                 .readCount(post.getReadCount())
-                .detailAddress(post.getDetailAddress())
-                .address(post.getAddress())
                 .nickname(post.getNickname())
                 .boardName(post.getBoardName())
                 .boardId(post.getBoard().getBoardId())
@@ -268,7 +249,36 @@ public class PostService {
                 .build();
     }
 
-    public List<PostDTO> makePostDTOList(List<Post> postList) {
+
+
+    // findList에 대한 make
+
+    public PostDTO makeListPostDTO(Post post) {
+
+        List<Long> replyIdList = new ArrayList<>();
+
+        if (post.getReplyList() != null) {
+            for (Reply reply : post.getReplyList()) {
+                replyIdList.add(reply.getReplyId());
+            }
+        }
+
+        return PostDTO
+                .builder()
+                .postId(post.getPostId())
+                .title(post.getTitle())
+                .contents(post.getContents())
+                .likeCount(post.getLikeCount())
+                .readCount(post.getReadCount())
+                .nickname(post.getNickname())
+                .boardName(post.getBoardName())
+                .boardId(post.getBoard().getBoardId())
+                .userId(post.getUser().getUserId())
+                .replyList(replyIdList)
+                .build();
+    }
+
+    public List<PostDTO> makeListPostDTOList(List<Post> postList) {
         List<PostDTO> postDTOList = new ArrayList<>();
 
         for (Post post : postList) {
@@ -276,4 +286,90 @@ public class PostService {
         }
         return postDTOList;
     }
+
+
+
+    // findByid에 대한 make
+    public PostDTO makeDetailPostDTO(Post post) {
+
+        List<Reply> replys = new ArrayList<>();
+        List<PostRentCar> postRentCars = new ArrayList<>();
+        List<PostStay> postStays= new ArrayList<>();
+        List<PostTrain> postTrains = new ArrayList<>();
+        List<PostAttraction> postAttractions  = new ArrayList<>();
+
+        if (post.getReplyList() != null) {
+            for (Reply reply : post.getReplyList()) {
+                replys.add(replyRepository.getById(reply.getReplyId()));
+            }
+        }
+
+        if (post.getPostRentCarList() != null) {
+            for (PostRentCar postRentCar : post.getPostRentCarList()) {
+                postRentCars.add(postRentCarRepository.getById(postRentCar.getPostRentCarId()));
+            }
+        }
+
+        if (post.getPostStayList() != null) {
+            for (PostStay postStay : post.getPostStayList()) {
+                postStays.add(postStayRepository.getById(postStay.getPostStayId()));
+            }
+        }
+
+        if (post.getPostTrainList() != null) {
+            for (PostTrain postTrain : post.getPostTrainList()) {
+                postTrains.add(postTrainRepository.getById(postTrain.getPostTrainId()));
+            }
+        }
+
+        if (post.getPostAttractionList() != null) {
+            for (PostAttraction postAttraction : post.getPostAttractionList()) {
+                postAttractions.add(postAttractionRepository.getById(postAttraction.getPostAttractionId()));
+            }
+        }
+
+        return PostDTO
+                .builder()
+                .postId(post.getPostId())
+                .title(post.getTitle())
+                .contents(post.getContents())
+                .likeCount(post.getLikeCount())
+                .readCount(post.getReadCount())
+                .nickname(post.getNickname())
+                .boardName(post.getBoardName())
+                .boardId(post.getBoard().getBoardId())
+                .userId(post.getUser().getUserId())
+                .postStays(postStays)
+                .postRentCars(postRentCars)
+                .postTrains(postTrains)
+                .postAttractions(postAttractions)
+                .replys(replys)
+                .build();
+    }
 }
+
+//===============================================================================================
+//================================활용 x 차후 Develop때 사용예정 ====================================
+//================================================================================================
+
+
+//    public List<PostDTO> findByDetailAddressAndAddress(String detailAddress, String address) {
+//        List<Post> postList = postRepository.findByDetailAddressAndAddress(detailAddress, address);
+//        List<PostDTO> postDTOList = makeListPostDTOList(postList);
+//        log.info("모든 게시글을 조회하였습니다.");
+//        return postDTOList;
+//    }
+//
+//    public List<PostDTO> findByAddress(String address) {
+//        List<Post> postList = postRepository.findByAddress(address);
+//        List<PostDTO> postDTOList = makeListPostDTOList(postList);
+//        log.info("모든 게시글을 조회하였습니다.");
+//        return postDTOList;
+//    }
+//
+//    public List<PostDTO> findByTitleLike(String title) {
+//        List<Post> postList = postRepository.findByTitleLike("%" + title + "%");
+//        List<PostDTO> postDTOList = makeListPostDTOList(postList);
+//        log.info("모든 게시글을 조회하였습니다.");
+//        return postDTOList;
+//    }
