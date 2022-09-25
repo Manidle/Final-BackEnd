@@ -122,8 +122,8 @@ public class PostService {
         return postDTOList;
     }
 
-    public List<PostDTO> findTop10ByOrderByLikeCountDesc() {
-        List<Post> postList = postRepository.findTop10ByOrderByLikeCountDesc();
+    public List<PostDTO> findTop9ByOrderByLikeCountDesc() {
+        List<Post> postList = postRepository.findTop9ByOrderByLikeCountDesc();
         List<PostDTO> postDTOList = makeListPostDTOList(postList);
         log.info("모든 게시글을 조회하였습니다.");
         return postDTOList;
