@@ -1,6 +1,10 @@
 package com.example.planergram.post.DTO;
 
 import com.example.planergram.post.model.Reply;
+import com.example.planergram.postTravel.DTO.PostAttractionDTO;
+import com.example.planergram.postTravel.DTO.PostRentCarDTO;
+import com.example.planergram.postTravel.DTO.PostStayDTO;
+import com.example.planergram.postTravel.DTO.PostTrainDTO;
 import com.example.planergram.postTravel.model.PostAttraction;
 import com.example.planergram.postTravel.model.PostRentCar;
 import com.example.planergram.postTravel.model.PostStay;
@@ -62,19 +66,19 @@ public class PostDTO {
     private List<Long> postAttractionList;
 
     @ApiModelProperty(hidden = true)
-    private List<Reply> replys;
+    private List<ReplyDTO> replys;
 
     @ApiModelProperty(hidden = true)
-    private List<PostRentCar> postRentCars;
+    private List<PostRentCarDTO> postRentCars;
 
     @ApiModelProperty(hidden = true)
-    private List<PostStay> postStays;
+    private List<PostStayDTO> postStays;
 
     @ApiModelProperty(hidden = true)
-    private List<PostTrain> postTrains;
+    private List<PostTrainDTO> postTrains;
 
     @ApiModelProperty(hidden = true)
-    private List<PostAttraction> postAttractions;
+    private List<PostAttractionDTO> postAttractions;
 
 //===============================================================================================
 //================================활용 x 차후 Develop때 사용예정 ====================================

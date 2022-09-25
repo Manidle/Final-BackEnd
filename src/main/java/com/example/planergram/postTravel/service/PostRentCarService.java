@@ -68,7 +68,7 @@ public class PostRentCarService {
         return makePostRentCarDTO(postRentCar);
     }
 
-    private PostRentCarDTO makePostRentCarDTO(PostRentCar postRentCar){
+    static public PostRentCarDTO makePostRentCarDTO(PostRentCar postRentCar){
         return PostRentCarDTO
                 .builder()
                 .postRentCarId(postRentCar.getPostRentCarId())
@@ -77,7 +77,7 @@ public class PostRentCarService {
                 .build();
     }
 
-    private List<PostRentCarDTO> makePostRentCarDTOList(List<PostRentCar> postRentCarList){
+    static public List<PostRentCarDTO> makePostRentCarDTOList(List<PostRentCar> postRentCarList){
         List<PostRentCarDTO> postRentCarDTOList = new ArrayList<>();
         for (PostRentCar postRentCar: postRentCarList){
             postRentCarDTOList.add(makePostRentCarDTO(postRentCar));

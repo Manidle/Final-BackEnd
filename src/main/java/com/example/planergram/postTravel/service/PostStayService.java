@@ -67,7 +67,7 @@ public class PostStayService {
         return makePostStayDTOList(postStayList);
     }
 
-    private PostStayDTO makePostStayDTO(PostStay postStay){
+    static public PostStayDTO makePostStayDTO(PostStay postStay){
         return PostStayDTO.builder()
                 .postStayId(postStay.getPostStayId())
                 .postId(postStay.getPost().getPostId())
@@ -75,7 +75,7 @@ public class PostStayService {
                 .build();
     }
 
-    private List<PostStayDTO> makePostStayDTOList(List<PostStay> postStayList){
+    static public List<PostStayDTO> makePostStayDTOList(List<PostStay> postStayList){
         List<PostStayDTO> postStayDTOList = new ArrayList<>();
         for (PostStay postStay: postStayList){
             postStayDTOList.add(makePostStayDTO(postStay));

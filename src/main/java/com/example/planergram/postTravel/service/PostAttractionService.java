@@ -65,7 +65,7 @@ public class PostAttractionService {
         return makePostAttractionDTO(postAttraction);
     }
 
-    private PostAttractionDTO makePostAttractionDTO(PostAttraction postAttraction){
+    static public PostAttractionDTO makePostAttractionDTO(PostAttraction postAttraction){
         return PostAttractionDTO.builder()
                 .postAttractionId(postAttraction.getPostAttractionId())
                 .postId(postAttraction.getPost().getPostId())
@@ -73,7 +73,7 @@ public class PostAttractionService {
                 .build();
     }
 
-    private List<PostAttractionDTO> makePostAttractionDTOList(List<PostAttraction> postAttractionList) {
+    static public List<PostAttractionDTO> makePostAttractionDTOList(List<PostAttraction> postAttractionList) {
         List<PostAttractionDTO> postAttractionDTOList = new ArrayList<>();
         for (PostAttraction postAttraction:postAttractionList){
             postAttractionDTOList.add(makePostAttractionDTO(postAttraction));

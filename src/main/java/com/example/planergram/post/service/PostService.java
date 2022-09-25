@@ -1,12 +1,17 @@
 package com.example.planergram.post.service;
 
 import com.example.planergram.post.DTO.PostDTO;
+import com.example.planergram.post.DTO.ReplyDTO;
 import com.example.planergram.post.model.Board;
 import com.example.planergram.post.model.Post;
 import com.example.planergram.post.model.Reply;
 import com.example.planergram.post.repository.BoardRepository;
 import com.example.planergram.post.repository.PostRepository;
 import com.example.planergram.post.repository.ReplyRepository;
+import com.example.planergram.postTravel.DTO.PostAttractionDTO;
+import com.example.planergram.postTravel.DTO.PostRentCarDTO;
+import com.example.planergram.postTravel.DTO.PostStayDTO;
+import com.example.planergram.postTravel.DTO.PostTrainDTO;
 import com.example.planergram.postTravel.model.PostAttraction;
 import com.example.planergram.postTravel.model.PostRentCar;
 import com.example.planergram.postTravel.model.PostStay;
@@ -15,6 +20,10 @@ import com.example.planergram.postTravel.repository.PostAttractionRepository;
 import com.example.planergram.postTravel.repository.PostRentCarRepository;
 import com.example.planergram.postTravel.repository.PostStayRepository;
 import com.example.planergram.postTravel.repository.PostTrainRepository;
+import com.example.planergram.postTravel.service.PostAttractionService;
+import com.example.planergram.postTravel.service.PostRentCarService;
+import com.example.planergram.postTravel.service.PostStayService;
+import com.example.planergram.postTravel.service.PostTrainService;
 import com.example.planergram.user.model.User;
 import com.example.planergram.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -292,40 +301,33 @@ public class PostService {
     // findByid에 대한 make
     public PostDTO makeDetailPostDTO(Post post) {
 
-        List<Reply> replys = new ArrayList<>();
-        List<PostRentCar> postRentCars = new ArrayList<>();
-        List<PostStay> postStays= new ArrayList<>();
-        List<PostTrain> postTrains = new ArrayList<>();
-        List<PostAttraction> postAttractions  = new ArrayList<>();
+        List<ReplyDTO> replyDTOList = new ArrayList<>();
+        List<PostRentCarDTO> postRentCars = new ArrayList<>();
+        List<PostStayDTO> postStays= new ArrayList<>();
+        List<PostTrainDTO> postTrains = new ArrayList<>();
+        List<PostAttractionDTO> postAttractions  = new ArrayList<>();
 
         if (post.getReplyList() != null) {
             for (Reply reply : post.getReplyList()) {
-                replys.add(replyRepository.getById(reply.getReplyId()));
+                replyDTOList.add(ReplyService.makeReplyDTO(reply));
             }
         }
 
         if (post.getPostRentCarList() != null) {
-            for (PostRentCar postRentCar : post.getPostRentCarList()) {
-                postRentCars.add(postRentCarRepository.getById(postRentCar.getPostRentCarId()));
-            }
+            postRentCars = PostRentCarService.makePostRentCarDTOList(post.getPostRentCarList());
         }
 
         if (post.getPostStayList() != null) {
-            for (PostStay postStay : post.getPostStayList()) {
-                postStays.add(postStayRepository.getById(postStay.getPostStayId()));
-            }
+            postStays = PostStayService.makePostStayDTOList(post.getPostStayList());
         }
 
         if (post.getPostTrainList() != null) {
-            for (PostTrain postTrain : post.getPostTrainList()) {
-                postTrains.add(postTrainRepository.getById(postTrain.getPostTrainId()));
-            }
+            postTrains = PostTrainService.makePostTrainDTOList(post.getPostTrainList());
         }
 
         if (post.getPostAttractionList() != null) {
-            for (PostAttraction postAttraction : post.getPostAttractionList()) {
-                postAttractions.add(postAttractionRepository.getById(postAttraction.getPostAttractionId()));
-            }
+            postAttractions = PostAttractionService.makePostAttractionDTOList(post.getPostAttractionList());
+
         }
 
         return PostDTO
@@ -343,7 +345,7 @@ public class PostService {
                 .postRentCars(postRentCars)
                 .postTrains(postTrains)
                 .postAttractions(postAttractions)
-                .replys(replys)
+                .replys(replyDTOList)
                 .build();
     }
 }
