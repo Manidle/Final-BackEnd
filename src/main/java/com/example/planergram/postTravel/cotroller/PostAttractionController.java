@@ -27,7 +27,7 @@ public class PostAttractionController {
     @ApiOperation(value = "USER : 해당 게시글에 관광지를 추가하는 API")
     public ResponseEntity<?> clickPostAttraction(
             @ApiParam(value = "게시글의 ID값") @RequestParam(value="post", defaultValue="0") Long postId,
-            @ApiParam(value = "숙소의 ID값") @RequestParam(value="stay", defaultValue="0") Long attractionId) {
+            @ApiParam(value = "숙소의 ID값") @RequestParam(value="attraction", defaultValue="0") Long attractionId) {
         try {
             return ResponseEntity.ok(postAttractionService.clickPostAttraction(postId, attractionId));
         } catch (Exception e) {
