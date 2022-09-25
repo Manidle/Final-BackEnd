@@ -38,6 +38,9 @@ public class PostDTO {
     @ApiModelProperty(value = "게시글 작성자의 닉네임", example = "글로리")
     private String nickname;
 
+    @ApiModelProperty(value = "게시글이 작성된 Board의 이름", example = "강릉")
+    private String boardName;
+
     @ApiModelProperty(hidden = true)
     private Long boardId;
 

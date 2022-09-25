@@ -16,11 +16,9 @@ public class BoardDTO {
 
     @ApiModelProperty(value = "게시판의 ID", example = "1")
     private Long boardId;
-    @ApiModelProperty(value = "게시판의 이름", example = "서울")
-    private String boardTitle;
 
-    @ApiModelProperty(value = "게시판의 이미지", example = "soul.jpg")
-    private String img;
+    @ApiModelProperty(value = "게시판의 이름", example = "서울")
+    private String boardName;
 
     @ApiModelProperty(hidden = true)
     private List<Long> postDTOList;

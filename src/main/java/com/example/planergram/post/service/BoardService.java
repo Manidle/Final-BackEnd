@@ -45,8 +45,7 @@ public class BoardService {
 
     public BoardDTO update(Long id,BoardDTO boardDTO){
         Board board = boardRepository.getById(id);
-        board.setTitle(boardDTO.getBoardTitle());
-        board.setImg(boardDTO.getImg());
+        board.setBoardName(boardDTO.getBoardName());
         board = boardRepository.save(board);
         log.info("게시판 이름이 변경되었습니다.");
         return makeBoardDTO(board);
@@ -74,8 +73,7 @@ public class BoardService {
         return BoardDTO
                 .builder()
                 .boardId(board.getBoardId())
-                .boardTitle(board.getTitle())
-                .img(board.getImg())
+                .boardName(board.getBoardName())
                 .postDTOList(postDTOList)
                 .build();
     }
@@ -90,8 +88,7 @@ public class BoardService {
         return Board
                 .builder()
                 .boardId(boardDTO.getBoardId())
-                .title(boardDTO.getBoardTitle())
-                .img(boardDTO.getImg())
+                .boardName(boardDTO.getBoardName())
                 .postList(postList)
                 .build();
     }

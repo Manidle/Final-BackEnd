@@ -55,6 +55,9 @@ public class PostService {
 
 
     public PostDTO save(PostDTO postDTO) {
+        Long boardId = postDTO.getBoardId();
+        Board board = boardRepository.getById(boardId);
+        postDTO.setBoardName(postDTO.getBoardName());
         Post post = makePost(postDTO);
         post = postRepository.save(post);
         log.info("게시글 작성이 완료되었습니다.");
@@ -63,6 +66,14 @@ public class PostService {
 
     public List<PostDTO> findAll() {
         List<Post> postList = postRepository.findAll();
+        List<PostDTO> postDTOList = makePostDTOList(postList);
+        log.info("모든 게시글을 조회하였습니다.");
+        return postDTOList;
+    }
+
+    public List<PostDTO> findByBoard(Long boardId) {
+        Board board = boardRepository.getById(boardId);
+        List<Post> postList = postRepository.findByBoard(board);
         List<PostDTO> postDTOList = makePostDTOList(postList);
         log.info("모든 게시글을 조회하였습니다.");
         return postDTOList;
@@ -178,7 +189,8 @@ public class PostService {
                 .readCount(postDTO.getReadCount())
                 .detailAddress(postDTO.getDetailAddress())
                 .address(postDTO.getAddress())
-                .nickname(postDTO.getNickname())
+                .nickname(user.getNickname())
+                .boardName(board.getBoardName())
                 .board(board)
                 .user(user)
                 .postAttractionList(PostAttractionList)
@@ -237,6 +249,7 @@ public class PostService {
                 .detailAddress(post.getDetailAddress())
                 .address(post.getAddress())
                 .nickname(post.getNickname())
+                .boardName(post.getBoardName())
                 .boardId(post.getBoard().getBoardId())
                 .userId(post.getUser().getUserId())
                 .postStayList(PostStayIdList)
