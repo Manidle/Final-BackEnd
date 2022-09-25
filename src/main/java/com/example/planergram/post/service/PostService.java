@@ -63,6 +63,7 @@ public class PostService {
     private ReplyRepository replyRepository;
 
 
+
     // Date 변경을 하는 메서드 save,update,delete
     public PostDTO save(PostDTO postDTO) {
         Long boardId = postDTO.getBoardId();
@@ -302,10 +303,10 @@ public class PostService {
     public PostDTO makeDetailPostDTO(Post post) {
 
         List<ReplyDTO> replyDTOList = new ArrayList<>();
-        List<PostRentCarDTO> postRentCars = new ArrayList<>();
-        List<PostStayDTO> postStays= new ArrayList<>();
-        List<PostTrainDTO> postTrains = new ArrayList<>();
-        List<PostAttractionDTO> postAttractions  = new ArrayList<>();
+        List<PostRentCarDTO> postRentCarDTOList = new ArrayList<>();
+        List<PostStayDTO> postStayDTOList= new ArrayList<>();
+        List<PostTrainDTO> postTrainDTOList = new ArrayList<>();
+        List<PostAttractionDTO> postAttractionDTOList  = new ArrayList<>();
 
         if (post.getReplyList() != null) {
             for (Reply reply : post.getReplyList()) {
@@ -314,20 +315,27 @@ public class PostService {
         }
 
         if (post.getPostRentCarList() != null) {
-            postRentCars = PostRentCarService.makePostRentCarDTOList(post.getPostRentCarList());
+            for (PostRentCar postRentCar : post.getPostRentCarList()){
+                postRentCarDTOList.add(PostRentCarService.makePostRentCarDTO(postRentCar));
+            }
         }
 
         if (post.getPostStayList() != null) {
-            postStays = PostStayService.makePostStayDTOList(post.getPostStayList());
+            for (PostStay postStay : post.getPostStayList()){
+                postStayDTOList.add(PostStayService.makePostStayDTO(postStay));
+            }
         }
 
         if (post.getPostTrainList() != null) {
-            postTrains = PostTrainService.makePostTrainDTOList(post.getPostTrainList());
+            for (PostTrain postTrain : post.getPostTrainList()){
+                postTrainDTOList.add(PostTrainService.makePostTrainDTO(postTrain));
+            }
         }
 
         if (post.getPostAttractionList() != null) {
-            postAttractions = PostAttractionService.makePostAttractionDTOList(post.getPostAttractionList());
-
+            for (PostAttraction postAttraction : post.getPostAttractionList()){
+                postAttractionDTOList.add(PostAttractionService.makePostAttractionDTO(postAttraction));
+            }
         }
 
         return PostDTO
@@ -341,10 +349,10 @@ public class PostService {
                 .boardName(post.getBoardName())
                 .boardId(post.getBoard().getBoardId())
                 .userId(post.getUser().getUserId())
-                .postStays(postStays)
-                .postRentCars(postRentCars)
-                .postTrains(postTrains)
-                .postAttractions(postAttractions)
+                .postStays(postStayDTOList)
+                .postRentCars(postRentCarDTOList)
+                .postTrains(postTrainDTOList)
+                .postAttractions(postAttractionDTOList)
                 .replys(replyDTOList)
                 .build();
     }

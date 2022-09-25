@@ -39,6 +39,11 @@ public class PostAttractionService {
         PostAttraction postAttraction = PostAttraction.builder()
                 .attraction(attraction)
                 .post(post)
+                .name(attraction.getName())
+                .address(attraction.getAddress())
+                .description(attraction.getDescription())
+                .price(attraction.getPrice())
+                .likeCount(attraction.getLikeCount())
                 .build();
         postAttractionRepository.save(postAttraction);
         return "포스트에 추가";
@@ -70,6 +75,11 @@ public class PostAttractionService {
                 .postAttractionId(postAttraction.getPostAttractionId())
                 .postId(postAttraction.getPost().getPostId())
                 .attractionId(postAttraction.getAttraction().getAttractionId())
+                .name(postAttraction.getName())
+                .address(postAttraction.getAddress())
+                .description(postAttraction.getDescription())
+                .price(postAttraction.getPrice())
+                .likeCount(postAttraction.getLikeCount())
                 .build();
     }
 

@@ -31,7 +31,6 @@ public class UserController {
             return ResponseEntity.ok("회원가입이 완료되었습니다.");
         } catch (Exception e){
             return ResponseService.makeResponseEntity("회원가입에 실패했습니다.",e);
-
         }
     }
 

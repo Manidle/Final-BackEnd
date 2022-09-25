@@ -28,4 +28,9 @@ public class PostRentCar {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    private String address;
+    private String companyName;
+    private String carSort;
+    private String carName;
+    private int likeCount;
 }

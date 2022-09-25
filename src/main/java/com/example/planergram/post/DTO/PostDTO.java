@@ -1,14 +1,9 @@
 package com.example.planergram.post.DTO;
 
-import com.example.planergram.post.model.Reply;
 import com.example.planergram.postTravel.DTO.PostAttractionDTO;
 import com.example.planergram.postTravel.DTO.PostRentCarDTO;
 import com.example.planergram.postTravel.DTO.PostStayDTO;
 import com.example.planergram.postTravel.DTO.PostTrainDTO;
-import com.example.planergram.postTravel.model.PostAttraction;
-import com.example.planergram.postTravel.model.PostRentCar;
-import com.example.planergram.postTravel.model.PostStay;
-import com.example.planergram.postTravel.model.PostTrain;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,7 +36,7 @@ public class PostDTO {
     @ApiModelProperty(value = "게시글 작성자의 닉네임", example = "글로리")
     private String nickname;
 
-    @ApiModelProperty(value = "게시글이 작성된 Board의 이름", example = "강릉")
+    @ApiModelProperty(value = "게시글이 작성된 Board의 이름")
     private String boardName;
 
     @ApiModelProperty(hidden = true)

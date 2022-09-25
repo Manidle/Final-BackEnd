@@ -19,4 +19,10 @@ public class PostRentCarDTO {
 
     @ApiModelProperty(value = "RentCar의 ID", example = "1")
     private Long rentCarId;
+
+    private String address;
+    private String companyName;
+    private String carSort;
+    private String carName;
+    private int likeCount;
 }

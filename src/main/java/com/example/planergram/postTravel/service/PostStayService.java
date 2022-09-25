@@ -40,6 +40,12 @@ public class PostStayService {
         PostStay postStay = PostStay.builder()
                 .stay(stay)
                 .post(post)
+                .name(stay.getName())
+                .address(stay.getAddress())
+                .price(stay.getPrice())
+                .checkIn(stay.getCheckIn())
+                .checkOut(stay.getCheckOut())
+                .likeCount(stay.getLikeCount())
                 .build();
         postStayRepository.save(postStay);
         return "좋아요 클릭";
@@ -72,6 +78,12 @@ public class PostStayService {
                 .postStayId(postStay.getPostStayId())
                 .postId(postStay.getPost().getPostId())
                 .stayId(postStay.getStay().getId())
+                .name(postStay.getName())
+                .address(postStay.getAddress())
+                .price(postStay.getPrice())
+                .checkIn(postStay.getCheckIn())
+                .checkOut(postStay.getCheckOut())
+                .likeCount(postStay.getLikeCount())
                 .build();
     }
 

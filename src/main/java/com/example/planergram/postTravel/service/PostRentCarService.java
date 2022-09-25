@@ -41,6 +41,11 @@ public class PostRentCarService {
         PostRentCar postRentCar = PostRentCar.builder()
                 .rentCar(rentCar)
                 .post(post)
+                .address(rentCar.getAddress())
+                .companyName(rentCar.getCompanyName())
+                .carSort(rentCar.getCarSort())
+                .carName(rentCar.getCarName())
+                .likeCount(rentCar.getLikeCount())
                 .build();
         postRentCarRepository.save(postRentCar);
         return "게시글에 해당 렌트카를 추가했습니다.";
@@ -74,6 +79,11 @@ public class PostRentCarService {
                 .postRentCarId(postRentCar.getPostRentCarId())
                 .postId(postRentCar.getPost().getPostId())
                 .rentCarId(postRentCar.getRentCar().getRentCarId())
+                .address(postRentCar.getAddress())
+                .companyName(postRentCar.getCompanyName())
+                .carSort(postRentCar.getCarSort())
+                .carName(postRentCar.getCarName())
+                .likeCount(postRentCar.getLikeCount())
                 .build();
     }
 

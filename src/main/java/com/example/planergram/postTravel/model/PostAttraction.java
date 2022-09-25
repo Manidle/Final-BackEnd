@@ -27,4 +27,10 @@ public class PostAttraction {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Post.class)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    private String name;
+    private String address;
+    private String description;
+    private int price;
+    private int likeCount;
 }
