@@ -40,6 +40,12 @@ public class PostStayService {
         PostStay postStay = PostStay.builder()
                 .stay(stay)
                 .post(post)
+                .name(stay.getName())
+                .address(stay.getAddress())
+                .price(stay.getPrice())
+                .checkIn(stay.getCheckIn())
+                .checkOut(stay.getCheckOut())
+                .likeCount(stay.getLikeCount())
                 .build();
         postStayRepository.save(postStay);
         return "좋아요 클릭";
@@ -67,15 +73,21 @@ public class PostStayService {
         return makePostStayDTOList(postStayList);
     }
 
-    private PostStayDTO makePostStayDTO(PostStay postStay){
+    static public PostStayDTO makePostStayDTO(PostStay postStay){
         return PostStayDTO.builder()
                 .postStayId(postStay.getPostStayId())
                 .postId(postStay.getPost().getPostId())
                 .stayId(postStay.getStay().getId())
+                .name(postStay.getName())
+                .address(postStay.getAddress())
+                .price(postStay.getPrice())
+                .checkIn(postStay.getCheckIn())
+                .checkOut(postStay.getCheckOut())
+                .likeCount(postStay.getLikeCount())
                 .build();
     }
 
-    private List<PostStayDTO> makePostStayDTOList(List<PostStay> postStayList){
+    static public List<PostStayDTO> makePostStayDTOList(List<PostStay> postStayList){
         List<PostStayDTO> postStayDTOList = new ArrayList<>();
         for (PostStay postStay: postStayList){
             postStayDTOList.add(makePostStayDTO(postStay));

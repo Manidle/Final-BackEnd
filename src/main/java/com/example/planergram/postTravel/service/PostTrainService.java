@@ -74,7 +74,7 @@ public class PostTrainService {
         return makePostTrainDTO(postTrain);
     }
 
-    private PostTrainDTO makePostTrainDTO(PostTrain postTrain){
+    static public PostTrainDTO makePostTrainDTO(PostTrain postTrain){
         return PostTrainDTO.builder()
                 .postTrainId(postTrain.getPostTrainId())
                 .postId(postTrain.getPost().getPostId())
@@ -87,7 +87,7 @@ public class PostTrainService {
                 .build();
     }
 
-    private List<PostTrainDTO> makePostTrainDTOList(List<PostTrain> PostTrainList){
+    static public List<PostTrainDTO> makePostTrainDTOList(List<PostTrain> PostTrainList){
         List<PostTrainDTO> postTrainDTOList = new ArrayList<>();
         for (PostTrain postTrain: PostTrainList){
             postTrainDTOList.add(makePostTrainDTO(postTrain));

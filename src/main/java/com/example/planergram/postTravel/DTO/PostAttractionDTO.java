@@ -16,4 +16,10 @@ public class PostAttractionDTO {
     private Long postId;
     @ApiModelProperty(value = "Attraction의 ID", example = "1")
     private Long attractionId;
+
+    private String name;
+    private String address;
+    private String description;
+    private int price;
+    private int likeCount;
 }

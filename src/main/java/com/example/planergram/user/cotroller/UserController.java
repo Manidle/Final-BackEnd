@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = {"User 혹은 UserInfo와 함께 API 정보를 제공하는 Controller"})
 @RestController
 @Slf4j
-@RequestMapping("/all")
+@RequestMapping("/api")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -31,7 +31,6 @@ public class UserController {
             return ResponseEntity.ok("회원가입이 완료되었습니다.");
         } catch (Exception e){
             return ResponseService.makeResponseEntity("회원가입에 실패했습니다.",e);
-
         }
     }
 

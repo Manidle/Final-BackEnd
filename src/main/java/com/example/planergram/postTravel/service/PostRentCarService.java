@@ -41,6 +41,11 @@ public class PostRentCarService {
         PostRentCar postRentCar = PostRentCar.builder()
                 .rentCar(rentCar)
                 .post(post)
+                .address(rentCar.getAddress())
+                .companyName(rentCar.getCompanyName())
+                .carSort(rentCar.getCarSort())
+                .carName(rentCar.getCarName())
+                .likeCount(rentCar.getLikeCount())
                 .build();
         postRentCarRepository.save(postRentCar);
         return "게시글에 해당 렌트카를 추가했습니다.";
@@ -68,16 +73,21 @@ public class PostRentCarService {
         return makePostRentCarDTO(postRentCar);
     }
 
-    private PostRentCarDTO makePostRentCarDTO(PostRentCar postRentCar){
+    static public PostRentCarDTO makePostRentCarDTO(PostRentCar postRentCar){
         return PostRentCarDTO
                 .builder()
                 .postRentCarId(postRentCar.getPostRentCarId())
                 .postId(postRentCar.getPost().getPostId())
                 .rentCarId(postRentCar.getRentCar().getRentCarId())
+                .address(postRentCar.getAddress())
+                .companyName(postRentCar.getCompanyName())
+                .carSort(postRentCar.getCarSort())
+                .carName(postRentCar.getCarName())
+                .likeCount(postRentCar.getLikeCount())
                 .build();
     }
 
-    private List<PostRentCarDTO> makePostRentCarDTOList(List<PostRentCar> postRentCarList){
+    static public List<PostRentCarDTO> makePostRentCarDTOList(List<PostRentCar> postRentCarList){
         List<PostRentCarDTO> postRentCarDTOList = new ArrayList<>();
         for (PostRentCar postRentCar: postRentCarList){
             postRentCarDTOList.add(makePostRentCarDTO(postRentCar));

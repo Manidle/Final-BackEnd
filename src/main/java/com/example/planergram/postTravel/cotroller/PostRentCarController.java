@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 @Slf4j
 @Api(tags = {"게시글에 있는 여행경로(랜트카) API 정보를 제공하는 Controller"})
 public class PostRentCarController {

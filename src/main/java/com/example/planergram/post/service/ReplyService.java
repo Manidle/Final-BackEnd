@@ -71,7 +71,7 @@ public class ReplyService {
         return findReplyByPostId(postId);
     }
 
-    public ReplyDTO makeReplyDTO(Reply reply){
+    static public ReplyDTO makeReplyDTO(Reply reply){
         return ReplyDTO.builder()
                 .replyId(reply.getReplyId())
                 .contents(reply.getContents())

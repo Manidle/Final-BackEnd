@@ -30,7 +30,7 @@ public class PostTrainController {
     private final String POST_TRAIN = POST_CONTENTS + "/post-train";
 
 
-    @GetMapping("/auth/v1/post-contents/post-train/click/{postId}")
+    @GetMapping("/auth/v1/postcontents/posttrain/click/{postId}")
     @ApiOperation(value = "USER : 해당 게시글에 기차를 추가하는 API")
     public ResponseEntity<?> clickTrainLike(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId,@RequestBody PostTrainDTO postTrainDTO){
 
