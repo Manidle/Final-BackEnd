@@ -59,6 +59,18 @@ public class PostController {
         }
     }
 
+    //게시판 ID로 filtering된 게시글 조회된 채로 검색어 입력시 제목으로 필터링
+    @ApiOperation(value = "게시판 ID로 filtering된 게시글 조회된 채로 검색어 입력시 제목으로 조회 API")
+    @GetMapping(AUTH + POST + "/filter/board/title")
+    public ResponseEntity<?> findByBoardAndTitleLike(@RequestParam(value = "BoardId") Long boardId,
+                                                     @RequestParam(value = "title") String title) {
+        try {
+            return ResponseEntity.ok(postService.findByBoardAndTitleLike(boardId,title));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("게시글이 없습니다.",e);
+        }
+    }
+
     @ApiOperation(value = "USER : 게시글을 ID로 조회하는 API")
     @GetMapping(AUTH + POST + ID)
     public ResponseEntity<?> findById(@ApiParam(value = "게시글의 ID값") @PathVariable Long id) {

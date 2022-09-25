@@ -79,6 +79,14 @@ public class PostService {
         return postDTOList;
     }
 
+    public List<PostDTO> findByBoardAndTitleLike(Long boardId,String title) {
+        Board board = boardRepository.getById(boardId);
+        List<Post> postList = postRepository.findByBoardAndTitleLike(board,"%"+title+"%");
+        List<PostDTO> postDTOList = makePostDTOList(postList);
+        log.info("모든 게시글을 조회하였습니다.");
+        return postDTOList;
+    }
+
     public List<PostDTO> findByDetailAddressAndAddress(String detailAddress, String address) {
         List<Post> postList = postRepository.findByDetailAddressAndAddress(detailAddress, address);
         List<PostDTO> postDTOList = makePostDTOList(postList);
