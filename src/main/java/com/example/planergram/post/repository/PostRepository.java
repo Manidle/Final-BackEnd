@@ -9,7 +9,7 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByBoard(Board board);
     List<Post> findByBoardAndTitleLike(Board board,String title);
-    List<Post> findTop5ByOrderByLikeCountDesc();
+    List<Post> findTop10ByOrderByLikeCountDesc();
 
 //===============================================================================================
 //================================활용 x 차후 Develop때 사용예정 ====================================
