@@ -133,4 +133,57 @@ public class PostController {
             return ResponseService.makeResponseEntity("게시글 삭제에 실패되었습니다", e);
         }
     }
+    //게시글 삭제
+    @ApiOperation(value = "USER : 해당 유저가 작성한 게시글 3개만 보여주는 API")
+    @GetMapping(AUTH + POST + "/user/top")
+    public ResponseEntity<?> findByUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        try {
+            return ResponseEntity.ok(postService.findByUser(principalDetails.getUser()));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("게시글 삭제에 실패되었습니다", e);
+        }
+    }
+
+
+
+
+
+//===============================================================================================
+//================================활용 x 차후 Develop때 사용예정 ====================================
+//================================================================================================
+//
+//    지역 + 상세지역으로 filtering된 게시글 조회
+//    @ApiOperation(value = "지역 + 상세지역으로 filtering")
+//    @GetMapping(AUTH + POST + "/filter/address/detail")
+//    public ResponseEntity<?> findByDetailAddressAndAddress(@RequestParam(value = "address") String address,
+//                                                           @RequestParam(value = "detailAddress") String detailAddress) {
+//        try {
+//            return ResponseEntity.ok(postService.findByDetailAddressAndAddress(detailAddress,address));
+//        } catch (Exception e) {
+//            return ResponseService.makeResponseEntity("게시글이 없습니다.",e);
+//        }
+//    }
+//
+//    지역으로 filtering된 게시글 조회
+//    @ApiOperation(value = "제목으로 filtering 조회 API")
+//    @GetMapping(AUTH + POST + "/filter/title")
+//    public ResponseEntity<?> findByTitleLike(@RequestParam(value = "title") String title) {
+//        try {
+//            return ResponseEntity.ok(postService.findByTitleLike(title));
+//        } catch (Exception e) {
+//            return ResponseService.makeResponseEntity("게시글이 없습니다.",e);
+//        }
+//    }
+//
+//
+//    지역으로만 filtering된 게시글 조회
+//    @ApiOperation(value = "지역으로만 filtering 조회 API")
+//    @GetMapping(AUTH + POST + "/filter/address")
+//    public ResponseEntity<?> findByDetailAddressAndAddress(@RequestParam(value = "address") String address) {
+//        try {
+//            return ResponseEntity.ok(postService.findByAddress(address));
+//        } catch (Exception e) {
+//            return ResponseService.makeResponseEntity("게시글이 없습니다.",e);
+//        }
+//    }
 }

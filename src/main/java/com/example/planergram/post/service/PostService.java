@@ -138,6 +138,12 @@ public class PostService {
         return postDTO;
     }
 
+    public List<PostDTO> findByUser(User user) {
+        List<Post> postList = postRepository.findTop3ByUser(user);
+        List<PostDTO> postDTOList = makeListPostDTOList(postList);
+        log.info("해당 유저의 게시글을 조회하였습니다.");
+        return postDTOList;
+    }
 
     // Date 변경을 하는 메서드 save,update,deleted 에 대한 make
     private Post makePost(PostDTO postDTO) {
@@ -350,4 +356,5 @@ public class PostService {
                 .replys(replyDTOList)
                 .build();
     }
+
 }
