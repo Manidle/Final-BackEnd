@@ -19,7 +19,7 @@ public class RentCar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rent_car_id")
+    @Column(name = "rentcar_id")
     private Long rentCarId;
 
     @Column(nullable = false, length = 60)

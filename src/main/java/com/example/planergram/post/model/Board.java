@@ -16,9 +16,10 @@ import java.util.List;
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "board_id", length = 100)
     private Long boardId;
 
-    @Column(name = "board_name", length = 100)
+    @Column(name = "board_name", length = 100, nullable = false)
     private String boardName;
 
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
