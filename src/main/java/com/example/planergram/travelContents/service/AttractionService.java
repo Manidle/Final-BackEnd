@@ -83,7 +83,7 @@ public class AttractionService {
                 .build();
     }
 
-    private AttractionDTO makeAttractionDTO(Attraction attraction) {
+    public AttractionDTO makeAttractionDTO(Attraction attraction) {
         return AttractionDTO.builder()
                 .attractionId(attraction.getAttractionId())
                 .name(attraction.getName())

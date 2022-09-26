@@ -1,14 +1,20 @@
 package com.example.planergram.user.service;
 
+import com.example.planergram.travelContents.DTO.AttractionDTO;
+import com.example.planergram.travelContents.model.Attraction;
+import com.example.planergram.travelContents.repository.AttractionRepository;
+import com.example.planergram.travelContents.service.AttractionService;
 import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.DTO.UserInfoDTO;
 import com.example.planergram.user.model.User;
 import com.example.planergram.user.model.UserInfo;
 import com.example.planergram.user.repository.UserInfoRepository;
 import com.example.planergram.user.repository.UserRepository;
+import com.example.planergram.userLike.model.AttractionLike;
 import com.example.planergram.userLike.model.RentCarLike;
 import com.example.planergram.userLike.model.StayLike;
 import com.example.planergram.userLike.model.TrainLike;
+import com.example.planergram.userLike.repository.AttractionLikeRepository;
 import com.example.planergram.userLike.repository.RentCarLikeRepository;
 import com.example.planergram.userLike.repository.StayLikeRepository;
 import com.example.planergram.userLike.repository.TrainLikeRepository;
@@ -44,6 +50,12 @@ public class UserService {
 
     @Autowired
     private TrainLikeRepository trainLikeRepository;
+
+    @Autowired
+    private AttractionLikeRepository attractionLikeRepository;
+
+    @Autowired
+    private AttractionService attractionService;
 
     public String signUp(UserDTO userDTO) throws Exception {
         try {
@@ -262,5 +274,14 @@ public class UserService {
                 .password(user.getPassword())
                 .roles(user.getRoles())
                 .build();
+    }
+
+    public List<AttractionDTO> myLikeAttraction(User user) {
+        List<AttractionLike> attractionLikeList = attractionLikeRepository.findByUser(user);
+        List<AttractionDTO> attractionDTOList = new ArrayList<>();
+        for (AttractionLike attractionLike: attractionLikeList){
+            attractionDTOList.add(attractionService.makeAttractionDTO(attractionLike.getAttraction()));
+        }
+        return attractionDTOList;
     }
 }

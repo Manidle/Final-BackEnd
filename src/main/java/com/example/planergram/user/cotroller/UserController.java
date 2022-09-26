@@ -1,6 +1,7 @@
 package com.example.planergram.user.cotroller;
 
 import com.example.planergram.Response.ResponseService;
+import com.example.planergram.config.auth.PrincipalDetails;
 import com.example.planergram.travelContents.repository.PlatformRepository;
 import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.service.UserService;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"User 혹은 UserInfo와 함께 API 정보를 제공하는 Controller"})
@@ -89,6 +91,16 @@ public class UserController {
     public ResponseEntity<?> delete(@ApiParam(value = "삭제하고싶은 user의 고유id") @PathVariable Long id) {
         try {
             return ResponseEntity.ok(userService.delete(id));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("유저 정보 삭제에 실패했습니다.", e);
+        }
+    }
+
+    @ApiOperation(value = "유저가 좋아요한 attraction을 보여주는 API")
+    @GetMapping("/auth/v1/user/like/attraction/list")
+    public ResponseEntity<?> myLikeAttraction(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        try {
+            return ResponseEntity.ok(userService.myLikeAttraction(principalDetails.getUser()));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("유저 정보 삭제에 실패했습니다.", e);
         }
