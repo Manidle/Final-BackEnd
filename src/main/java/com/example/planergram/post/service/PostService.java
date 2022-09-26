@@ -63,7 +63,6 @@ public class PostService {
     private ReplyRepository replyRepository;
 
 
-
     // Date 변경을 하는 메서드 save,update,delete
     public PostDTO save(PostDTO postDTO) {
         Long boardId = postDTO.getBoardId();
@@ -97,7 +96,6 @@ public class PostService {
     }
 
 
-
     //findList
     public List<PostDTO> findAll() {
         List<Post> postList = postRepository.findAll();
@@ -114,9 +112,9 @@ public class PostService {
         return postDTOList;
     }
 
-    public List<PostDTO> findByBoardAndTitleLike(Long boardId,String title) {
+    public List<PostDTO> findByBoardAndTitleLike(Long boardId, String title) {
         Board board = boardRepository.getById(boardId);
-        List<Post> postList = postRepository.findByBoardAndTitleLike(board,"%"+title+"%");
+        List<Post> postList = postRepository.findByBoardAndTitleLike(board, "%" + title + "%");
         List<PostDTO> postDTOList = makeListPostDTOList(postList);
         log.info("모든 게시글을 조회하였습니다.");
         return postDTOList;
@@ -130,7 +128,6 @@ public class PostService {
     }
 
 
-
     //findOne
     public PostDTO findById(Long id) {
         Post post = postRepository.getById(id);
@@ -140,7 +137,6 @@ public class PostService {
         log.info("게시글을 조회하였습니다.");
         return postDTO;
     }
-
 
 
     // Date 변경을 하는 메서드 save,update,deleted 에 대한 make
@@ -260,7 +256,6 @@ public class PostService {
     }
 
 
-
     // findList에 대한 make
 
     public PostDTO makeListPostDTO(Post post) {
@@ -298,15 +293,14 @@ public class PostService {
     }
 
 
-
     // findByid에 대한 make
     public PostDTO makeDetailPostDTO(Post post) {
 
         List<ReplyDTO> replyDTOList = new ArrayList<>();
         List<PostRentCarDTO> postRentCarDTOList = new ArrayList<>();
-        List<PostStayDTO> postStayDTOList= new ArrayList<>();
+        List<PostStayDTO> postStayDTOList = new ArrayList<>();
         List<PostTrainDTO> postTrainDTOList = new ArrayList<>();
-        List<PostAttractionDTO> postAttractionDTOList  = new ArrayList<>();
+        List<PostAttractionDTO> postAttractionDTOList = new ArrayList<>();
 
         if (post.getReplyList() != null) {
             for (Reply reply : post.getReplyList()) {
@@ -315,25 +309,25 @@ public class PostService {
         }
 
         if (post.getPostRentCarList() != null) {
-            for (PostRentCar postRentCar : post.getPostRentCarList()){
+            for (PostRentCar postRentCar : post.getPostRentCarList()) {
                 postRentCarDTOList.add(PostRentCarService.makePostRentCarDTO(postRentCar));
             }
         }
 
         if (post.getPostStayList() != null) {
-            for (PostStay postStay : post.getPostStayList()){
+            for (PostStay postStay : post.getPostStayList()) {
                 postStayDTOList.add(PostStayService.makePostStayDTO(postStay));
             }
         }
 
         if (post.getPostTrainList() != null) {
-            for (PostTrain postTrain : post.getPostTrainList()){
+            for (PostTrain postTrain : post.getPostTrainList()) {
                 postTrainDTOList.add(PostTrainService.makePostTrainDTO(postTrain));
             }
         }
 
         if (post.getPostAttractionList() != null) {
-            for (PostAttraction postAttraction : post.getPostAttractionList()){
+            for (PostAttraction postAttraction : post.getPostAttractionList()) {
                 postAttractionDTOList.add(PostAttractionService.makePostAttractionDTO(postAttraction));
             }
         }
@@ -357,29 +351,3 @@ public class PostService {
                 .build();
     }
 }
-
-//===============================================================================================
-//================================활용 x 차후 Develop때 사용예정 ====================================
-//================================================================================================
-
-
-//    public List<PostDTO> findByDetailAddressAndAddress(String detailAddress, String address) {
-//        List<Post> postList = postRepository.findByDetailAddressAndAddress(detailAddress, address);
-//        List<PostDTO> postDTOList = makeListPostDTOList(postList);
-//        log.info("모든 게시글을 조회하였습니다.");
-//        return postDTOList;
-//    }
-//
-//    public List<PostDTO> findByAddress(String address) {
-//        List<Post> postList = postRepository.findByAddress(address);
-//        List<PostDTO> postDTOList = makeListPostDTOList(postList);
-//        log.info("모든 게시글을 조회하였습니다.");
-//        return postDTOList;
-//    }
-//
-//    public List<PostDTO> findByTitleLike(String title) {
-//        List<Post> postList = postRepository.findByTitleLike("%" + title + "%");
-//        List<PostDTO> postDTOList = makeListPostDTOList(postList);
-//        log.info("모든 게시글을 조회하였습니다.");
-//        return postDTOList;
-//    }

@@ -23,18 +23,18 @@ public class UserInfoController {
     public ResponseEntity<?> findById(@ApiParam(value = "확인하고싶은 user의 고유id") @PathVariable Long id) {
         try {
             return ResponseEntity.ok(userInfoService.findById(id));
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseService.makeResponseEntity("유저 정보를 조회할 수 없습니다.", e);
         }
     }
 
     @ApiOperation(value = "특정유저의 상세정보만 수정하는 API")
     @PatchMapping("/v1/modify/info/{id}")
-    public ResponseEntity<?> update(@ApiParam(value = "수정하고싶은 user의 고유id") @PathVariable Long id ,@RequestBody UserInfoDTO userInfoDTO) {
+    public ResponseEntity<?> update(@ApiParam(value = "수정하고싶은 user의 고유id") @PathVariable Long id, @RequestBody UserInfoDTO userInfoDTO) {
         try {
-            return ResponseEntity.ok(userInfoService.update(id,userInfoDTO));
-        } catch (Exception e){
-            return ResponseService.makeResponseEntity("업데이트를 할 수 없습니다.",e);
+            return ResponseEntity.ok(userInfoService.update(id, userInfoDTO));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("업데이트를 할 수 없습니다.", e);
         }
     }
 }

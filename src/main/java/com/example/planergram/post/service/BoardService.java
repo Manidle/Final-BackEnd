@@ -23,12 +23,12 @@ public class BoardService {
     private PostRepository postRepository;
 
     public BoardDTO save(BoardDTO boardDTO) throws Exception {
-        try{
+        try {
             Board board = makeBoard(boardDTO);
             board = boardRepository.save(board);
             log.info("게시판 생성완료");
             return makeBoardDTO(board);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("중복된 정보로는 게시판을 만들 수 없습니다.");
         }
     }
@@ -36,14 +36,14 @@ public class BoardService {
     public List<BoardDTO> findAll() {
         List<Board> BoardList = boardRepository.findAll();
         List<BoardDTO> boardDTOList = new ArrayList<>();
-        for (Board board: BoardList) {
+        for (Board board : BoardList) {
             boardDTOList.add(makeBoardDTO(board));
         }
         log.info("게시판을 모두 조회하였습니다.");
         return boardDTOList;
     }
 
-    public BoardDTO update(Long id,BoardDTO boardDTO){
+    public BoardDTO update(Long id, BoardDTO boardDTO) {
         Board board = boardRepository.getById(id);
         board.setBoardName(boardDTO.getBoardName());
         board = boardRepository.save(board);
@@ -51,7 +51,7 @@ public class BoardService {
         return makeBoardDTO(board);
     }
 
-    public BoardDTO delete(Long id){
+    public BoardDTO delete(Long id) {
         Board board = boardRepository.getById(id);
         boardRepository.delete(board);
         log.info("게시판이 삭제되었습니다.");
@@ -65,7 +65,7 @@ public class BoardService {
 
     public BoardDTO makeBoardDTO(Board board) {
         List<Long> postDTOList = new ArrayList<>();
-        if (board.getPostList() != null){
+        if (board.getPostList() != null) {
             for (Post post : board.getPostList()) {
                 postDTOList.add(post.getPostId());
             }
@@ -80,8 +80,8 @@ public class BoardService {
 
     public Board makeBoard(BoardDTO boardDTO) {
         List<Post> postList = new ArrayList<>();
-        if (boardDTO.getPostDTOList() != null){
-            for (Long postId: boardDTO.getPostDTOList()) {
+        if (boardDTO.getPostDTOList() != null) {
+            for (Long postId : boardDTO.getPostDTOList()) {
                 postList.add(postRepository.getById(postId));
             }
         }

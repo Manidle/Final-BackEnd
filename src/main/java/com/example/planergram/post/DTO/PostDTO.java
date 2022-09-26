@@ -29,7 +29,7 @@ public class PostDTO {
 
     @ApiModelProperty(value = "게시글의 좋아요", example = "1")
     private int likeCount;
-    
+
     @ApiModelProperty(value = "게시글의 조회수", example = "1")
     private int readCount;
 
@@ -74,14 +74,4 @@ public class PostDTO {
 
     @ApiModelProperty(hidden = true)
     private List<PostAttractionDTO> postAttractions;
-
-//===============================================================================================
-//================================활용 x 차후 Develop때 사용예정 ====================================
-//================================================================================================
-
-//    @ApiModelProperty(hidden = true)
-//    private String detailAddress;
-//
-//    @ApiModelProperty(hidden = true)
-//    private String address;
 }

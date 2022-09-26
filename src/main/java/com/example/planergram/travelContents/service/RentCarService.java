@@ -29,7 +29,7 @@ public class RentCarService {
     public List<RentCarDTO> findAll() {
         List<RentCar> rentCarList = rentCarRepository.findAll();
         List<RentCarDTO> rentCarDTOList = new ArrayList<>();
-        for (RentCar rentCar: rentCarList) {
+        for (RentCar rentCar : rentCarList) {
             rentCarDTOList.add(makeRentCarDTO(rentCar));
         }
         return rentCarDTOList;
@@ -38,7 +38,7 @@ public class RentCarService {
     public List<RentCarDTO> findTop5ByOrderByLikeCountDesc() {
         List<RentCar> rentCarList = rentCarRepository.findTop5ByOrderByLikeCountDesc();
         List<RentCarDTO> rentCarDTOList = new ArrayList<>();
-        for (RentCar rentCar: rentCarList) {
+        for (RentCar rentCar : rentCarList) {
             rentCarDTOList.add(makeRentCarDTO(rentCar));
         }
         return rentCarDTOList;
@@ -47,7 +47,7 @@ public class RentCarService {
     public List<RentCarDTO> findByNameLikeOrAddressLikeOrCompanyName(String search) {
         List<RentCar> rentCarList = rentCarRepository.findByNameLikeOrAddressLikeOrCompanyName(search);
         List<RentCarDTO> rentCarDTOList = new ArrayList<>();
-        for (RentCar rentCar: rentCarList) {
+        for (RentCar rentCar : rentCarList) {
             rentCarDTOList.add(makeRentCarDTO(rentCar));
         }
         return rentCarDTOList;
@@ -60,7 +60,7 @@ public class RentCarService {
     }
 
     public RentCarDTO update(Long id, RentCarDTO rentCarDTO) {
-        RentCar rentCar  = rentCarRepository.getById(id);
+        RentCar rentCar = rentCarRepository.getById(id);
         rentCar.setAddress(rentCarDTO.getAddress());
         rentCar.setCompanyName(rentCarDTO.getCompanyName());
         rentCar.setCarSort(rentCarDTO.getCarSort());
@@ -76,10 +76,10 @@ public class RentCarService {
         return findAll();
     }
 
-    private RentCar makeRentCar(RentCarDTO rentCarDTO){
+    private RentCar makeRentCar(RentCarDTO rentCarDTO) {
         List<RentCarLike> rentCarLikeList = new ArrayList<>();
-        if (rentCarDTO.getRentCarLikeIdList() != null){
-            for (Long rentCarLikeId: rentCarDTO.getRentCarLikeIdList()) {
+        if (rentCarDTO.getRentCarLikeIdList() != null) {
+            for (Long rentCarLikeId : rentCarDTO.getRentCarLikeIdList()) {
                 rentCarLikeList.add(rentCarLikeRepository.getById(rentCarLikeId));
             }
         }
@@ -94,10 +94,10 @@ public class RentCarService {
                 .build();
     }
 
-    private RentCarDTO makeRentCarDTO(RentCar rentCar){
+    private RentCarDTO makeRentCarDTO(RentCar rentCar) {
         List<Long> rentCarLikeIdList = new ArrayList<>();
-        if (rentCar.getRentCarLikeList() != null){
-            for (RentCarLike rentCarLike: rentCar.getRentCarLikeList()) {
+        if (rentCar.getRentCarLikeList() != null) {
+            for (RentCarLike rentCarLike : rentCar.getRentCarLikeList()) {
                 rentCarLikeIdList.add(rentCarLike.getRentCarLikeId());
             }
         }

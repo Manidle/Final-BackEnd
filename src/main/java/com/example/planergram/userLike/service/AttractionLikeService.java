@@ -31,7 +31,7 @@ public class AttractionLikeService {
         Attraction attraction = attractionRepository.getById(attractionId);
         log.info("attractionLike : click 이후 user, attraction");
         AttractionLike attractionLike = attractionLikeRepository.findByUserAndAttraction(user, attraction);
-        if (attractionLike == null){
+        if (attractionLike == null) {
             log.info("attractionLike : 좋아요 클릭");
             return likeClick(user, attraction);
         }
@@ -50,7 +50,7 @@ public class AttractionLikeService {
         return "좋아요 클릭";
     }
 
-    private String likeCancel(Attraction attraction, AttractionLike attractionLike){
+    private String likeCancel(Attraction attraction, AttractionLike attractionLike) {
         attraction.setLikeCount(attraction.getLikeCount() - 1);
         attractionRepository.save(attraction);
         attractionLikeRepository.delete(attractionLike);
@@ -76,7 +76,7 @@ public class AttractionLikeService {
 
     private List<AttractionLikeDTO> makeAttractionLikeDTOList(List<AttractionLike> attractionLikeList) {
         List<AttractionLikeDTO> attractionLikeDTOList = new ArrayList<>();
-        for (AttractionLike attractionLike:attractionLikeList){
+        for (AttractionLike attractionLike : attractionLikeList) {
             attractionLikeDTOList.add(makeAttractionLikeDTO(attractionLike));
         }
         return attractionLikeDTOList;

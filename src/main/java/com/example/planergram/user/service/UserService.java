@@ -51,7 +51,7 @@ public class UserService {
             userRepository.findByUsername(userDTO.getUsername());
             userInfoRepository.findByEmail(userDTO.getUserInfoDTO().getEmail());
             log.info("중복된 정보가 없습니다.");
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("중복된 정보로는 아이디를 만들 수 없습니다.");
         }
 
@@ -138,7 +138,7 @@ public class UserService {
         return makeUserDTO(user);
     }
 
-    public User findById(Long id){
+    public User findById(Long id) {
         log.info("user Find By Id : return User");
         return userRepository.getById(id);
     }

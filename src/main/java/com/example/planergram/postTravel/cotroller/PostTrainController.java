@@ -32,7 +32,7 @@ public class PostTrainController {
 
     @GetMapping("/auth/v1/postcontents/posttrain/click/{postId}")
     @ApiOperation(value = "USER : 해당 게시글에 기차를 추가하는 API")
-    public ResponseEntity<?> clickTrainLike(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId,@RequestBody PostTrainDTO postTrainDTO){
+    public ResponseEntity<?> clickTrainLike(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId, @RequestBody PostTrainDTO postTrainDTO) {
 
         Platform startPoint = platformRepository.findByNodeName(postTrainDTO.getDepplacename());
         String encStartPoint = startPoint.getNodeId();
@@ -43,39 +43,29 @@ public class PostTrainController {
         postTrainDTO.setArrplacename(encEndPoint);
 
         try {
-            return ResponseEntity.ok(postTrainService.clickTrainLike(postId,postTrainDTO));
+            return ResponseEntity.ok(postTrainService.clickTrainLike(postId, postTrainDTO));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("저장된 postRentCar 불러오기 실패하였습니다.",e);
+            return ResponseService.makeResponseEntity("저장된 postRentCar 불러오기 실패하였습니다.", e);
         }
     }
 
     @GetMapping("/auth/v1/post/{postId}/post-contents/post-train/list")
     @ApiOperation(value = "USER : 해당 게시글에 기차를 조회하는 API")
-    public ResponseEntity<?> postTrainFindByPost(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId){
+    public ResponseEntity<?> postTrainFindByPost(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId) {
         try {
             return ResponseEntity.ok(postTrainService.findByPost(postId));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("지정된 렌트카 불러오기를 실패하였습니다.",e);
-        }
-    }
-
-    @GetMapping(ADMIN_AUTH + POST_TRAIN + "/list" + "/train/{trainId}")
-    @ApiOperation(value = "ADMIN : 기차를 게시글에 추가한 경우를 기차로 조회하는 API")
-    public ResponseEntity<?> postTrainFindByTrain(@ApiParam(value = "기차의 ID값") @PathVariable Long trainId){
-        try {
-            return ResponseEntity.ok(postTrainService.findByTrain(trainId));
-        } catch (Exception e) {
-            return ResponseService.makeResponseEntity("해당 렌트카가 등록된 게시글을 불러오는데 실패하였습니다.",e);
+            return ResponseService.makeResponseEntity("지정된 렌트카 불러오기를 실패하였습니다.", e);
         }
     }
 
     @GetMapping(ADMIN_AUTH + POST_TRAIN + "/{id}")
     @ApiOperation(value = "ADMIN : 기차를 게시글에 추가한 경우를 ID로 조회하는 API")
-    public ResponseEntity<?> findById(@ApiParam(value = "포스트 트레인의 ID값") @PathVariable Long id){
+    public ResponseEntity<?> findById(@ApiParam(value = "포스트 트레인의 ID값") @PathVariable Long id) {
         try {
             return ResponseEntity.ok(postTrainService.findById(id));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("저장된 postRentCar 불러오기 실패하였습니다.",e);
+            return ResponseService.makeResponseEntity("저장된 postRentCar 불러오기 실패하였습니다.", e);
         }
     }
 }

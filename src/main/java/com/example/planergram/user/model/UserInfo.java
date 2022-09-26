@@ -22,7 +22,7 @@ public class UserInfo {
     @Column(name = "profile_img", length = 30)
     private String profileImg;
 
-    @Column(name = "email", nullable = false,length = 30, unique = true)
+    @Column(name = "email", nullable = false, length = 30, unique = true)
     private String email;
 
     @OneToOne

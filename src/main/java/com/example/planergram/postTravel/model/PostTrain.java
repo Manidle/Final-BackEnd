@@ -1,7 +1,6 @@
 package com.example.planergram.postTravel.model;
 
 import com.example.planergram.post.model.Post;
-import com.example.planergram.travelContents.model.Train;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,10 +18,6 @@ public class PostTrain {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_train_id")
     private Long postTrainId;
-
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Train.class)
-    @JoinColumn(name = "train_id")
-    private Train train;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Post.class)
     @JoinColumn(name = "post_id")

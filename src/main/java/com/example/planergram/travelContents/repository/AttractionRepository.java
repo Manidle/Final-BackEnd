@@ -10,6 +10,6 @@ import java.util.List;
 public interface AttractionRepository extends JpaRepository<Attraction, Long> {
     List<Attraction> findTop5ByOrderByLikeCountDesc();
 
-    @Query(value = "SELECT * FROM attraction WHERE NAME LIKE %:search% OR address LIKE %:search%",nativeQuery = true)
+    @Query(value = "SELECT * FROM attraction WHERE NAME LIKE %:search% OR address LIKE %:search%", nativeQuery = true)
     List<Attraction> findByNameLikeOrAddressLike(@Param("search") String search);
 }

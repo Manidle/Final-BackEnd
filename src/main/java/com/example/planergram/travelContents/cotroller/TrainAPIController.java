@@ -24,11 +24,11 @@ public class TrainAPIController {
     @GetMapping("/auth/v1/list/trainapi")
     public ResponseEntity<?> TrainAPI(@RequestParam(value = "start") String start,
                                       @RequestParam(value = "end") String end,
-                                      @RequestParam(value = "date") String date){
+                                      @RequestParam(value = "date") String date) {
         try {
-            return ResponseEntity.ok(trainApiService.TrainAPI(start,end,date));
+            return ResponseEntity.ok(trainApiService.TrainAPI(start, end, date));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.",e);
+            return ResponseService.makeResponseEntity("숙소 검색에 실패하였습니다.", e);
         }
     }
 }

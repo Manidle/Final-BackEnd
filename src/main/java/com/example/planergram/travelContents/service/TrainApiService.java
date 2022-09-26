@@ -65,10 +65,6 @@ public class TrainApiService {
         rd.close();
         conn.disconnect();
 
-        System.out.println("==================================================");
-        System.out.println(sb.toString());
-        System.out.println("==================================================");
-
         return sb.toString();
     }
 }

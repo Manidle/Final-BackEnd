@@ -30,8 +30,6 @@ public class PostStay {
     private Post post;
 
 
-
-
     private String name;
     private String address;
     private int price;

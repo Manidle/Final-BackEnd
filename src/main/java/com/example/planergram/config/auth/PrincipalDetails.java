@@ -1,6 +1,5 @@
 package com.example.planergram.config.auth;
 
-import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.model.User;
 import com.example.planergram.user.repository.UserRepository;
 import com.example.planergram.user.service.UserService;
@@ -25,15 +24,15 @@ public class PrincipalDetails implements UserDetails {
     @Autowired
     private UserRepository userRepository;
 
-    public PrincipalDetails(User user){
+    public PrincipalDetails(User user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        user.getRoleList().forEach(r ->{
-            authorities.add(()->r);
+        user.getRoleList().forEach(r -> {
+            authorities.add(() -> r);
         });
         return authorities;
     }

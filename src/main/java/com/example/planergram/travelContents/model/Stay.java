@@ -41,9 +41,9 @@ public class Stay {
     @Column(name = "like_count")
     private int likeCount;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stay",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stay", cascade = CascadeType.ALL)
     private List<StayLike> stayLikeList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stay",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stay", cascade = CascadeType.ALL)
     private List<PostStay> postStayList;
 }

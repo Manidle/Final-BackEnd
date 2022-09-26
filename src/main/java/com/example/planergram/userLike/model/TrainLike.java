@@ -1,9 +1,9 @@
 package com.example.planergram.userLike.model;
 
-import com.example.planergram.travelContents.model.Train;
 import com.example.planergram.user.model.User;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+
 import javax.persistence.*;
 
 @RequiredArgsConstructor
@@ -24,10 +24,6 @@ public class TrainLike {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     @JoinColumn(name = "user_id")
     private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Train.class)
-    @JoinColumn(name = "train_id")
-    private Train train;
 
     @ApiModelProperty(value = "출발역", example = "서울")
     private String depplacename;
