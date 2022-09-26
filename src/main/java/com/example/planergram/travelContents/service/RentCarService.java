@@ -94,7 +94,7 @@ public class RentCarService {
                 .build();
     }
 
-    private RentCarDTO makeRentCarDTO(RentCar rentCar) {
+    public RentCarDTO makeRentCarDTO(RentCar rentCar) {
         List<Long> rentCarLikeIdList = new ArrayList<>();
         if (rentCar.getRentCarLikeList() != null) {
             for (RentCarLike rentCarLike : rentCar.getRentCarLikeList()) {

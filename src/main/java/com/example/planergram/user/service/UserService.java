@@ -1,14 +1,22 @@
 package com.example.planergram.user.service;
 
+import com.example.planergram.travelContents.DTO.AttractionDTO;
+import com.example.planergram.travelContents.DTO.RentCarDTO;
+import com.example.planergram.travelContents.DTO.StayDTO;
+import com.example.planergram.travelContents.service.AttractionService;
+import com.example.planergram.travelContents.service.RentCarService;
+import com.example.planergram.travelContents.service.StayService;
 import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.DTO.UserInfoDTO;
 import com.example.planergram.user.model.User;
 import com.example.planergram.user.model.UserInfo;
 import com.example.planergram.user.repository.UserInfoRepository;
 import com.example.planergram.user.repository.UserRepository;
+import com.example.planergram.userLike.model.AttractionLike;
 import com.example.planergram.userLike.model.RentCarLike;
 import com.example.planergram.userLike.model.StayLike;
 import com.example.planergram.userLike.model.TrainLike;
+import com.example.planergram.userLike.repository.AttractionLikeRepository;
 import com.example.planergram.userLike.repository.RentCarLikeRepository;
 import com.example.planergram.userLike.repository.StayLikeRepository;
 import com.example.planergram.userLike.repository.TrainLikeRepository;
@@ -44,6 +52,18 @@ public class UserService {
 
     @Autowired
     private TrainLikeRepository trainLikeRepository;
+
+    @Autowired
+    private AttractionLikeRepository attractionLikeRepository;
+
+    @Autowired
+    private AttractionService attractionService;
+
+    @Autowired
+    private StayService stayService;
+
+    @Autowired
+    private RentCarService rentCarService;
 
     public String signUp(UserDTO userDTO) throws Exception {
         try {
@@ -262,5 +282,32 @@ public class UserService {
                 .password(user.getPassword())
                 .roles(user.getRoles())
                 .build();
+    }
+
+    public List<AttractionDTO> myLikeAttraction(User user) {
+        List<AttractionLike> attractionLikeList = attractionLikeRepository.findByUser(user);
+        List<AttractionDTO> attractionDTOList = new ArrayList<>();
+        for (AttractionLike attractionLike: attractionLikeList){
+            attractionDTOList.add(attractionService.makeAttractionDTO(attractionLike.getAttraction()));
+        }
+        return attractionDTOList;
+    }
+
+    public List<StayDTO> myLikeStay(User user) {
+        List<StayLike> stayLikeList = stayLikeRepository.findByUser(user);
+        List<StayDTO> stayDTOList = new ArrayList<>();
+        for (StayLike stayLike : stayLikeList){
+            stayDTOList.add(stayService.makeStayDTO(stayLike.getStay()));
+        }
+        return stayDTOList;
+    }
+
+    public List<RentCarDTO> myLikeRentCar(User user) {
+        List<RentCarLike> rentCarLikeList = rentCarLikeRepository.findByUser(user);
+        List<RentCarDTO> rentCarDTOList = new ArrayList<>();
+        for (RentCarLike rentCarLike : rentCarLikeList){
+            rentCarDTOList.add(rentCarService.makeRentCarDTO(rentCarLike.getRentCar()));
+        }
+        return rentCarDTOList;
     }
 }
