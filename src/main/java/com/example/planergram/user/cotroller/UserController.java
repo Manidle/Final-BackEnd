@@ -115,4 +115,14 @@ public class UserController {
             return ResponseService.makeResponseEntity("유저 정보 삭제에 실패했습니다.", e);
         }
     }
+
+    @ApiOperation(value = "유저가 좋아요한 rentCar를 리스트로 보여주는 API")
+    @GetMapping("/auth/v1/user/like/rentcar/list")
+    public ResponseEntity<?> myLikeRentCar(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        try {
+            return ResponseEntity.ok(userService.myLikeRentCar(principalDetails.getUser()));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("유저 정보 삭제에 실패했습니다.", e);
+        }
+    }
 }
