@@ -9,7 +9,8 @@ import lombok.*;
 @Builder
 public class ReplyDTO {
     private Long replyId;
-    private String contents;
     private Long userId;
     private Long postId;
+    private String contents;
+    private String nickName;
 }

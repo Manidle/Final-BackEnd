@@ -33,6 +33,7 @@ public class ReplyService {
                 .contents(contents)
                 .user(user)
                 .post(post)
+                .nickName(user.getNickname())
                 .build();
         reply = replyRepository.save(reply);
         log.info("댓글작성이 완료되었습니다.");
@@ -78,6 +79,7 @@ public class ReplyService {
                 .contents(reply.getContents())
                 .postId(reply.getPost().getPostId())
                 .userId(reply.getUser().getUserId())
+                .nickName(reply.getNickName())
                 .build();
     }
 }
