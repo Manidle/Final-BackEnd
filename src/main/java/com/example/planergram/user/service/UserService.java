@@ -1,9 +1,12 @@
 package com.example.planergram.user.service;
 
 import com.example.planergram.travelContents.DTO.AttractionDTO;
+import com.example.planergram.travelContents.DTO.StayDTO;
 import com.example.planergram.travelContents.model.Attraction;
 import com.example.planergram.travelContents.repository.AttractionRepository;
 import com.example.planergram.travelContents.service.AttractionService;
+import com.example.planergram.travelContents.service.RentCarService;
+import com.example.planergram.travelContents.service.StayService;
 import com.example.planergram.user.DTO.UserDTO;
 import com.example.planergram.user.DTO.UserInfoDTO;
 import com.example.planergram.user.model.User;
@@ -56,6 +59,9 @@ public class UserService {
 
     @Autowired
     private AttractionService attractionService;
+
+    @Autowired
+    private StayService stayService;
 
     public String signUp(UserDTO userDTO) throws Exception {
         try {
@@ -283,5 +289,14 @@ public class UserService {
             attractionDTOList.add(attractionService.makeAttractionDTO(attractionLike.getAttraction()));
         }
         return attractionDTOList;
+    }
+
+    public List<StayDTO> myLikeStay(User user) {
+        List<StayLike> stayLikeList = stayLikeRepository.findByUser(user);
+        List<StayDTO> stayDTOList = new ArrayList<>();
+        for (StayLike stayLike : stayLikeList){
+            stayDTOList.add(stayService.makeStayDTO(stayLike.getStay()));
+        }
+        return stayDTOList;
     }
 }

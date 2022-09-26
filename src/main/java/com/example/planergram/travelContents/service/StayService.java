@@ -95,7 +95,7 @@ public class StayService {
                 .build();
     }
 
-    private StayDTO makeStayDTO(Stay stay) {
+    public StayDTO makeStayDTO(Stay stay) {
         List<Long> stayLikeIdList = new ArrayList<>();
         if (stay.getStayLikeList() != null) {
             for (StayLike stayLike : stay.getStayLikeList()) {

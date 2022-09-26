@@ -96,11 +96,21 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "유저가 좋아요한 attraction을 보여주는 API")
+    @ApiOperation(value = "유저가 좋아요한 attraction을 리스트로 보여주는 API")
     @GetMapping("/auth/v1/user/like/attraction/list")
     public ResponseEntity<?> myLikeAttraction(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         try {
             return ResponseEntity.ok(userService.myLikeAttraction(principalDetails.getUser()));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("유저 정보 삭제에 실패했습니다.", e);
+        }
+    }
+
+    @ApiOperation(value = "유저가 좋아요한 stay를 리스트로 보여주는 API")
+    @GetMapping("/auth/v1/user/like/stay/list")
+    public ResponseEntity<?> myLikeStay(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        try {
+            return ResponseEntity.ok(userService.myLikeStay(principalDetails.getUser()));
         } catch (Exception e) {
             return ResponseService.makeResponseEntity("유저 정보 삭제에 실패했습니다.", e);
         }
