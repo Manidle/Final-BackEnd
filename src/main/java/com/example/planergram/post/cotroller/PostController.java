@@ -133,9 +133,20 @@ public class PostController {
             return ResponseService.makeResponseEntity("게시글 삭제에 실패되었습니다", e);
         }
     }
-    //게시글 삭제
+    // 유저의 게시글 가져오기
     @ApiOperation(value = "USER : 해당 유저가 작성한 게시글 3개만 보여주는 API")
     @GetMapping(AUTH + POST + "/user/top")
+    public ResponseEntity<?> findByUserTop3(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        try {
+            return ResponseEntity.ok(postService.findTop3ByUser(principalDetails.getUser()));
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("게시글 삭제에 실패되었습니다", e);
+        }
+    }
+
+    // 유저의 게시글 가져오기
+    @ApiOperation(value = "USER : 해당 유저가 작성한 게시글을 보여주는 API")
+    @GetMapping(AUTH + POST + "/user")
     public ResponseEntity<?> findByUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         try {
             return ResponseEntity.ok(postService.findByUser(principalDetails.getUser()));

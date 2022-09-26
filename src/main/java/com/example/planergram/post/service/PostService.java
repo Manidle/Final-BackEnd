@@ -138,8 +138,15 @@ public class PostService {
         return postDTO;
     }
 
-    public List<PostDTO> findByUser(User user) {
+    public List<PostDTO> findTop3ByUser(User user) {
         List<Post> postList = postRepository.findTop3ByUser(user);
+        List<PostDTO> postDTOList = makeListPostDTOList(postList);
+        log.info("해당 유저의 게시글을 3개 조회하였습니다.");
+        return postDTOList;
+    }
+
+    public List<PostDTO> findByUser(User user) {
+        List<Post> postList = postRepository.findByUser(user);
         List<PostDTO> postDTOList = makeListPostDTOList(postList);
         log.info("해당 유저의 게시글을 조회하였습니다.");
         return postDTOList;
