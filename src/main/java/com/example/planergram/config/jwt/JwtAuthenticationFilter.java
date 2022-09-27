@@ -72,7 +72,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         //RSA 방식은 아니구 Hash암호방식
         String jwtToken = JWT.create()
-                .withSubject("cos토큰")
+                .withSubject("PlanerGram Token")
                 .withExpiresAt(new Date(System.currentTimeMillis()+(6000000*1000)))
                 .withClaim("id", principalDetailis.getUser().getUserId())
                 .withClaim("username", principalDetailis.getUser().getUsername())

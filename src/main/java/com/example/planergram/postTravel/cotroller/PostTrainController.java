@@ -42,6 +42,9 @@ public class PostTrainController {
         String encEndPoint = endPoint.getNodeId();
         postTrainDTO.setArrplacename(encEndPoint);
 
+        postTrainDTO.setDepplaceNodeName(postTrainDTO.getDepplacename());
+        postTrainDTO.setArrplaceNodeName(postTrainDTO.getArrplacename());
+
         try {
             return ResponseEntity.ok(postTrainService.clickTrainLike(postId, postTrainDTO));
         } catch (Exception e) {

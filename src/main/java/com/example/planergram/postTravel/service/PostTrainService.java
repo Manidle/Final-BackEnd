@@ -39,6 +39,8 @@ public class PostTrainService {
                 .arrplacename(postTrainDTO.getArrplacename())
                 .depplandtime(postTrainDTO.getDepplandtime())
                 .arrplandtime(postTrainDTO.getArrplandtime())
+                .depplaceNodeName(postTrainDTO.getDepplacename())
+                .depplaceNodeName(postTrainDTO.getDepplaceNodeName())
                 .adultcharge(postTrainDTO.getAdultcharge())
                 .trainno(postTrainDTO.getTrainno())
                 .build();
@@ -68,6 +70,8 @@ public class PostTrainService {
                 .postId(postTrain.getPost().getPostId())
                 .depplacename(postTrain.getDepplacename())
                 .arrplacename(postTrain.getArrplacename())
+                .arrplaceNodeName(postTrain.getArrplaceNodeName())
+                .depplaceNodeName(postTrain.getDepplaceNodeName())
                 .arrplandtime(postTrain.getArrplandtime())
                 .depplandtime(postTrain.getDepplandtime())
                 .adultcharge(postTrain.getAdultcharge())

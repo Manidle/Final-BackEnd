@@ -24,7 +24,9 @@ public class PostTrain {
     private Post post;
 
     private String depplacename;
+    private String depplaceNodeName;
     private String arrplacename;
+    private String arrplaceNodeName;
     private String depplandtime;
     private String arrplandtime;
     private int adultcharge;

@@ -34,4 +34,10 @@ public class PostTrainDTO {
 
     @ApiModelProperty(value = "기차번호", example = "1")
     private int trainno;
+
+    @ApiModelProperty(hidden = true)
+    private String depplaceNodeName;
+
+    @ApiModelProperty(hidden = true)
+    private String arrplaceNodeName;
 }
