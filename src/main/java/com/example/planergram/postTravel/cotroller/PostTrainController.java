@@ -34,6 +34,10 @@ public class PostTrainController {
     @ApiOperation(value = "USER : 해당 게시글에 기차를 추가하는 API")
     public ResponseEntity<?> clickTrainLike(@ApiParam(value = "게시글의 ID값") @PathVariable Long postId, @RequestBody PostTrainDTO postTrainDTO) {
 
+
+        postTrainDTO.setDepplaceNodeName(postTrainDTO.getDepplacename());
+        postTrainDTO.setArrplaceNodeName(postTrainDTO.getArrplacename());
+
         Platform startPoint = platformRepository.findByNodeName(postTrainDTO.getDepplacename());
         String encStartPoint = startPoint.getNodeId();
         postTrainDTO.setDepplacename(encStartPoint);
@@ -42,8 +46,7 @@ public class PostTrainController {
         String encEndPoint = endPoint.getNodeId();
         postTrainDTO.setArrplacename(encEndPoint);
 
-        postTrainDTO.setDepplaceNodeName(postTrainDTO.getDepplacename());
-        postTrainDTO.setArrplaceNodeName(postTrainDTO.getArrplacename());
+
 
         try {
             return ResponseEntity.ok(postTrainService.clickTrainLike(postId, postTrainDTO));

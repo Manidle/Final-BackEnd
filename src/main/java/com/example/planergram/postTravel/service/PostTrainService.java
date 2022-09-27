@@ -36,11 +36,11 @@ public class PostTrainService {
         PostTrain postTrain = PostTrain.builder()
                 .post(post)
                 .depplacename(postTrainDTO.getDepplacename())
+                .depplaceNodeName(postTrainDTO.getDepplaceNodeName())
                 .arrplacename(postTrainDTO.getArrplacename())
+                .arrplaceNodeName(postTrainDTO.getArrplaceNodeName())
                 .depplandtime(postTrainDTO.getDepplandtime())
                 .arrplandtime(postTrainDTO.getArrplandtime())
-                .depplaceNodeName(postTrainDTO.getDepplacename())
-                .depplaceNodeName(postTrainDTO.getDepplaceNodeName())
                 .adultcharge(postTrainDTO.getAdultcharge())
                 .trainno(postTrainDTO.getTrainno())
                 .build();
