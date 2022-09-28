@@ -26,7 +26,7 @@ public class AttractionService {
     public List<AttractionDTO> findAll() {
         List<Attraction> attractionList = attractionRepository.findAll();
         List<AttractionDTO> attractionDTOList = new ArrayList<>();
-        for (Attraction attraction: attractionList) {
+        for (Attraction attraction : attractionList) {
             attractionDTOList.add(makeAttractionDTO(attraction));
         }
         return attractionDTOList;
@@ -35,7 +35,7 @@ public class AttractionService {
     public List<AttractionDTO> findTop5ByOrderByLikeCountDesc() {
         List<Attraction> attractionList = attractionRepository.findTop5ByOrderByLikeCountDesc();
         List<AttractionDTO> attractionDTOList = new ArrayList<>();
-        for (Attraction attraction: attractionList) {
+        for (Attraction attraction : attractionList) {
             attractionDTOList.add(makeAttractionDTO(attraction));
         }
         return attractionDTOList;
@@ -44,7 +44,7 @@ public class AttractionService {
     public List<AttractionDTO> findByNameLikeOrAddressLike(String search) {
         List<Attraction> attractionList = attractionRepository.findByNameLikeOrAddressLike(search);
         List<AttractionDTO> attractionDTOList = new ArrayList<>();
-        for (Attraction attraction: attractionList) {
+        for (Attraction attraction : attractionList) {
             attractionDTOList.add(makeAttractionDTO(attraction));
         }
         return attractionDTOList;
@@ -72,7 +72,7 @@ public class AttractionService {
         return makeAttractionDTO(attraction);
     }
 
-    private Attraction makeAttraction(AttractionDTO attractionDTO){
+    private Attraction makeAttraction(AttractionDTO attractionDTO) {
         return Attraction.builder()
                 .attractionId(attractionDTO.getAttractionId())
                 .name(attractionDTO.getName())
@@ -83,14 +83,14 @@ public class AttractionService {
                 .build();
     }
 
-    private AttractionDTO makeAttractionDTO(Attraction attraction){
-          return AttractionDTO.builder()
-                  .attractionId(attraction.getAttractionId())
-                  .name(attraction.getName())
-                  .likeCount(attraction.getLikeCount())
-                  .address(attraction.getAddress())
-                  .description(attraction.getDescription())
-                  .price(attraction.getPrice())
-                  .build();
+    public AttractionDTO makeAttractionDTO(Attraction attraction) {
+        return AttractionDTO.builder()
+                .attractionId(attraction.getAttractionId())
+                .name(attraction.getName())
+                .likeCount(attraction.getLikeCount())
+                .address(attraction.getAddress())
+                .description(attraction.getDescription())
+                .price(attraction.getPrice())
+                .build();
     }
 }

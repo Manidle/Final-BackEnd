@@ -10,6 +10,6 @@ import java.util.List;
 public interface RentCarRepository extends JpaRepository<RentCar, Long> {
     List<RentCar> findTop5ByOrderByLikeCountDesc();
 
-    @Query(value = "SELECT * FROM RentCar WHERE company_Name LIKE %:search% OR address LIKE %:search% OR car_Name LIKE %:search%",nativeQuery = true)
+    @Query(value = "SELECT * FROM RentCar WHERE company_Name LIKE %:search% OR address LIKE %:search% OR car_Name LIKE %:search%", nativeQuery = true)
     List<RentCar> findByNameLikeOrAddressLikeOrCompanyName(@Param("search") String search);
 }

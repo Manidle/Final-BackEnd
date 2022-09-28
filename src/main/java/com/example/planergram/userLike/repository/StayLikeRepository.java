@@ -7,8 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface StayLikeRepository extends JpaRepository<StayLike,Long> {
+public interface StayLikeRepository extends JpaRepository<StayLike, Long> {
     StayLike findByUserAndStay(User user, Stay stay);
+
     List<StayLike> findByUser(User user);
+
     List<StayLike> findByStay(Stay stay);
 }

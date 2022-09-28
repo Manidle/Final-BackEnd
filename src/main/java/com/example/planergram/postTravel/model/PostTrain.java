@@ -1,6 +1,5 @@
 package com.example.planergram.postTravel.model;
 
-import com.example.planergram.travelContents.model.Train;
 import com.example.planergram.post.model.Post;
 import lombok.*;
 
@@ -20,11 +19,16 @@ public class PostTrain {
     @Column(name = "post_train_id")
     private Long postTrainId;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Train.class)
-    @JoinColumn(name = "train_id")
-    private Train train;
-
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Post.class)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    private String depplacename;
+    private String depplaceNodeName;
+    private String arrplacename;
+    private String arrplaceNodeName;
+    private String depplandtime;
+    private String arrplandtime;
+    private int adultcharge;
+    private int trainno;
 }

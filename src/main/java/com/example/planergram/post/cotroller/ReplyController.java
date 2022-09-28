@@ -27,7 +27,6 @@ public class ReplyController {
 
     private final String VERSION = "/v1";
     private final String AUTH = "/auth" + VERSION;
-
     private final String REPLY = "/reply";
 
     @GetMapping(AUTH + REPLY + "/register")
@@ -39,7 +38,7 @@ public class ReplyController {
         try {
             return ResponseEntity.ok(replyService.writeReply(principalDetails.getUser().getUserId(), postId, contents));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("댓글 작성에 실패했습니다.",e);
+            return ResponseService.makeResponseEntity("댓글 작성에 실패했습니다.", e);
         }
     }
 
@@ -59,11 +58,11 @@ public class ReplyController {
     @ApiOperation(value = "USER : 해당 댓글의 내용을 수정하는 API")
     public ResponseEntity<?> rewriteReply(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                           @ApiParam(value = "댓글의 ID값") @RequestParam(value = "replyId") Long replyId,
-                                          @ApiParam(value = "댓글의 바뀐 내용")@RequestParam(value = "contents") String contents) {
+                                          @ApiParam(value = "댓글의 바뀐 내용") @RequestParam(value = "contents") String contents) {
         try {
             return ResponseEntity.ok(replyService.rewriteReply(principalDetails.getUser(), replyId, contents));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("댓글 수정에 실패했습니다.",e);
+            return ResponseService.makeResponseEntity("댓글 수정에 실패했습니다.", e);
         }
     }
 
@@ -74,7 +73,7 @@ public class ReplyController {
         try {
             return ResponseEntity.ok(replyService.delete(principalDetails.getUser(), replyId));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("댓글 삭제에 실패하였습니다.",e);
+            return ResponseService.makeResponseEntity("댓글 삭제에 실패하였습니다.", e);
         }
     }
 }

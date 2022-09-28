@@ -18,7 +18,7 @@ import java.util.List;
 public class Attraction {
 
     @Id
-    @Column(name="attraction_id",nullable = false, unique = true)
+    @Column(name = "attraction_id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attractionId;
 

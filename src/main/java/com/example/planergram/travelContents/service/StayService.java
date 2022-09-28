@@ -29,7 +29,7 @@ public class StayService {
     public List<StayDTO> findAll() {
         List<Stay> stayList = stayRepository.findAll();
         List<StayDTO> stayDTOList = new ArrayList<>();
-        for (Stay stay: stayList) {
+        for (Stay stay : stayList) {
             stayDTOList.add(makeStayDTO(stay));
         }
         return stayDTOList;
@@ -38,7 +38,7 @@ public class StayService {
     public List<StayDTO> findTop5ByOrderByLikeCountDesc() {
         List<Stay> stayList = stayRepository.findTop5ByOrderByLikeCountDesc();
         List<StayDTO> stayDTOList = new ArrayList<>();
-        for (Stay stay: stayList) {
+        for (Stay stay : stayList) {
             stayDTOList.add(makeStayDTO(stay));
         }
         return stayDTOList;
@@ -47,7 +47,7 @@ public class StayService {
     public List<StayDTO> findByNameLikeOrAddressLike(String search) {
         List<Stay> stayList = stayRepository.findByNameLikeOrAddressLike(search);
         List<StayDTO> stayDTOList = new ArrayList<>();
-        for (Stay stay: stayList) {
+        for (Stay stay : stayList) {
             stayDTOList.add(makeStayDTO(stay));
         }
         return stayDTOList;
@@ -76,10 +76,10 @@ public class StayService {
         return makeStayDTO(stay);
     }
 
-    private Stay makeStay(StayDTO stayDTO){
+    private Stay makeStay(StayDTO stayDTO) {
         List<StayLike> stayLikeList = new ArrayList<>();
-        if (stayDTO.getStayLikeIdList() != null){
-            for (Long stayLikeId: stayDTO.getStayLikeIdList()) {
+        if (stayDTO.getStayLikeIdList() != null) {
+            for (Long stayLikeId : stayDTO.getStayLikeIdList()) {
                 stayLikeList.add(stayLikeRepository.getById(stayLikeId));
             }
         }
@@ -95,10 +95,10 @@ public class StayService {
                 .build();
     }
 
-    private StayDTO makeStayDTO(Stay stay){
+    public StayDTO makeStayDTO(Stay stay) {
         List<Long> stayLikeIdList = new ArrayList<>();
-        if (stay.getStayLikeList() != null){
-            for (StayLike stayLike: stay.getStayLikeList()) {
+        if (stay.getStayLikeList() != null) {
+            for (StayLike stayLike : stay.getStayLikeList()) {
                 stayLikeIdList.add(stayLike.getId());
             }
         }

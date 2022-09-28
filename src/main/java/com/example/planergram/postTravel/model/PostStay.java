@@ -5,6 +5,7 @@ import com.example.planergram.post.model.Post;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -27,4 +28,12 @@ public class PostStay {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Post.class)
     @JoinColumn(name = "post_id")
     private Post post;
+
+
+    private String name;
+    private String address;
+    private int price;
+    private LocalTime checkIn;
+    private LocalTime checkOut;
+    private int likeCount;
 }

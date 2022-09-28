@@ -28,9 +28,9 @@ public class PostAttractionService {
     public String clickPostAttraction(Long postId, Long attractionId) {
         Post post = postRepository.getById(postId);
         Attraction attraction = attractionRepository.getById(attractionId);
-        PostAttraction postAttraction = postAttractionRepository.findByPostAndAttraction(post,attraction);
-        if (postAttraction == null){
-            return postClick(post,attraction);
+        PostAttraction postAttraction = postAttractionRepository.findByPostAndAttraction(post, attraction);
+        if (postAttraction == null) {
+            return postClick(post, attraction);
         }
         return clickCancel(postAttraction);
     }
@@ -39,10 +39,16 @@ public class PostAttractionService {
         PostAttraction postAttraction = PostAttraction.builder()
                 .attraction(attraction)
                 .post(post)
+                .name(attraction.getName())
+                .address(attraction.getAddress())
+                .description(attraction.getDescription())
+                .price(attraction.getPrice())
+                .likeCount(attraction.getLikeCount())
                 .build();
         postAttractionRepository.save(postAttraction);
         return "포스트에 추가";
     }
+
     private String clickCancel(PostAttraction postAttraction) {
         postAttractionRepository.delete(postAttraction);
         return "포스트에서 제거";
@@ -65,17 +71,22 @@ public class PostAttractionService {
         return makePostAttractionDTO(postAttraction);
     }
 
-    private PostAttractionDTO makePostAttractionDTO(PostAttraction postAttraction){
+    static public PostAttractionDTO makePostAttractionDTO(PostAttraction postAttraction) {
         return PostAttractionDTO.builder()
                 .postAttractionId(postAttraction.getPostAttractionId())
                 .postId(postAttraction.getPost().getPostId())
                 .attractionId(postAttraction.getAttraction().getAttractionId())
+                .name(postAttraction.getName())
+                .address(postAttraction.getAddress())
+                .description(postAttraction.getDescription())
+                .price(postAttraction.getPrice())
+                .likeCount(postAttraction.getLikeCount())
                 .build();
     }
 
-    private List<PostAttractionDTO> makePostAttractionDTOList(List<PostAttraction> postAttractionList) {
+    static public List<PostAttractionDTO> makePostAttractionDTOList(List<PostAttraction> postAttractionList) {
         List<PostAttractionDTO> postAttractionDTOList = new ArrayList<>();
-        for (PostAttraction postAttraction:postAttractionList){
+        for (PostAttraction postAttraction : postAttractionList) {
             postAttractionDTOList.add(makePostAttractionDTO(postAttraction));
         }
         return postAttractionDTOList;

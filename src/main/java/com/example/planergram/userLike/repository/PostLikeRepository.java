@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PostLikeRepository  extends JpaRepository<PostLike, Long> {
+public interface PostLikeRepository extends JpaRepository<PostLike, Long> {
     PostLike findByUserAndPost(User user, Post post);
 
     List<PostLike> findByUser(User user);
+
     List<PostLike> findByPost(Post post);
 }

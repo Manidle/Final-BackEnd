@@ -16,15 +16,12 @@ import java.util.List;
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "board_id", length = 100)
     private Long boardId;
 
-    @Column(name = "board_title", length = 100)
-    private String title;
+    @Column(name = "board_name", length = 100, nullable = false)
+    private String boardName;
 
-    @Lob //대용량 데이터
-    @Column(name = "board_img", length = 100)
-    private String img;
-
-    @OneToMany(mappedBy = "board",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Post> postList; //게시글리스트
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Post> postList;
 }

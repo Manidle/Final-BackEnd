@@ -7,10 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface StayRepository extends JpaRepository<Stay,Long> {
+public interface StayRepository extends JpaRepository<Stay, Long> {
     List<Stay> findTop5ByOrderByLikeCountDesc();
 
-
-    @Query(value = "SELECT * FROM Stay WHERE NAME LIKE %:search% OR address LIKE %:search%",nativeQuery = true)
+    @Query(value = "SELECT * FROM Stay WHERE NAME LIKE %:search% OR address LIKE %:search%", nativeQuery = true)
     List<Stay> findByNameLikeOrAddressLike(@Param("search") String search);
 }

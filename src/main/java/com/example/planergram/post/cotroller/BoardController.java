@@ -50,8 +50,8 @@ public class BoardController {
     public ResponseEntity<?> findById(@ApiParam(value = "게시판의 ID값") @PathVariable Long id) {
         try {
             return ResponseEntity.ok(boardService.findById(id));
-        } catch (Exception e){
-            return ResponseService.makeResponseEntity("유저 정보 조회에 실패했습니다.",e);
+        } catch (Exception e) {
+            return ResponseService.makeResponseEntity("유저 정보 조회에 실패했습니다.", e);
         }
     }
 
@@ -61,7 +61,7 @@ public class BoardController {
         try {
             return ResponseEntity.ok(boardService.update(id, updateBoarDTO));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("게시판수정에 실패했습니다.",e);
+            return ResponseService.makeResponseEntity("게시판수정에 실패했습니다.", e);
         }
     }
 
@@ -71,7 +71,7 @@ public class BoardController {
         try {
             return ResponseEntity.ok(boardService.delete(id));
         } catch (Exception e) {
-            return ResponseService.makeResponseEntity("게시판조회에 실패했습니다.",e);
+            return ResponseService.makeResponseEntity("게시판조회에 실패했습니다.", e);
         }
     }
 }

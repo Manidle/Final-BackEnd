@@ -25,7 +25,7 @@ public class UserInfoService {
         return makeUserInfoDTO(userInfo);
     }
 
-    public UserInfo save(User user, UserInfoDTO userInfoDTO){
+    public UserInfo save(User user, UserInfoDTO userInfoDTO) {
         UserInfo userInfo = UserInfo.builder()
                 .profileImg(userInfoDTO.getProfileImg())
                 .email(userInfoDTO.getEmail())
@@ -34,17 +34,12 @@ public class UserInfoService {
         return userInfoRepository.save(userInfo);
     }
 
-    public UserInfoDTO findById(Long id){
+    public UserInfoDTO findById(Long id) {
         UserInfo userInfo = userInfoRepository.getById(id);
         return makeUserInfoDTO(userInfo);
     }
 
-//    public void delete(Long id){
-//        UserInfo userInfo = userInfoRepository.getById(id);
-//        userInfoRepository.delete(userInfo);
-//    }
-
-    public UserInfoDTO update(Long id,UserInfoDTO userInfoDTO){
+    public UserInfoDTO update(Long id, UserInfoDTO userInfoDTO) {
         UserInfo userInfo = userInfoRepository.getById(id);
         userInfo.setEmail(userInfoDTO.getEmail());
         userInfo.setProfileImg(userInfoDTO.getProfileImg());
@@ -53,7 +48,7 @@ public class UserInfoService {
         return makeUserInfoDTO(userInfo);
     }
 
-    public UserInfo makeUserInfo(UserInfoDTO userInfoDTO){
+    public UserInfo makeUserInfo(UserInfoDTO userInfoDTO) {
         User user = userRepository.getById(userInfoDTO.getUserId());
         return UserInfo.builder()
                 .user(user)
@@ -62,7 +57,7 @@ public class UserInfoService {
                 .build();
     }
 
-    public UserInfoDTO makeUserInfoDTO(UserInfo userInfo){
+    public UserInfoDTO makeUserInfoDTO(UserInfo userInfo) {
         return UserInfoDTO.builder()
                 .userId(userInfo.getUser().getUserId())
                 .id(userInfo.getId())
